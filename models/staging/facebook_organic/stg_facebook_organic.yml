@@ -1,0 +1,5 @@
+version: 2
+
+models:
+  - name: stg_facebook_pages__post
+    description: A table containing post performance data from Facebook stg_facebook_pages__post
