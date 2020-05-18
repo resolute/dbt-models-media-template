@@ -1,0 +1,5 @@
+version: 2
+
+models:
+  - name: all_days
+    description: A table with 1 row per day since year 2000

@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: instagram_organic
+    tables:
+      - name: view_instagram_organic_post
+      - name: view_instagram_organic_page_info

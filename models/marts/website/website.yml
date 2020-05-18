@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: website_session_performance
+    description: A table containing session performance data from www.yale.edu, news.yale.edu, and alumni.yale.edu Google Analytics properties
+
+  - name: website_article_performance
+    description: A table containing article performance data from news.yale.edu Google Analytics property

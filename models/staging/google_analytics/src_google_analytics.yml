@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: google_analytics
+    tables:
+      - name: view_ga_session_performance
+      - name: ga_article_performance_combined
+      - name: ga_article_dimensions_combined
+      - name: ga_alumni_events_page_performance

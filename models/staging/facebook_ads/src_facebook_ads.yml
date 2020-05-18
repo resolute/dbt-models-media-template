@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: facebook_ads
+    tables:
+      - name: view_facebook_ads_creative
+      - name: view_facebook_campaign_month_reach

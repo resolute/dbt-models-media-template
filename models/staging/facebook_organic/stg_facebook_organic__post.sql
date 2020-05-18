@@ -1,5 +1,11 @@
 WITH
-  
+
+source_data as (
+
+    SELECT * FROM {{ source('facebook_organic', 'view_facebook_pages_post') }}
+
+),
+
 final AS (
   
     SELECT 
@@ -8,8 +14,8 @@ final AS (
         
         REPLACE (CAST(created_time AS DATE) AS created_time)
     
-    FROM {{ source('improvado', 'view_facebook_pages_post') }}
-    
+    FROM source_data
+
     WHERE account_id = '374809010319'
 
 )

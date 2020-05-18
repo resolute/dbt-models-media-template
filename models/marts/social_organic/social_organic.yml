@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: social_organic_posts_rollup
+    description: A table containing the lifetime totals for each social platform's posts
+
+  - name: social_organic_followers_rollup
+    description: A table containing the daily follower totals for each social platform's account

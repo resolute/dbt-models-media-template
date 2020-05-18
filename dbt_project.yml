@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'yale_opac'
+name: 'analytics'
 version: '1.0.0'
 
 # This setting configures which "profile" dbt uses for this project.
@@ -31,7 +31,20 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
-  yale_opac:
-      # Applies to all files under models/example/
-      example:
-          materialized: view
+  analytics:
+      marts:
+        materialized: table
+        social_organic:
+          intermediate:
+            materialized: view
+        social_paid:
+          intermediate:
+            materialized: view
+        website:
+          intermediate:
+            materialized: view
+      staging:
+        materialized: view
+      utils:
+        materialized: view
+
