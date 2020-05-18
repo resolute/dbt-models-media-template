@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: linkedin_organic
+    tables:
+      - name: view_linkedin_organic_share_lifetime
+      - name: view_linkedin_organic_followers_lifetime

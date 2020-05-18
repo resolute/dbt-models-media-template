@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: email_performance
+    description: A table containing the daily totals for each email
+
+  - name: email_links_performance
+    description: A table containing the daily totals for each email link
+
+  - name: email_subscribers_weekly
+    description: A table containing the weekly totals for email subsribers

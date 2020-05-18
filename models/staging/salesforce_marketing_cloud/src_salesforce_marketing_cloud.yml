@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: salesforce_marketing_cloud
+    tables:
+      - name: salesforce_marketing_cloud_email_performance
+      - name: salesforce_marketing_cloud_email_links_performance

@@ -1,9 +1,7 @@
 version: 2
 
 sources:
-  - name: improvado
-    database: green-post-223109
-    schema: agency_4333
+  - name: facebook_organic
     tables:
       - name: view_facebook_pages_post
       - name: view_facebook_pages_page

@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: facebook_organic__posts_lifetime
+    description: A table containing the lifetime totals for each Facebook post
+
+  - name: facebook_organic__followers_daily
+    description: A table containing the daily follower totals for the Facebook account
+
+  - name: instagram_organic__posts_lifetime
+    description: A table containing the lifetime totals for each Instagram post
+
+  - name: instagram_organic__followers_daily
+    description: A table containing the daily follower totals for the Instagram account
+
+  - name: linkedin_organic__posts_lifetime
+    description: A table containing the lifetime totals for each LinkedIn post
+
+  - name: linkedin_organic__followers_daily
+    description: A table containing the daily follower totals for the LinkedIn account  
+  
+  - name: twitter_organic__posts_lifetime
+    description: A table containing the lifetime totals for each Twitter post
+
+  - name: twitter_organic__followers_daily
+    description: A table containing the daily follower totals for the Twitter account  

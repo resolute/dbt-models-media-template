@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: youtube_organic
+    tables:
+      - name: view_youtube_organic_top_videos
+      - name: view_youtube_organic_traffic_source_daily

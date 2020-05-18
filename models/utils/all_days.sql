@@ -1,0 +1,11 @@
+WITH
+
+final AS (
+
+    SELECT CAST(date AS DATE) AS date
+  
+    FROM UNNEST(GENERATE_DATE_ARRAY('2000-01-01', CURRENT_DATE())) `date`
+
+)
+  
+SELECT * FROM final
