@@ -37,14 +37,20 @@ models:
         social_organic:
           intermediate:
             materialized: view
+            schema: staging
         social_paid:
           intermediate:
             materialized: view
+            schema: staging
         website:
           intermediate:
             materialized: view
+            schema: staging
       staging:
         materialized: view
+        schema: staging
       utils:
         materialized: view
+        schema: utils
+
 
