@@ -2,6 +2,13 @@ version: 2
 
 sources:
   - name: facebook_organic
+
+    freshness:
+      warn_after: {count: 2, period: day}
+      error_after: {count: 7, period: day}
+
+    loaded_at_field: TIMESTAMP(date)
+
     tables:
       - name: view_facebook_pages_post
       - name: view_facebook_pages_page

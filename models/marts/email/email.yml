@@ -3,9 +3,27 @@ version: 2
 models:
   - name: email_performance
     description: A table containing the daily totals for each email
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
 
   - name: email_links_performance
     description: A table containing the daily totals for each email link
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
 
   - name: email_subscribers_weekly
     description: A table containing the weekly totals for email subsribers
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null

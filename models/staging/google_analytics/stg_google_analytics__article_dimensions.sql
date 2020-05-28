@@ -10,6 +10,7 @@ final AS (
 
     SELECT DISTINCT
     
+        {{ dbt_utils.surrogate_key(['Date', 'View_ID', 'Custom_dimension_3', 'Custom_dimension_4', 'Page_path', 'Custom_dimension_5', 'Custom_dimension_1', 'Custom_dimension_6', 'Custom_dimension_2']) }} AS id,
         CAST(View_ID AS STRING) AS account_id,
         CONCAT('Yale News (UA-991898-10) -> ', View) AS account_name,
         CAST(Custom_dimension_3 AS STRING) AS website_article_id,

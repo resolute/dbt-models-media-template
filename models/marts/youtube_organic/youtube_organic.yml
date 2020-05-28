@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: youtube_organic__top_videos
+    description: A table containing daily video performance data from YouTube
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
+
+  - name: youtube_organic__traffic_source_daily
+    description: A table containing daily traffic source performance data from YouTube
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null

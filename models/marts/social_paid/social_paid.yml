@@ -3,3 +3,9 @@ version: 2
 models:
   - name: social_paid_ads_rollup
     description: A table containing the daily totals for each social platform's ads
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null

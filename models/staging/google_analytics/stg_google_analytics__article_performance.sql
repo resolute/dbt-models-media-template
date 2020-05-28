@@ -10,6 +10,7 @@ final AS (
   
     SELECT
     
+        {{ dbt_utils.surrogate_key(['Date', 'View_ID', 'Custom_dimension_3', 'Page_path', 'Channel_grouping', 'Source', 'Medium', 'Campaign', 'Ad_content', 'Keyword']) }} AS id,
         CAST(View_ID AS STRING) AS account_id,
         CONCAT('Yale News (UA-991898-10) -> ', View) AS account_name,
         CAST(Date AS DATE) AS date,

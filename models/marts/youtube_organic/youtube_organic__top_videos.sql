@@ -10,7 +10,10 @@ final AS (
 
     SELECT
     
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'video_id']) }} AS id,
         *
+
+        EXCEPT(id)
         
      FROM yt_videos
 

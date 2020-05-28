@@ -6,7 +6,7 @@ source_data as (
 
 ),
 
-final AS (
+recast AS (
   
     SELECT 
     
@@ -33,10 +33,34 @@ final AS (
                     END)
                 , 'America/New_York') 
             AS email_original_send_date
+
         )
     
     FROM source_data
 
+),
+
+final AS (
+
+    SELECT
+
+        {{ dbt_utils.surrogate_key(['date', 'time_of_day', 'audience_segment', 'email_id', 'email_link_url']) }} AS id,
+        date,
+        time_of_day,
+        audience_segment,
+        email_original_send_date,
+        email_id,
+        email_name,
+        email_subject,
+        email_preview_url,
+        email_link_url,
+
+        SUM(clicks) AS clicks,
+        SUM(clicks_unique) AS clicks_unique
+
+    FROM recast
+
+    GROUP BY 1,2,3,4,5,6,7,8,9,10
 )
 
 SELECT * FROM final

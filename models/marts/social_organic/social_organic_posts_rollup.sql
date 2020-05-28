@@ -30,7 +30,7 @@ li_organic AS (
 
 --Union all social networks
   
-final AS (
+union_tables AS (
   
     SELECT * FROM fb_organic
 
@@ -46,6 +46,16 @@ final AS (
     
     SELECT * FROM li_organic
     
+),
+
+final AS (
+
+    SELECT
+    
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'post_id']) }} AS id,
+        *
+    
+    FROM union_tables
 )
 
 SELECT * FROM final

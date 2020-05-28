@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: stg_linkedin_organic__share_lifetime
+    description: A table containing daily lifetime post performance data from LinkedIn
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_linkedin_organic__followers_lifetime
+    description: A table containing daily lifetime followers data from LinkedIn
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null

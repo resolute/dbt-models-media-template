@@ -12,9 +12,15 @@ models:
   
   - name: google_analytics__article_performance
     description: A table containing article performance data from news.yale.edu Google Analytics property
-  
+    
   - name: google_analytics__article_dimensions
     description: A table containing article meta data from news.yale.edu Google Analytics property
+    columns:
+      - name: website_article_id
+        description: This is a natural primary key
+        tests:
+          - unique
+          - not_null
   
   - name: google_analytics__alumni_events_page_performance
     description: A table containing alumni event page performance data from alumni.yale.edu Google Analytics property
