@@ -2,6 +2,7 @@ version: 2
 
 sources:
   - name: youtube_organic
+    loader: improvado
     
     freshness:
       warn_after: {count: 2, period: day}

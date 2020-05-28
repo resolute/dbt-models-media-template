@@ -2,6 +2,7 @@ version: 2
 
 sources:
   - name: google_analytics
+    loader: improvado
 
     freshness:
       warn_after: {count: 2, period: day}
@@ -11,6 +12,17 @@ sources:
 
     tables:
       - name: view_ga_session_performance
+
+  - name: google_analytics
+    loader: supermetrics
+
+    freshness:
+      warn_after: {count: 2, period: day}
+      error_after: {count: 7, period: day}
+
+    loaded_at_field: TIMESTAMP(date)
+
+    tables:
       - name: ga_article_performance_combined
       - name: ga_article_dimensions_combined
       - name: ga_alumni_events_page_performance
