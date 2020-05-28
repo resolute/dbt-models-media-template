@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: stg_instagram_organic__post
+    description: A table containing daily lifetime post performance data from Instagram
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_instagram_organic__page_info
+    description: A table containing daily lifetime account performance data from Instagram
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null

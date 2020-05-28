@@ -155,7 +155,7 @@ reduce_grain_website_alumni_event_page_performance AS (
     
 ),
 
-final AS (
+join_data AS (
     
     SELECT
     
@@ -228,6 +228,16 @@ final AS (
     
     FULL JOIN reduce_grain_website_alumni_event_page_performance AS alumni USING(data_source, account_id, date, channel_name, channel_source_name, channel_source_type)
 
+),
+
+final AS (
+
+    SELECT
+
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'channel_name', 'channel_source_name', 'channel_source_type']) }} AS id,
+        *
+
+    FROM join_data
 )
       
 SELECT * FROM final

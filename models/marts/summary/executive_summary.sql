@@ -223,7 +223,7 @@ final AS (
   
     SELECT
         
-        {{ dbt_utils.surrogate_key(['data_source', 'account_id','channel_source_name', 'channel_source_type', 'channel_name', 'date']) }} AS id,
+        {{ dbt_utils.surrogate_key(['account_id', 'date', 'channel_source_name', 'channel_source_type', 'channel_name']) }} AS id,
         data_source,
         account_id,
         account_name,

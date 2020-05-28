@@ -3,6 +3,18 @@ version: 2
 models:
   - name: social_organic_posts_rollup
     description: A table containing the lifetime totals for each social platform's posts
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
 
   - name: social_organic_followers_rollup
     description: A table containing the daily follower totals for each social platform's account
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null

@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: stg_twitter_organic__tweets
+    description: A table containing daily tweet performance data from Twitter
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_twitter_organic__page
+    description: A table containing daily lifetime account performance data from Twitter
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null

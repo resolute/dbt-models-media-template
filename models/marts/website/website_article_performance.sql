@@ -21,7 +21,7 @@ join_ga_article_performance_and_dimensions AS (
         ga_article_performance.account_name AS account_name,
         ga_article_performance.date AS date,
         ga_article_performance.website_article_id AS website_article_id,
-        COALESCE(ga_article_performance.website_page_path, ga_article_performance.website_page_path) AS website_page_path,
+        ga_article_dimensions.website_page_path AS website_page_path,
         ga_article_dimensions.website_article_title AS website_article_title,
         ga_article_dimensions.website_article_publish_date AS website_article_publish_date,
         ga_article_dimensions.website_article_author AS website_article_author,
@@ -50,7 +50,10 @@ join_ga_article_performance_and_dimensions AS (
 
 final AS (
   
-    SELECT * 
+    SELECT 
+    
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'website_article_id', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term']) }} AS id,
+        * 
     
     FROM join_ga_article_performance_and_dimensions
     

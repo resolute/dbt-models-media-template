@@ -66,6 +66,7 @@ final AS (
 
     SELECT
     
+        {{ dbt_utils.surrogate_key(['date', 'time_of_day', 'audience_segment', 'email_id']) }} AS id,
         data_source,
         account_id,
         account_name,
@@ -95,7 +96,7 @@ final AS (
     --Include emails for Yale Today newsletter
     WHERE email_original_send_date >= '2020-01-12'
     
-    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16
 
 )
       

@@ -10,6 +10,7 @@ final AS (
   
     SELECT 
     
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'video_id']) }} AS id,
         *
     
     FROM source_data

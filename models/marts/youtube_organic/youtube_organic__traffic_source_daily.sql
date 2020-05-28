@@ -24,6 +24,7 @@ final AS (
 
     SELECT
     
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'traffic_source', 'subscribed_status']) }} AS id,
         data_source,
         account_id,
         account_name,

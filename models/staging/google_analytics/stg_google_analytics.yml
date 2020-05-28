@@ -2,19 +2,55 @@ version: 2
 
 models:
   - name: stg_google_analytics__session_performance_109800238
-    description: A table containing session performance data from www.yale.edu Google Analytics property
+    description: A table containing daily session performance data from www.yale.edu Google Analytics property
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
 
   - name: stg_google_analytics__session_performance_50958144
-    description: A table containing session performance data from news.yale.edu Google Analytics property
+    description: A table containing daily session performance data from news.yale.edu Google Analytics property
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
 
   - name: stg_google_analytics__session_performance_183763846
-    description: A table containing session performance data from alumni.yale.edu Google Analytics property
+    description: A table containing daily session performance data from alumni.yale.edu Google Analytics property
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
   
   - name: stg_google_analytics__article_performance
-    description: A table containing article performance data from news.yale.edu Google Analytics property
+    description: A table containing daily article performance data from news.yale.edu Google Analytics property
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
   
   - name: stg_google_analytics__article_dimensions
-    description: A table containing article meta data from news.yale.edu Google Analytics property
+    description: A table containing daily article meta data from news.yale.edu Google Analytics property
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
   
   - name: stg_google_analytics__alumni_events_page_performance
-    description: A table containing alumni event page performance data from alumni.yale.edu Google Analytics property
+    description: A table containing daily alumni event page performance data from alumni.yale.edu Google Analytics property
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null

@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: stg_salesforce_marketing_cloud__email_performance
+    description: A table containing daily email performance data from Salesforece Marketing Cloud
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_salesforce_marketing_cloud__email_links_performance
+    description: A table containing daily email link performance data from Salesforece Marketing Cloud
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null

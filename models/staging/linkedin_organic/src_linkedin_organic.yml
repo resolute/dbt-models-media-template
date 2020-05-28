@@ -2,6 +2,13 @@ version: 2
 
 sources:
   - name: linkedin_organic
+    
+    freshness:
+      warn_after: {count: 2, period: day}
+      error_after: {count: 7, period: day}
+
+    loaded_at_field: TIMESTAMP(date)
+    
     tables:
       - name: view_linkedin_organic_share_lifetime
       - name: view_linkedin_organic_followers_lifetime

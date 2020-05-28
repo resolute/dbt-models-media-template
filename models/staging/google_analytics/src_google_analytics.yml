@@ -2,6 +2,13 @@ version: 2
 
 sources:
   - name: google_analytics
+
+    freshness:
+      warn_after: {count: 2, period: day}
+      error_after: {count: 7, period: day}
+
+    loaded_at_field: TIMESTAMP(date)
+
     tables:
       - name: view_ga_session_performance
       - name: ga_article_performance_combined

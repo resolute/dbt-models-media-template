@@ -108,6 +108,7 @@ define_channel_dimensions AS (
 
 ),
 
+-- Aggregating and dropping website_page_path
 final AS (
 
     SELECT
@@ -117,7 +118,6 @@ final AS (
         account_name,
         date,
         website_article_id,
-        website_page_path,
         channel_name,
         channel_source_name,
         channel_source_type,
@@ -134,7 +134,7 @@ final AS (
     
     FROM define_channel_dimensions
     
-    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13
 
 )
       
