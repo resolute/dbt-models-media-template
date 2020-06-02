@@ -26,3 +26,28 @@ sources:
       - name: ga_article_performance_combined
       - name: ga_article_dimensions_combined
       - name: ga_alumni_events_page_performance
+
+  - name: google_analytics_stitch_yale_news
+    loader: stitch data
+
+    freshness:
+      warn_after: {count: 2, period: day}
+      error_after: {count: 7, period: day}
+
+    loaded_at_field: start_date
+
+    tables:
+      - name: ga_article_performance_stitch
+      - name: ga_article_dimensions_stitch
+
+  - name: google_analytics_stitch_yale_alumni
+    loader: stitch data
+
+    freshness:
+      warn_after: {count: 2, period: day}
+      error_after: {count: 7, period: day}
+
+    loaded_at_field: start_date
+
+    tables:
+      - name: ga_alumni_events_page_performance_stitch
