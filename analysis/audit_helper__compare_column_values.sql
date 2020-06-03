@@ -11,7 +11,7 @@
 {% set new_etl_relation_query %}
     select
         *
-    from {{ ref('stg_google_analytics__article_dimensions_stitch') }}
+    from {{ ref('stg_google_analytics__article_dimensions') }}
     where collected_date BETWEEN '2020-02-15' AND DATE_SUB(CURRENT_DATE('America/New_York'), INTERVAL 1 DAY)
 {% endset %}
 
