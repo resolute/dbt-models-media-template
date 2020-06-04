@@ -70,7 +70,7 @@ identify_recent_data AS (
     SELECT 
         *,
         ROW_NUMBER() OVER (PARTITION BY website_article_id 
-                           ORDER BY collected_date DESC, website_article_topics DESC, website_article_publish_date DESC) 
+                           ORDER BY website_article_publish_date DESC, website_article_topics DESC, collected_date DESC) 
                            AS most_recent_data_rank
     
     FROM filter_out_incorrect_publish_dates
