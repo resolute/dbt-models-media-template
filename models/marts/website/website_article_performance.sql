@@ -56,8 +56,6 @@ final AS (
         * 
     
     FROM join_ga_article_performance_and_dimensions
-    
-    WHERE website_article_title IS NOT NULL
 
 )
       
