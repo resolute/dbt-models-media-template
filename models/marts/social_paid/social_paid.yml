@@ -9,3 +9,12 @@ models:
         tests:
           - unique
           - not_null
+  
+  - name: facebook_ads__campaign_month_reach
+    description: A table containing the monthly reach totals from Facebook Ads
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
