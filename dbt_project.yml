@@ -23,34 +23,31 @@ clean-targets:         # directories to be removed by `dbt clean`
     - "target"
     - "dbt_modules"
 
+config-version: 2
 
 # Configuring models
-# Full documentation: https://docs.getdbt.com/docs/configuring-models
-
-# In this example config, we tell dbt to build all models in the example/ directory
-# as tables. These settings can be overridden in the individual model files
-# using the `{{ config(...) }}` macro.
 models:
   yale_opac:
-      marts:
-        materialized: table
-        social_organic:
-          intermediate:
-            materialized: view
-            schema: staging
-        social_paid:
-          intermediate:
-            materialized: view
-            schema: staging
-        website:
-          intermediate:
-            materialized: view
-            schema: staging
-      staging:
-        materialized: view
-        schema: staging
-      utils:
-        materialized: view
-        schema: utils
-
-
+    +persist_docs:
+      relation: true
+      columns: true
+    marts:
+      +materialized: table
+      social_organic:
+        intermediate:
+          +materialized: view
+          +schema: staging
+      social_paid:
+        intermediate:
+          +materialized: view
+          +schema: staging
+      website:
+        intermediate:
+          +materialized: view
+          +schema: staging
+    staging:
+      +materialized: view
+      +schema: staging
+    utils:
+      +materialized: view
+      +schema: utils
