@@ -159,13 +159,13 @@ join_data AS (
     
     SELECT
     
-        COALESCE(sessions.data_source, articles.data_source) AS data_source,
-        COALESCE(sessions.account_id, articles.account_id) AS account_id,
-        COALESCE(sessions.account_name, articles.account_name) AS account_name,
-        COALESCE(sessions.date, articles.date) AS date,
-        COALESCE(sessions.channel_name, articles.channel_name) AS channel_name,
-        COALESCE(sessions.channel_source_name, articles.channel_source_name) AS channel_source_name,
-        COALESCE(sessions.channel_source_type, articles.channel_source_type) AS channel_source_type,
+        COALESCE(sessions.data_source, articles.data_source, alumni.data_source) AS data_source,
+        COALESCE(sessions.account_id, articles.account_id, alumni.account_id) AS account_id,
+        COALESCE(sessions.account_name, articles.account_name, alumni.account_name) AS account_name,
+        COALESCE(sessions.date, articles.date, alumni.date) AS date,
+        COALESCE(sessions.channel_name, articles.channel_name, alumni.channel_name) AS channel_name,
+        COALESCE(sessions.channel_source_name, articles.channel_source_name, alumni.channel_source_name) AS channel_source_name,
+        COALESCE(sessions.channel_source_type, articles.channel_source_type, alumni.channel_source_type) AS channel_source_type,
         
         COALESCE(website_sessions,0) AS website_sessions,
         COALESCE(website_session_duration,0) AS website_session_duration,
