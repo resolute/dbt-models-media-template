@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'yale_opac'
+name: 'wgs'
 version: '1.0.0'
 
 # This setting configures which "profile" dbt uses for this project.
@@ -25,9 +25,22 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 config-version: 2
 
+vars:
+  google_analytics_ids: []
+  google_ads_ids: ['9381907822', '3742196383', '7924374334', '8584468339']
+  google_campaign_manager_ids: ['4816067', '5165559', '4796962', '9412988']
+  facebook_ads_ids: ['act_10153307131161289', 'act_10153216470876289', 'act_10153651985701289', 'act_10153313311861289']
+  linkedin_ads_ids: []
+  twitter_ids: []
+  pinterest_ids: ['549760653624', '549759455869', '549760732021']
+  facebook_organic_ids: []
+  instagram_organic_ids: []
+  linkedin_organic_ids: []
+  youtube_organic_ids: []
+
 # Configuring models
 models:
-  yale_opac:
+  wgs:
     +persist_docs:
       relation: true
       columns: true
