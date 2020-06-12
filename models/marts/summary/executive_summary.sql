@@ -1,12 +1,5 @@
 WITH
 
---Email Data
-email AS (
-    
-    SELECT * FROM {{ ref('email_performance') }}
-
-),
-
 --Social Organic Data
 social_organic AS (
     
@@ -32,38 +25,6 @@ social_followers AS (
 website_session_performance AS (
     
     SELECT * FROM {{ ref('website_session_performance') }}
-
-),
-
-reduce_columns_email AS (
-    
-    SELECT
-        
-        data_source,
-        account_id,
-        account_name,
-        channel_source_name,
-        channel_source_type,
-        channel_name,
-        email_original_send_date AS date,
-        
-        0 AS social_impressions,
-        0 AS social_engagements,
-        0 AS social_link_clicks,
-        SUM(sends) AS email_sends,
-        SUM(opens_unique) AS email_opens,
-        SUM(clicks_unique) AS email_clicks,
-        0 AS website_sessions,
-        0 AS website_article_views,
-        0 AS website_article_reads,
-        0 AS website_alumni_search_events,
-        0 AS social_followers_total,
-        0 AS social_followers_net,
-        0 AS email_subscribers
-        
-    FROM email
-    
-    GROUP BY 1,2,3,4,5,6,7
 
 ),
 
@@ -199,11 +160,7 @@ reduce_columns_website_session_performance AS (
   
 union_all_data AS (
   
-    SELECT * FROM reduce_columns_email
-
-    UNION ALL
-    
-    SELECT * FROM reduce_columns_social_organic
+   SELECT * FROM reduce_columns_social_organic
 
     UNION ALL
     

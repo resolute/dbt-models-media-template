@@ -15,7 +15,7 @@ final AS (
     
     FROM source_data
 
-    WHERE advertiser_id IN {{ var('google_campaign_manager_ids') }}
+    WHERE advertiser_id IN UNNEST({{ var('google_campaign_manager_ids') }})
 
 )
 

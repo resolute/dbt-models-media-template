@@ -18,3 +18,12 @@ models:
         tests:
           - unique
           - not_null
+  
+  - name: stg_google_campaign_manager__geo_extended
+    description: A table containing daily creative, placement, and location ad/conversion performance data from Google Campaign Manager
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null

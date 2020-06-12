@@ -1,15 +1,20 @@
 version: 2
 
 sources:
-  - name: youtube_organic
+  - name: improvado
+    database: green-post-223109
+    schema: agency_4333
     loader: improvado
-    
+    loaded_at_field: TIMESTAMP(date)
+
     freshness:
       warn_after: {count: 2, period: day}
       error_after: {count: 7, period: day}
+      filter: account_id IN UNNEST({{ var('youtube_organic_ids') }})
 
-    loaded_at_field: TIMESTAMP(date)
-    
     tables:
-      - name: view_youtube_organic_top_videos
-      - name: view_youtube_organic_traffic_source_daily
+      - name: youtube_organic_top_videos
+        identifier: 'youtube_organic_top_videos_*'
+
+      - name: youtube_organic_traffic_source_daily
+        identifier: 'youtube_organic_traffic_source_daily_*'

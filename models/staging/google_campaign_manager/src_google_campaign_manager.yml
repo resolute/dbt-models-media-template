@@ -10,7 +10,7 @@ sources:
     freshness:
       warn_after: {count: 2, period: day}
       error_after: {count: 7, period: day}
-      filter: advertiser_id IN {{ var('google_campaign_manager_ids') }}
+      filter: advertiser_id IN UNNEST({{ var('google_campaign_manager_ids') }})
 
     tables:
       - name: dcm_ads_placement_sites

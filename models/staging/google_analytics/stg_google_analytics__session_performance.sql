@@ -74,7 +74,7 @@ final AS (
     
     FROM source_data
 
-    WHERE account_id IN {{ var('google_analytics_ids') }}
+    WHERE account_id IN UNNEST({{ var('google_analytics_ids') }})
 
     GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
 

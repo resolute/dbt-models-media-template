@@ -1,15 +1,20 @@
 version: 2
 
 sources:
-  - name: instagram_organic
+  - name: improvado
+    database: green-post-223109
+    schema: agency_4333
     loader: improvado
+    loaded_at_field: TIMESTAMP(date)
 
     freshness:
       warn_after: {count: 2, period: day}
       error_after: {count: 7, period: day}
-
-    loaded_at_field: TIMESTAMP(date)
+      filter: account_id IN UNNEST({{ var('instagram_organic_ids') }})
 
     tables:
-      - name: view_instagram_organic_post
-      - name: view_instagram_organic_page_info
+      - name: instagram_organic_post
+        identifier: 'instagram_organic_post_*'
+
+      - name: instagram_organic_page_info
+        identifier: 'instagram_organic_page_info_*'

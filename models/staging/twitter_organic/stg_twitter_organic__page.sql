@@ -2,7 +2,7 @@ WITH
 
 source_data as (
 
-    SELECT * FROM {{ source('twitter_organic', 'view_twitter_page') }}
+    SELECT * FROM {{ source('improvado', 'twitter_page') }}
 
 ),
 
@@ -15,7 +15,7 @@ final AS (
     
     FROM source_data
 
-    WHERE account_id = '3e2bc'
+    WHERE account_id IN UNNEST({{ var('twitter_ids') }})
 
 )
 

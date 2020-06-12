@@ -16,7 +16,7 @@ recast AS (
     
     FROM source_data
 
-    WHERE account_id IN {{ var('facebook_organic_ids') }}
+    WHERE account_id IN UNNEST({{ var('facebook_organic_ids') }})
 
 ),
 

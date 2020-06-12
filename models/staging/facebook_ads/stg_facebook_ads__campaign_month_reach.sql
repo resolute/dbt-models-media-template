@@ -15,7 +15,7 @@ final AS (
     
     FROM source_data
 
-    WHERE account_id IN {{ var('facebook_ads_ids') }}
+    WHERE account_id IN UNNEST({{ var('facebook_ads_ids') }})
 
 )
 
