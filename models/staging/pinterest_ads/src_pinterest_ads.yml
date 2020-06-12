@@ -1,0 +1,20 @@
+version: 2
+
+sources:
+  - name: improvado
+    database: green-post-223109
+    schema: agency_4333
+    loader: improvado
+    loaded_at_field: TIMESTAMP(date)
+
+    freshness:
+      warn_after: {count: 2, period: day}
+      error_after: {count: 7, period: day}
+      filter: account_id IN UNNEST({{ var('pinterest_ids') }})
+
+    tables:
+      - name: pinterest_ads_pins_1v_30en_30cl
+        identifier: 'pinterest_ads_pins_1v_30en_30cl_*'
+
+      - name: pinterest_ads_audience_groups
+        identifier: 'pinterest_ads_audience_groups_*'

@@ -18,3 +18,4 @@ sources:
 
       - name: facebook_campaign_month_reach
         identifier: 'facebook_campaign_month_reach_*'
+        loaded_at_field: TIMESTAMP(end_date)
