@@ -2,7 +2,7 @@ WITH
 
 source_data as (
 
-    SELECT * FROM {{ source('facebook_organic', 'view_facebook_pages_post') }}
+    SELECT * FROM {{ source('improvado', 'facebook_pages_post') }}
 
 ),
 
@@ -16,7 +16,7 @@ recast AS (
     
     FROM source_data
 
-    WHERE account_id = '374809010319'
+    WHERE account_id IN {{ var('facebook_organic_ids') }}
 
 ),
 

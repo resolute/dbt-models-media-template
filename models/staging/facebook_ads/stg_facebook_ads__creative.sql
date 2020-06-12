@@ -2,7 +2,7 @@ WITH
 
 source_data as (
 
-    SELECT * FROM {{ source('facebook_ads', 'view_facebook_ads_creative') }}
+    SELECT * FROM {{ source('improvado', 'facebook_ads_creative') }}
 
 ),
 
@@ -15,7 +15,7 @@ final AS (
     
     FROM source_data
 
-    WHERE account_id = 'act_317216715720714'
+    WHERE account_id IN {{ var('facebook_ads_ids') }}
 
 )
 

@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: improvado
+    database: green-post-223109
+    schema: agency_4333
+    loader: improvado
+    loaded_at_field: TIMESTAMP(date)
+
+    freshness:
+      warn_after: {count: 2, period: day}
+      error_after: {count: 7, period: day}
+      filter: advertiser_id IN {{ var('google_campaign_manager_ids') }}
+
+    tables:
+      - name: dcm_ads_placement_sites
+        description: Table with ad dimensions and ad metrics
+        identifier: 'dcm_ads_placement_sites_*'
+
+      - name: dcm_ads_creatives_placements
+        description: Table with ad dimensions and conversion metrics
+        identifier: 'dcm_ads_creatives_placements_*'
+
+      - name: dcm_geo_extended
+        description: Table with ad/location dimensions and ad/conversion metrics
+        identifier: 'dcm_geo_extended_*'
