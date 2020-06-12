@@ -1,50 +1,23 @@
 WITH
 
-website_session_performance_news_site AS (
+data AS (
   
-    SELECT * FROM {{ ref('google_analytics__session_performance_50958144') }}
+    SELECT * FROM {{ ref('stg_google_analytics__session_performance') }}
 
 ),
-
-website_session_performance_main_site AS (
   
-    SELECT * FROM {{ ref('google_analytics__session_performance_109800238') }}
-
-),
-
-website_session_performance_alumni_site AS (
-  
-    SELECT * FROM {{ ref('google_analytics__session_performance_183763846') }}
-
-),
-
-website_article_performance AS (
-  
-    SELECT * FROM {{ ref('website_article_performance') }}
-
-),
-
-website_alumni_event_page_performance AS (
-  
-    SELECT * FROM {{ ref('google_analytics__alumni_events_page_performance') }}
-
-),
-
-website_article_performance_rollup AS (
-  
-    SELECT * FROM website_session_performance_news_site
-
-    UNION ALL
+general_definitions AS (
     
-    SELECT * FROM website_session_performance_main_site
+    SELECT
     
-    UNION ALL
-    
-    SELECT * FROM website_session_performance_alumni_site
-    
-),
+        *,
+        'Google Analytics' AS data_source
+        
+    FROM data
 
-reduce_grain_website_session_performance AS (
+),
+  
+data_cleaning AS (
 
     SELECT
         
@@ -52,9 +25,191 @@ reduce_grain_website_session_performance AS (
         account_id,
         account_name,
         date,
+        TRIM(LOWER(utm_source)) AS utm_source,
+        TRIM(LOWER(utm_medium)) AS utm_medium,
+        TRIM(LOWER(utm_campaign)) AS utm_campaign,
+        TRIM(LOWER(utm_content)) AS utm_content,
+        TRIM(LOWER(utm_term)) AS utm_term,        
+        user_type,
+        device_category,
+        
+        TRIM(
+            CASE
+                WHEN STRPOS(landing_page_path, "?") > 0 THEN SUBSTR(landing_page_path, 0, STRPOS(landing_page_path, "?") - 1)
+                WHEN STRPOS(landing_page_path, "#") > 0 THEN SUBSTR(landing_page_path, 0, STRPOS(landing_page_path, "#") - 1)
+                ELSE landing_page_path
+            END
+        ) AS landing_page_path,
+        
+        website_sessions,
+        website_session_duration,
+        bounces,
+        page_views,
+        transactions,
+        transaction_revenue,
+        adds_to_cart,
+        goal_1_completions,
+        goal_2_completions,
+        goal_3_completions,
+        goal_4_completions,
+        goal_5_completions,
+        goal_6_completions,
+        goal_7_completions,
+        goal_8_completions,
+        goal_9_completions,
+        goal_10_completions,
+        goal_11_completions,
+        goal_12_completions,
+        goal_13_completions,
+        goal_14_completions,
+        goal_15_completions,
+        goal_16_completions,
+        goal_17_completions,
+        goal_18_completions,
+        goal_19_completions,
+        goal_20_completions,
+        total_goal_completions,
+        goal_1_value,
+        goal_2_value,
+        goal_3_value,
+        goal_4_value,
+        goal_5_value,
+        goal_6_value,
+        goal_7_value,
+        goal_8_value,
+        goal_9_value,
+        goal_10_value,
+        goal_11_value,
+        goal_12_value,
+        goal_13_value,
+        goal_14_value,
+        goal_15_value,
+        goal_16_value,
+        goal_17_value,
+        goal_18_value,
+        goal_19_value,
+        goal_20_value
+        
+     FROM general_definitions
+
+),
+
+identify_social_referral_sessions AS (
+
+    SELECT
+    
+        *,
+        
+        CASE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(facebook)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(^t.co$|twitter)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(instagram)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(linkedin)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(youtube)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(pinterest)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(reddit)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(ycombinator)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(meetedgar)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(lnkd.in)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(blogspot)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(blogger)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(wordpress)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(instapaper)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(naver)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(plurk)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(quora)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(yammer)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(slashdot)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(vk\.com)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(typepad)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(plus\.url\.google)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(getpocket)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(paper\.li)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(groups\.google\.com)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(buzzfeed)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(tumblr)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(scoop\.it)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(meetup)') THEN TRUE
+            WHEN utm_medium = 'referral' AND REGEXP_CONTAINS(utm_source, r'(weebly)') THEN TRUE
+            ELSE FALSE
+        END AS is_social_referral_session
+    
+    FROM data_cleaning
+
+),
+
+define_channel_name AS (
+
+    SELECT
+    
+        *,
+        
+        CASE
+            WHEN utm_source = '(direct)' AND (utm_medium = '(not set)' OR utm_medium = '(none)') THEN 'Direct'
+            WHEN utm_medium = 'organic' THEN 'Organic Search'
+            WHEN utm_medium = 'paid_social' THEN 'Paid Social'
+            WHEN is_social_referral_session = TRUE OR REGEXP_CONTAINS(utm_medium, r'^(social|social-network|social-media|sm|social network|social media)$') THEN 'Organic Social'
+            WHEN utm_medium = 'email' OR (utm_source = 'email' AND utm_medium = 'abstract') THEN 'Email'
+            WHEN utm_medium = 'affiliate' THEN 'Affiliates'
+            WHEN utm_medium = 'referral' THEN 'Referral'
+            WHEN REGEXP_CONTAINS(utm_medium, r'^(cpc|ppc|paidsearch)$') THEN 'Paid Search'
+            WHEN REGEXP_CONTAINS(utm_medium, r'^(cpv|cpa|cpp|content-text)$') THEN 'Other Advertising'
+            WHEN REGEXP_CONTAINS(utm_medium, r'^(display|cpm|banner)$') THEN 'Display'
+            ELSE '(Other)'
+        END AS channel_name
+    
+    FROM identify_social_referral_sessions
+
+),
+
+define_channel_dimensions AS (
+
+    SELECT
+    
+        *,
+        
+        CASE
+            WHEN channel_name = 'Email' THEN 'Email'
+            WHEN channel_name = 'Organic Social' AND REGEXP_CONTAINS(utm_source, r'(facebook)') THEN 'Facebook'
+            WHEN channel_name = 'Organic Social' AND REGEXP_CONTAINS(utm_source, r'(^t.co$|twitter)') THEN 'Twitter'
+            WHEN channel_name = 'Organic Social' AND REGEXP_CONTAINS(utm_source, r'(instagram)') THEN 'Instagram'
+            WHEN channel_name = 'Organic Social' AND REGEXP_CONTAINS(utm_source, r'(linkedin)') THEN 'LinkedIn'
+            WHEN channel_name = 'Organic Social' AND REGEXP_CONTAINS(utm_source, r'(youtube)') THEN 'YouTube'
+            WHEN channel_name = 'Organic Social' AND REGEXP_CONTAINS(utm_source, r'(pinterest)') THEN 'Pinterest'
+            WHEN channel_name = 'Organic Social' AND REGEXP_CONTAINS(utm_source, r'(meetup)') THEN 'Meetup'
+            WHEN channel_name = '(Other)' THEN '(Other)'
+            ELSE utm_source
+        END AS channel_source_name,
+        
+        CASE
+            WHEN channel_name IN ('Email', 'Paid Social', 'Paid Search') THEN 'Paid'
+            WHEN channel_name = '(Other)' THEN '(Other)'
+            ELSE 'Organic'
+        END AS channel_source_type,
+    
+    FROM define_channel_name
+
+),
+
+aggregate AS (
+
+    SELECT
+    
+        data_source,
+        account_id,
+        account_name,
+        date,
         channel_name,
         channel_source_name,
         channel_source_type,
+        utm_source,
+        utm_medium,
+        utm_campaign,
+        utm_content,
+        utm_term,        
+        user_type,
+        device_category,
+        landing_page_path,
         
         SUM(website_sessions) AS website_sessions,
         SUM(website_session_duration) AS website_session_duration,
@@ -105,128 +260,9 @@ reduce_grain_website_session_performance AS (
         SUM(goal_19_value) AS goal_19_value,
         SUM(goal_20_value) AS goal_20_value
     
-    FROM website_article_performance_rollup
+    FROM define_channel_dimensions
     
-    GROUP BY 1,2,3,4,5,6,7
-    
-),
-
-reduce_grain_website_article_performance AS (
-
-    SELECT
-    
-        data_source,
-        account_id,
-        account_name,
-        date,
-        channel_name,
-        channel_source_name,
-        channel_source_type,
-        
-        SUM(website_article_views) AS website_article_views,
-        SUM(website_article_read) AS website_article_read,
-        SUM(website_article_shares) AS website_article_shares,
-        SUM(website_article_engaged_time_total) AS website_article_engaged_time_total
-    
-    FROM website_article_performance
-    
-    GROUP BY 1,2,3,4,5,6,7
-    
-),
-
-reduce_grain_website_alumni_event_page_performance AS (
-
-    SELECT
-    
-        data_source,
-        account_id,
-        account_name,
-        date,
-        channel_name,
-        channel_source_name,
-        channel_source_type,
-        
-        SUM(website_alumni_events_pageviews) AS website_alumni_events_pageviews,
-        SUM(website_alumni_events_pageviews_unique) AS website_alumni_events_pageviews_unique
-    
-    FROM website_alumni_event_page_performance
-    
-    GROUP BY 1,2,3,4,5,6,7
-    
-),
-
-join_data AS (
-    
-    SELECT
-    
-        COALESCE(sessions.data_source, articles.data_source, alumni.data_source) AS data_source,
-        COALESCE(sessions.account_id, articles.account_id, alumni.account_id) AS account_id,
-        COALESCE(sessions.account_name, articles.account_name, alumni.account_name) AS account_name,
-        COALESCE(sessions.date, articles.date, alumni.date) AS date,
-        COALESCE(sessions.channel_name, articles.channel_name, alumni.channel_name) AS channel_name,
-        COALESCE(sessions.channel_source_name, articles.channel_source_name, alumni.channel_source_name) AS channel_source_name,
-        COALESCE(sessions.channel_source_type, articles.channel_source_type, alumni.channel_source_type) AS channel_source_type,
-        
-        COALESCE(website_sessions,0) AS website_sessions,
-        COALESCE(website_session_duration,0) AS website_session_duration,
-        COALESCE(bounces,0) AS bounces,
-        COALESCE(page_views,0) AS page_views,
-        COALESCE(transactions,0) AS transactions,
-        COALESCE(transaction_revenue,0) AS transaction_revenue,
-        COALESCE(adds_to_cart,0) AS adds_to_cart,
-        COALESCE(goal_1_completions,0) AS goal_1_completions,
-        COALESCE(goal_2_completions,0) AS goal_2_completions,
-        COALESCE(goal_3_completions,0) AS goal_3_completions,
-        COALESCE(goal_4_completions,0) AS goal_4_completions,
-        COALESCE(goal_5_completions,0) AS goal_5_completions,
-        COALESCE(goal_6_completions,0) AS goal_6_completions,
-        COALESCE(goal_7_completions,0) AS goal_7_completions,
-        COALESCE(goal_8_completions,0) AS goal_8_completions,
-        COALESCE(goal_9_completions,0) AS goal_9_completions,
-        COALESCE(goal_10_completions,0) AS goal_10_completions,
-        COALESCE(goal_11_completions,0) AS goal_11_completions,
-        COALESCE(goal_12_completions,0) AS goal_12_completions,
-        COALESCE(goal_13_completions,0) AS goal_13_completions,
-        COALESCE(goal_14_completions,0) AS goal_14_completions,
-        COALESCE(goal_15_completions,0) AS goal_15_completions,
-        COALESCE(goal_16_completions,0) AS goal_16_completions,
-        COALESCE(goal_17_completions,0) AS goal_17_completions,
-        COALESCE(goal_18_completions,0) AS goal_18_completions,
-        COALESCE(goal_19_completions,0) AS goal_19_completions,
-        COALESCE(goal_20_completions,0) AS goal_20_completions,
-        COALESCE(total_goal_completions,0) AS total_goal_completions,
-        COALESCE(goal_1_value,0) AS goal_1_value,
-        COALESCE(goal_2_value,0) AS goal_2_value,
-        COALESCE(goal_3_value,0) AS goal_3_value,
-        COALESCE(goal_4_value,0) AS goal_4_value,
-        COALESCE(goal_5_value,0) AS goal_5_value,
-        COALESCE(goal_6_value,0) AS goal_6_value,
-        COALESCE(goal_7_value,0) AS goal_7_value,
-        COALESCE(goal_8_value,0) AS goal_8_value,
-        COALESCE(goal_9_value,0) AS goal_9_value,
-        COALESCE(goal_10_value,0) AS goal_10_value,
-        COALESCE(goal_11_value,0) AS goal_11_value,
-        COALESCE(goal_12_value,0) AS goal_12_value,
-        COALESCE(goal_13_value,0) AS goal_13_value,
-        COALESCE(goal_14_value,0) AS goal_14_value,
-        COALESCE(goal_15_value,0) AS goal_15_value,
-        COALESCE(goal_16_value,0) AS goal_16_value,
-        COALESCE(goal_17_value,0) AS goal_17_value,
-        COALESCE(goal_18_value,0) AS goal_18_value,
-        COALESCE(goal_19_value,0) AS goal_19_value,
-        COALESCE(goal_20_value,0) AS goal_20_value,
-        COALESCE(website_article_views,0) AS website_article_views,
-        COALESCE(website_article_read,0) AS website_article_read,
-        COALESCE(website_article_shares,0) AS website_article_shares,
-        COALESCE(website_article_engaged_time_total,0) AS website_article_engaged_time_total,
-        COALESCE(website_alumni_events_pageviews,0) AS website_alumni_events_pageviews,
-        COALESCE(website_alumni_events_pageviews_unique,0) AS website_alumni_events_pageviews_unique
-        
-    FROM reduce_grain_website_session_performance AS sessions
-    
-    FULL JOIN reduce_grain_website_article_performance AS articles USING(data_source, account_id, date, channel_name, channel_source_name, channel_source_type)
-    
-    FULL JOIN reduce_grain_website_alumni_event_page_performance AS alumni USING(data_source, account_id, date, channel_name, channel_source_name, channel_source_type)
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
 
 ),
 
@@ -234,10 +270,10 @@ final AS (
 
     SELECT
 
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'channel_name', 'channel_source_name', 'channel_source_type']) }} AS id,
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'channel_name', 'channel_source_name', 'channel_source_type', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'user_type', 'device_category', 'landing_page_path']) }} AS id,
         *
 
-    FROM join_data
+    FROM aggregate
 )
       
 SELECT * FROM final

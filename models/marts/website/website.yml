@@ -2,16 +2,7 @@ version: 2
 
 models:
   - name: website_session_performance
-    description: A table containing session performance data from www.yale.edu, news.yale.edu, and alumni.yale.edu Google Analytics properties
-    columns:
-      - name: id
-        description: This is a surrogate key
-        tests:
-          - unique
-          - not_null
-
-  - name: website_article_performance
-    description: A table containing article performance data from news.yale.edu Google Analytics property
+    description: A table containing session performance data from Google Analytics properties
     columns:
       - name: id
         description: This is a surrogate key
