@@ -4,6 +4,8 @@ source_data as (
 
     SELECT * FROM {{ source('improvado', 'linkedin_organic_followers_lifetime') }}
 
+    WHERE account_id IN UNNEST({{ var('linkedin_organic_ids') }})
+
 ),
 
 final AS (
@@ -14,8 +16,6 @@ final AS (
         *
     
     FROM source_data
-
-    WHERE account_id IN UNNEST({{ var('linkedin_organic_ids') }})
 
 )
 

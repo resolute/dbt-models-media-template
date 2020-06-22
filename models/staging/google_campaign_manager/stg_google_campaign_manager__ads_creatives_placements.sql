@@ -4,6 +4,8 @@ source_data as (
 
     SELECT * FROM {{ source('improvado', 'dcm_ads_creatives_placements') }}
 
+    WHERE advertiser_id IN UNNEST({{ var('google_campaign_manager_ids') }})
+
 ),
 
 final AS (
@@ -14,8 +16,6 @@ final AS (
         *
     
     FROM source_data
-
-    WHERE advertiser_id IN UNNEST({{ var('google_campaign_manager_ids') }})
 
 )
 

@@ -4,6 +4,8 @@ source_data as (
 
     SELECT * FROM {{ source('improvado', 'facebook_pages_post') }}
 
+    WHERE account_id IN UNNEST({{ var('facebook_organic_ids') }})
+
 ),
 
 recast AS (
@@ -15,8 +17,6 @@ recast AS (
         REPLACE (CAST(created_time AS DATE) AS created_time)
     
     FROM source_data
-
-    WHERE account_id IN UNNEST({{ var('facebook_organic_ids') }})
 
 ),
 

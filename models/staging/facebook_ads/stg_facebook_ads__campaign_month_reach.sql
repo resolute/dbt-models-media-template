@@ -4,6 +4,8 @@ source_data as (
 
     SELECT * FROM {{ source('improvado', 'facebook_campaign_month_reach') }}
 
+    WHERE account_id IN UNNEST({{ var('facebook_ads_ids') }})
+
 ),
 
 final AS (
@@ -14,8 +16,6 @@ final AS (
         *
     
     FROM source_data
-
-    WHERE account_id IN UNNEST({{ var('facebook_ads_ids') }})
 
 )
 
