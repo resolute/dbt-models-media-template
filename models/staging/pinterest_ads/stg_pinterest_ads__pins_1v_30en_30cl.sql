@@ -1,6 +1,6 @@
 WITH
 
-source_data as (
+source_data AS (
 
     SELECT * FROM {{ source('improvado', 'pinterest_ads_pins_1v_30en_30cl') }}
 

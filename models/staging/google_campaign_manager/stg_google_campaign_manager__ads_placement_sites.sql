@@ -1,6 +1,6 @@
 WITH
 
-source_data as (
+source_data AS (
 
     SELECT * FROM {{ source('improvado', 'dcm_ads_placement_sites') }}
 

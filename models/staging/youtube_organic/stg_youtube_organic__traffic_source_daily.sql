@@ -1,6 +1,6 @@
 WITH
 
-source_data as (
+source_data AS (
 
     SELECT * FROM {{ source('improvado', 'youtube_organic_traffic_source_daily') }}
 

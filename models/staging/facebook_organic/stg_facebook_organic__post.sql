@@ -1,6 +1,6 @@
 WITH
 
-source_data as (
+source_data AS (
 
     SELECT * FROM {{ source('improvado', 'facebook_pages_post') }}
 
