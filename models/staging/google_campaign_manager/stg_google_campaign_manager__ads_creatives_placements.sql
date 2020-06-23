@@ -12,7 +12,7 @@ final AS (
   
     SELECT 
     
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'advertiser_id', 'site_id', 'placement_id', 'ad_id', 'creative_id', 'activity_id']) }} AS id,
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'advertiser_id', 'campaign_id', 'site_id', 'placement_id', 'ad_id', 'creative_id', 'activity_id']) }} AS id,
         *
     
     FROM source_data
