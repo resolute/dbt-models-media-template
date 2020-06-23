@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: facebook_ads__creatives_daily
+    description: A table containing the daily totals for each Facebook ad creative
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
+  
+  - name: facebook_ads__campaign_month_reach
+    description: A table containing the monthly reach totals by campaign from Facebook Ads
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null

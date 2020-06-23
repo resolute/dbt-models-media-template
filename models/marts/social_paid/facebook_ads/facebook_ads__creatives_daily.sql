@@ -27,7 +27,12 @@ general_definitions AS (
     
         *,
         'Facebook Paid' AS data_source,
-        'Facebook' AS channel_source_name,
+
+        CASE
+            WHEN instagram_permalink_url IS NULL THEN 'Facebook'
+            WHEN instagram_permalink_url IS NOT NULL THEN 'Instagram'
+        END AS channel_source_name,
+
         'Paid' AS channel_source_type,
         'Paid Social' AS channel_name
   
@@ -39,6 +44,7 @@ rename_columns_and_set_defaults AS (
 
     SELECT
     
+        id,
         data_source,
         account_id,
         account_name,
@@ -55,7 +61,7 @@ rename_columns_and_set_defaults AS (
         creative_id,
         creative_name,
         objective AS ad_objective,
-        DATE(CAST(publication_date AS DATETIME)) AS ad_publish_date,
+        publication_date AS ad_publish_date,
         object_type AS ad_type,
         creative_link AS ad_permalink_url,
         image_url AS ad_thumbnail_url,
@@ -69,17 +75,49 @@ rename_columns_and_set_defaults AS (
         
         reach AS impressions_unique,
         impressions AS impressions,
-        (post_reactions + clicks + comments + shares) AS engagements,
         outbound_clicks AS link_clicks,
         spend AS cost,
-        video_view_3s AS video_views,
-        video_p95_watched_actions AS video_completions
+        post_engagement AS post_engagements,
+        post_reactions,
+        comments AS post_comments,
+        shares AS post_shares,
+        page_likes,
+        video_view_3s,
+        video_30_sec_watched_actions,
+        video_p25_watched_actions,
+        video_p50_watched_actions,
+        video_p75_watched_actions,
+        video_p95_watched_actions,
+        video_p100_watched_actions,
+        video_avg_time_watched_actions,
+        video_play_actions_view_value,
+        add_payment_info,
+        add_to_cart,
+        add_to_wishlist,
+        complete_registration,
+        donate_total,
+        donate_total_value,
+        initiate_checkout,
+        landing_page_view,
+        lead,
+        purchase,
+        purchase_total,
+        purchase_value,
+        revenue,
+        search,
+        search_total,
+        start_trial_total,
+        start_trial_total_value,
+        submit_application_total,
+        subscribe_total,
+        subscribe_total_value,
+        view_content
         
      FROM general_definitions
 
 ),
 
-calculate_ad_age AS (
+final AS (
 
     SELECT
         
@@ -87,53 +125,6 @@ calculate_ad_age AS (
         DATE_DIFF(date, ad_publish_date, DAY) AS ad_age_in_days
     
     FROM rename_columns_and_set_defaults
-
-),
-
-final AS (
-
-    SELECT
-    
-        data_source,
-        account_id,
-        account_name,
-        channel_source_name,
-        channel_source_type,
-        channel_name,
-        date,
-        campaign_id,
-        campaign_name,
-        adset_id,
-        adset_name,
-        ad_id,
-        ad_name,
-        creative_id,
-        creative_name,
-        ad_objective,
-        ad_publish_date,
-        ad_type,
-        ad_permalink_url,
-        ad_thumbnail_url,
-        ad_message,
-        ad_destination_link_url,
-        utm_source,
-        utm_medium,
-        utm_campaign,
-        utm_content,
-        utm_term,
-        ad_age_in_days,
-        
-        SUM(impressions_unique) AS impressions_unique,
-        SUM(impressions) AS impressions,
-        SUM(engagements) AS engagements,
-        SUM(link_clicks) AS link_clicks,
-        SUM(cost) AS cost,
-        SUM(video_views) AS video_views,
-        SUM(video_completions) AS video_completions
-        
-     FROM calculate_ad_age
-     
-     GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28
 
 )
   

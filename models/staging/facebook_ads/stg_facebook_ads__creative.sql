@@ -8,6 +8,16 @@ source_data AS (
 
 ),
 
+recast AS (
+
+    SELECT *
+
+        REPLACE(DATE(CAST(publication_date AS DATETIME)) AS publication_date)
+
+    FROM source_data
+
+),
+
 final AS (
   
     SELECT 
@@ -15,7 +25,7 @@ final AS (
         {{ dbt_utils.surrogate_key(['date', 'account_id', 'creative_id']) }} AS id,
         *
     
-    FROM source_data
+    FROM recast
 
 )
 

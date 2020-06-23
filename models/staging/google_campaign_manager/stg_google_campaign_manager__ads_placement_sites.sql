@@ -8,6 +8,16 @@ source_data AS (
 
 ),
 
+recast AS (
+
+    SELECT *
+
+        REPLACE(CAST(campaign_start_date AS DATE) AS campaign_start_date)
+
+    FROM source_data
+
+),
+
 final AS (
   
     SELECT 
@@ -15,7 +25,7 @@ final AS (
         {{ dbt_utils.surrogate_key(['date', 'account_id', 'advertiser_id', 'site_id_dcm', 'placement_id', 'ad_id', 'creative_id']) }} AS id,
         *
     
-    FROM source_data
+    FROM recast
 
 )
 
