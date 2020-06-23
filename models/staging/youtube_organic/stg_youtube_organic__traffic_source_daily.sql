@@ -1,8 +1,10 @@
 WITH
 
-source_data as (
+source_data AS (
 
-    SELECT * FROM {{ source('youtube_organic', 'view_youtube_organic_traffic_source_daily') }}
+    SELECT * FROM {{ source('improvado', 'youtube_organic_traffic_source_daily') }}
+
+    WHERE account_id IN UNNEST({{ var('youtube_organic_ids') }})
 
 ),
 
@@ -14,8 +16,6 @@ final AS (
         *
     
     FROM source_data
-
-    WHERE account_id = 'UCGF_z7NNup6feP3ry_mRxnA'
 
 )
 

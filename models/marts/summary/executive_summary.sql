@@ -1,12 +1,5 @@
 WITH
 
---Email Data
-email AS (
-    
-    SELECT * FROM {{ ref('email_performance') }}
-
-),
-
 --Social Organic Data
 social_organic AS (
     
@@ -35,38 +28,6 @@ website_session_performance AS (
 
 ),
 
-reduce_columns_email AS (
-    
-    SELECT
-        
-        data_source,
-        account_id,
-        account_name,
-        channel_source_name,
-        channel_source_type,
-        channel_name,
-        email_original_send_date AS date,
-        
-        0 AS social_impressions,
-        0 AS social_engagements,
-        0 AS social_link_clicks,
-        SUM(sends) AS email_sends,
-        SUM(opens_unique) AS email_opens,
-        SUM(clicks_unique) AS email_clicks,
-        0 AS website_sessions,
-        0 AS website_article_views,
-        0 AS website_article_reads,
-        0 AS website_alumni_search_events,
-        0 AS social_followers_total,
-        0 AS social_followers_net,
-        0 AS email_subscribers
-        
-    FROM email
-    
-    GROUP BY 1,2,3,4,5,6,7
-
-),
-
 reduce_columns_social_organic AS (
     
     SELECT
@@ -86,9 +47,7 @@ reduce_columns_social_organic AS (
         0 AS email_opens,
         0 AS email_clicks,
         0 AS website_sessions,
-        0 AS website_article_views,
-        0 AS website_article_reads,
-        0 AS website_alumni_search_events,
+        0 AS website_conversions,
         0 AS social_followers_total,
         0 AS social_followers_net,
         0 AS email_subscribers
@@ -118,9 +77,7 @@ reduce_columns_social_paid AS (
         0 AS email_opens,
         0 AS email_clicks,
         0 AS website_sessions,
-        0 AS website_article_views,
-        0 AS website_article_reads,
-        0 AS website_alumni_search_events,
+        0 AS website_conversions,
         0 AS social_followers_total,
         0 AS social_followers_net,
         0 AS email_subscribers
@@ -150,9 +107,7 @@ reduce_columns_social_followers AS (
         0 AS email_opens,
         0 AS email_clicks,
         0 AS website_sessions,
-        0 AS website_article_views,
-        0 AS website_article_reads,
-        0 AS website_alumni_search_events,
+        0 AS website_conversions,
         SUM(social_followers_total) AS social_followers_total,
         SUM(social_followers_net) AS social_followers_net,
         0 AS email_subscribers
@@ -182,9 +137,7 @@ reduce_columns_website_session_performance AS (
         0 AS email_opens,
         0 AS email_clicks,
         SUM(website_sessions) AS website_sessions,
-        SUM(website_article_views) AS website_article_views,
-        SUM(website_article_read) AS website_article_reads,
-        SUM(website_alumni_events_pageviews) AS website_alumni_search_events,
+        SUM(total_goal_completions) AS website_conversions,
         0 AS social_followers_total,
         0 AS social_followers_net,
         0 AS email_subscribers
@@ -199,11 +152,7 @@ reduce_columns_website_session_performance AS (
   
 union_all_data AS (
   
-    SELECT * FROM reduce_columns_email
-
-    UNION ALL
-    
-    SELECT * FROM reduce_columns_social_organic
+   SELECT * FROM reduce_columns_social_organic
 
     UNION ALL
     
@@ -239,9 +188,7 @@ final AS (
         SUM(email_opens) AS email_opens,
         SUM(email_clicks) AS email_clicks,
         SUM(website_sessions) AS website_sessions,
-        SUM(website_article_views) AS website_article_views,
-        SUM(website_article_reads) AS website_article_reads,
-        SUM(website_alumni_search_events) AS website_alumni_search_events,
+        SUM(website_conversions) AS website_conversions,
         SUM(social_followers_total) AS social_followers_total,
         SUM(social_followers_net) AS social_followers_net,
         SUM(email_subscribers) AS email_subscribers

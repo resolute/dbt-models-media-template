@@ -1,8 +1,10 @@
 WITH
 
-source_data as (
+source_data AS (
 
-    SELECT * FROM {{ source('facebook_ads', 'view_facebook_campaign_month_reach') }}
+    SELECT * FROM {{ source('improvado', 'facebook_campaign_month_reach') }}
+
+    WHERE account_id IN UNNEST({{ var('facebook_ads_ids') }})
 
 ),
 
@@ -14,8 +16,6 @@ final AS (
         *
     
     FROM source_data
-
-    WHERE account_id = 'act_317216715720714'
 
 )
 

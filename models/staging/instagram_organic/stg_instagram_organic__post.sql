@@ -1,8 +1,10 @@
 WITH
 
-source_data as (
+source_data AS (
 
-    SELECT * FROM {{ source('instagram_organic', 'view_instagram_organic_post') }}
+    SELECT * FROM {{ source('improvado', 'instagram_organic_post') }}
+
+    WHERE account_id IN UNNEST({{ var('instagram_organic_ids') }})
 
 ),
 
@@ -14,8 +16,6 @@ final AS (
         *
     
     FROM source_data
-
-    WHERE account_id = '17841401127220026'
 
 )
 

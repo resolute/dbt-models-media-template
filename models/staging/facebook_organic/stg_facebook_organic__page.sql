@@ -1,8 +1,10 @@
 WITH
 
-source_data as (
+source_data AS (
 
-    SELECT * FROM {{ source('facebook_organic', 'view_facebook_pages_page') }}
+    SELECT * FROM {{ source('improvado', 'facebook_pages_page') }}
+
+    WHERE account_id IN UNNEST({{ var('facebook_organic_ids') }})
 
 ),
 
@@ -14,8 +16,6 @@ final AS (
         *
     
     FROM source_data
-
-    WHERE account_id = '374809010319'
 
 )
 

@@ -1,8 +1,20 @@
 WITH
 
-source_data as (
+source_data AS (
 
-    SELECT * FROM {{ source('facebook_ads', 'view_facebook_ads_creative') }}
+    SELECT * FROM {{ source('improvado', 'facebook_ads_creative') }}
+
+    WHERE account_id IN UNNEST({{ var('facebook_ads_ids') }})
+
+),
+
+recast AS (
+
+    SELECT *
+
+        REPLACE(DATE(CAST(publication_date AS DATETIME)) AS publication_date)
+
+    FROM source_data
 
 ),
 
@@ -13,9 +25,7 @@ final AS (
         {{ dbt_utils.surrogate_key(['date', 'account_id', 'creative_id']) }} AS id,
         *
     
-    FROM source_data
-
-    WHERE account_id = 'act_317216715720714'
+    FROM recast
 
 )
 

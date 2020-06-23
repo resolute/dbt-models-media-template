@@ -1,9 +1,21 @@
 version: 2
 
 sources:
-  - name: facebook_ads
+  - name: improvado
+    database: green-post-223109
+    schema: agency_4333
     loader: improvado
+    loaded_at_field: TIMESTAMP(date)
+
+    freshness:
+      warn_after: {count: 2, period: day}
+      error_after: {count: 7, period: day}
+      filter: account_id IN UNNEST({{ var('facebook_ads_ids') }})
 
     tables:
-      - name: view_facebook_ads_creative
-      - name: view_facebook_campaign_month_reach
+      - name: facebook_ads_creative
+        identifier: 'facebook_ads_creative_*'
+
+      - name: facebook_campaign_month_reach
+        identifier: 'facebook_campaign_month_reach_*'
+        loaded_at_field: TIMESTAMP(end_date)

@@ -1,8 +1,10 @@
 WITH
 
-source_data as (
+source_data AS (
 
-    SELECT * FROM {{ source('linkedin_organic', 'view_linkedin_organic_share_lifetime') }}
+    SELECT * FROM {{ source('improvado', 'linkedin_organic_share_lifetime') }}
+
+    WHERE account_id IN UNNEST({{ var('linkedin_organic_ids') }})
 
 ),
 
@@ -14,8 +16,6 @@ final AS (
         *
     
     FROM source_data
-
-    WHERE account_id = 'urn:li:organization:15248569'
 
 )
 

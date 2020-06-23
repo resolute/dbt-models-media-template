@@ -10,11 +10,11 @@ sources:
     freshness:
       warn_after: {count: 2, period: day}
       error_after: {count: 7, period: day}
-      filter: account_id IN UNNEST({{ var('instagram_organic_ids') }})
+      filter: account_id IN UNNEST({{ var('google_ads_ids') }})
 
     tables:
-      - name: instagram_organic_post
-        identifier: 'instagram_organic_post_*'
+      - name: google_adwords_ads
+        identifier: 'google_adwords_ads_*'
 
-      - name: instagram_organic_page_info
-        identifier: 'instagram_organic_page_info_*'
+      - name: google_adwords_search_query_extended
+        identifier: 'google_adwords_search_query_extended_*'

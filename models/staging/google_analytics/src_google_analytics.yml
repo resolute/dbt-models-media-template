@@ -1,39 +1,17 @@
 version: 2
 
 sources:
-  - name: google_analytics
+  - name: improvado
+    database: green-post-223109
+    schema: agency_4333
     loader: improvado
-
-    freshness:
-      warn_after: {count: 2, period: day}
-      error_after: {count: 7, period: day}
-
     loaded_at_field: TIMESTAMP(date)
 
-    tables:
-      - name: view_ga_session_performance
-
-  - name: google_analytics_stitch_yale_news
-    loader: stitch data
-
     freshness:
       warn_after: {count: 2, period: day}
       error_after: {count: 7, period: day}
-
-    loaded_at_field: start_date
-
-    tables:
-      - name: ga_article_performance_stitch
-      - name: ga_article_dimensions_stitch
-
-  - name: google_analytics_stitch_yale_alumni
-    loader: stitch data
-
-    freshness:
-      warn_after: {count: 2, period: day}
-      error_after: {count: 7, period: day}
-
-    loaded_at_field: start_date
+      filter: account_id IN UNNEST({{ var('google_analytics_ids') }})
 
     tables:
-      - name: ga_alumni_events_page_performance_stitch
+      - name: ga_session_performance
+        identifier: 'ga_session_performance_*'

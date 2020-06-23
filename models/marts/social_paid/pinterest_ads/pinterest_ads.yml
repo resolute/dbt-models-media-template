@@ -1,8 +1,8 @@
 version: 2
 
 models:
-  - name: social_paid_ads_rollup
-    description: A table containing the daily totals for each social platform's ads
+  - name: pinterest_ads__pins_daily
+    description: A table containing the daily totals for each Pinterest ads ad
     columns:
       - name: id
         description: This is a surrogate key

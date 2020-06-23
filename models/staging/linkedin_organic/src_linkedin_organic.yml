@@ -1,15 +1,20 @@
 version: 2
 
 sources:
-  - name: linkedin_organic
+  - name: improvado
+    database: green-post-223109
+    schema: agency_4333
     loader: improvado
-    
+    loaded_at_field: TIMESTAMP(date)
+
     freshness:
       warn_after: {count: 2, period: day}
       error_after: {count: 7, period: day}
+      filter: account_id IN UNNEST({{ var('linkedin_organic_ids') }})
 
-    loaded_at_field: TIMESTAMP(date)
-    
     tables:
-      - name: view_linkedin_organic_share_lifetime
-      - name: view_linkedin_organic_followers_lifetime
+      - name: linkedin_organic_share_lifetime
+        identifier: 'linkedin_organic_share_lifetime_*'
+
+      - name: linkedin_organic_followers_lifetime
+        identifier: 'linkedin_organic_followers_lifetime_*'

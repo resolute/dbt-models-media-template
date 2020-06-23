@@ -2,7 +2,9 @@ WITH
 
 source_data AS (
 
-    SELECT * FROM {{ source('google_analytics', 'view_ga_session_performance') }}
+    SELECT * FROM {{ source('improvado', 'ga_session_performance') }}
+
+    WHERE account_id IN UNNEST({{ var('google_analytics_ids') }})
 
 ),
 
@@ -73,8 +75,6 @@ final AS (
         SUM(goal_20_value) AS goal_20_value
     
     FROM source_data
-
-    WHERE account_id = '109800238'
 
     GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
 
