@@ -54,6 +54,8 @@ final AS (
 
         {{ dbt_utils.surrogate_key(['date', 'account_id', 'creative_id']) }} AS id,
         *
+
+        EXCEPT(id)
     
     FROM union_tables
 
