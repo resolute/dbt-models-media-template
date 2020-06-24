@@ -53,9 +53,9 @@ rename_columns_and_set_defaults AS (
         campaign_name,
         campaign_start_date,
         campaign_end_date,
-        site_id_dcm,
-        site_dcm,
-        site_sirectory,
+        site_id_dcm AS site_id,
+        site_dcm AS site,
+        site_sirectory AS site_directory,
         placement_id,
         placement,
         placement_compatibility,
@@ -78,7 +78,7 @@ rename_columns_and_set_defaults AS (
         click_through_url,
         connection_type,
         content_category,
-        video_length
+        video_length,
         
         impressions,
         viewable_impressions,

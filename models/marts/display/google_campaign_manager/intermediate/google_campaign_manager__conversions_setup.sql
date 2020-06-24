@@ -6,6 +6,20 @@ data AS (
 
 ),
 
+general_definitions AS (
+
+    SELECT
+    
+        *,
+        'Campaign Manager' AS data_source,
+        'Campaign Manager' AS channel_source_name,
+        'Paid' AS channel_source_type,
+        'Display' AS channel_name
+  
+    FROM data
+    
+),
+
 final AS (
 
     SELECT
@@ -14,7 +28,7 @@ final AS (
         LOWER(REPLACE(activity_group, ' ', '_')) AS activity_group_formatted,
         LOWER(REPLACE(activity, ' ', '_')) AS activity_formatted
 
-    FROM data
+    FROM general_definitions
 
 )
 
