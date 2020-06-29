@@ -1,3 +1,9 @@
+{{-
+    config(
+        enabled = var('facebook_organic_ids') != None
+    )
+-}}
+
 WITH
 
 source_data AS (

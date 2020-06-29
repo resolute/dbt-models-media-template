@@ -1,3 +1,9 @@
+{{-
+    config(
+        enabled = var('instagram_organic_ids') != None
+    )
+-}}
+
 WITH
 
 source_data AS (

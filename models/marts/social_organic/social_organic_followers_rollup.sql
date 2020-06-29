@@ -1,85 +1,45 @@
-{%- set dict = {
-    'platform': 'facebook', 'has_data': var('facebook_organic_ids') != None, 'model_ref': 'facebook_organic__followers_daily',
-    'platform': 'instagram', 'has_data': var('instagram_organic_ids') != None, 'model_ref': 'instagram_organic__followers_daily',
-    'platform': 'twitter', 'has_data': var('twitter_organic_ids') != None, 'model_ref': 'twitter_organic__followers_daily',
-    'platform': 'linkedin', 'has_data': var('linkedin_organic_ids') != None, 'model_ref': 'linkedin_organic__followers_daily'
-    } 
-
+{# Create dictionary variable of upstream models that could be used in the rollup #}
+{%- 
+set upstream_models = {
+    'facebook': {
+        'has_data': var('facebook_organic_ids') != None,
+        'model_ref': 'facebook_organic__followers_daily'
+    },
+    'instagram': {
+        'has_data': var('instagram_organic_ids') != None,
+        'model_ref': 'instagram_organic__followers_daily'
+    },
+    'twitter': {
+        'has_data': var('twitter_organic_ids') != None,
+        'model_ref': 'twitter_organic__followers_daily'
+    },
+    'linkedin': {
+        'has_data': var('linkedin_organic_ids') != None,
+        'model_ref': 'linkedin_organic__followers_daily'
+    }
+}
 -%}
 
-{%- set list = [
-    (var('facebook_organic_ids') != None, 'facebook_organic__followers_daily'),
-    (var('instagram_organic_ids') != None, 'instagram_organic__followers_daily'),
-    (var('twitter_organic_ids') != None, 'twitter_organic__followers_daily'),
-    (var('linkedin_organic_ids') != None, 'linkedin_organic__followers_daily')
-    ]
-
--%}
-
-{%- for item in dict -%}
-
-    
-    {{dict["platform"]}}
-
-{%- endfor -%}
-
+{# Enable this model only if any of the upstream models have data #}
 {{-
     config(
-        enabled = false == true
+        enabled = (upstream_models["facebook"].has_data or upstream_models["instagram"].has_data or upstream_models["twitter"].has_data or upstream_models["linkedin"].has_data) == true
     )
 -}}
 
+
 WITH
 
---Facebook Organic
-fb_organic AS (
-    
-    SELECT * FROM {{ ref('facebook_organic__followers_daily') }}
-
-),
-    
---Instagram Organic
-ig_organic AS (
-
-    SELECT * FROM {{ ref('instagram_organic__followers_daily') }}
-
-),
-
-{% if twitter_ids %}
---Twitter Organic
-tw_organic AS (
-
-    SELECT * FROM {{ ref('twitter_organic__followers_daily') }}
-
-),
-{% endif %}
-
---LinkedIn Organic
-li_organic AS (
-
-    SELECT * FROM {{ ref('linkedin_organic__followers_daily') }}
-
-),
-
---Union all social networks
-  
 union_tables AS (
-  
-    SELECT * FROM fb_organic
+    
+    {# Loop through each upstream model that has data from the dictionary variable and generate a union statement #}
+    {%- for item in upstream_models if upstream_models[item].has_data  -%}
 
-    UNION ALL
-    
-    SELECT * FROM ig_organic
-    
-    UNION ALL
-    
-    {% if twitter_ids %}
-    SELECT * FROM tw_organic
-    
-    UNION ALL
-    {% endif %}
-    
-    SELECT * FROM li_organic
+        SELECT * FROM {{ ref(upstream_models[item].model_ref) }}
+
+        {% if not loop.last %} UNION ALL {% endif %}
+
+    {%- endfor -%}
     
 ),
 

@@ -1,3 +1,9 @@
+{{-
+    config(
+        enabled = var('linkedin_organic_ids') != None
+    )
+-}}
+
 WITH
 
 data AS (
