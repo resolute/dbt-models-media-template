@@ -1,3 +1,9 @@
+{{-
+    config(
+        enabled = var('youtube_organic_ids') != None
+    )
+-}}
+
 WITH
 
 source_data AS (

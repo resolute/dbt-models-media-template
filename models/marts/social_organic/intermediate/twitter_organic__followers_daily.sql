@@ -1,3 +1,9 @@
+{{-
+    config(
+        enabled = var('twitter_organic_ids') != None
+    )
+-}}
+
 WITH
 
 data AS (

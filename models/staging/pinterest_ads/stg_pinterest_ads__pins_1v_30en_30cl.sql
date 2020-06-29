@@ -4,7 +4,17 @@ source_data AS (
 
     SELECT * FROM {{ source('improvado', 'pinterest_ads_pins_1v_30en_30cl') }}
 
-    WHERE account_id IN UNNEST({{ var('pinterest_ids') }})
+    WHERE account_id IN UNNEST({{ var('pinterest_ads_ids') }})
+
+),
+
+recast AS (
+
+    SELECT *
+
+        REPLACE((spend / 1000) AS spend)
+
+    FROM source_data
 
 ),
 
@@ -15,8 +25,8 @@ final AS (
         {{ dbt_utils.surrogate_key(['date', 'account_id', 'pin_promotion_id']) }} AS id,
         *
     
-    FROM source_data
+    FROM recast
 
 )
 
-SELECT * FROM final
+SELECT * FROM final WHERE spend > 0
