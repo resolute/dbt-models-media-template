@@ -1,8 +1,8 @@
 {%- set dict = {
-    'facebook': {'has_data': var('facebook_organic_ids') != None, 'model_ref': 'facebook_organic__followers_daily'},
-    'instagram': {'has_data': var('instagram_organic_ids') != None, 'model_ref': 'instagram_organic__followers_daily'},
-    'twitter': {'has_data': var('twitter_organic_ids') != None, 'model_ref': 'twitter_organic__followers_daily'},
-    'linkedin': {'has_data': var('linkedin_organic_ids') != None, 'model_ref': 'linkedin_organic__followers_daily'}
+    'platform': 'facebook', 'has_data': var('facebook_organic_ids') != None, 'model_ref': 'facebook_organic__followers_daily',
+    'platform': 'instagram', 'has_data': var('instagram_organic_ids') != None, 'model_ref': 'instagram_organic__followers_daily',
+    'platform': 'twitter', 'has_data': var('twitter_organic_ids') != None, 'model_ref': 'twitter_organic__followers_daily',
+    'platform': 'linkedin', 'has_data': var('linkedin_organic_ids') != None, 'model_ref': 'linkedin_organic__followers_daily'
     } 
 
 -%}
@@ -16,19 +16,16 @@
 
 -%}
 
-{%- set data2 = [(var('instagram_organic_ids') != None, 'instagram_organic__followers_daily')] -%}
-{%- set twitter_data = var('twitter_organic_ids') != None -%}
-{%- set linkedin_data = var('linkedin_organic_ids') != None -%}
-
-{%- for item in list -%}
+{%- for item in dict -%}
 
     
+    {{dict["platform"]}}
 
 {%- endfor -%}
 
 {{-
     config(
-        enabled = (dict.facebook.has_data or dict.instagram.has_data or dict.twitter.has_data or dict.linkedin.has_data) == true
+        enabled = false == true
     )
 -}}
 
