@@ -32,7 +32,7 @@ vars:
   google_campaign_manager_ids: ['4816067', '5165559', '4796962', '9412988']
   facebook_ads_ids: ['act_10153307131161289', 'act_10153216470876289', 'act_10153651985701289', 'act_10153313311861289', 'act_1151624751539530']
   facebook_ads_custom_conversions: ['Walk Registration Completion', 'Registration Page', 'Pledge Form Fill']
-  linkedin_ads_ids: 
+  linkedin_ads_ids: ['502534715']
   twitter_ads_ids: 
   pinterest_ads_ids: ['549760653624', '549759455869', '549760732021']
   facebook_organic_ids: 

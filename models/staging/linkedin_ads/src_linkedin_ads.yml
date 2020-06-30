@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: improvado
+    database: green-post-223109
+    schema: agency_4333
+    loader: improvado
+    loaded_at_field: TIMESTAMP(date)
+
+    freshness:
+      warn_after: {count: 2, period: day}
+      error_after: {count: 7, period: day}
+      filter: account_id IN UNNEST({{ var('linkedin_ads_ids') }})
+
+    tables:
+      - name: linkedin_ads_creatives
+        identifier: 'linkedin_ads_creatives_*'

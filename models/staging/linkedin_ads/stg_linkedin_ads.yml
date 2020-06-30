@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg_linkedin_ads__creatives
+    description: A table containing daily creative performance data from LinkedIn Ads
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
