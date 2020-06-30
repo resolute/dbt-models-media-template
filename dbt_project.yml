@@ -65,7 +65,7 @@ models:
 # Configuring sources
 sources:
   wgs:
-    agency_4333:
+    improvado:
       # Website data source
       ga_session_performance:
         +enabled: false
