@@ -4,15 +4,28 @@ WITH
 
 data AS (
   
-    SELECT * FROM {{ ref('google_campaign_manager__conversions_setup') }}
+    SELECT * FROM {{ ref('stg_google_campaign_manager__ads_creatives_placements') }}
 
 ),
 
-final AS (
+general_definitions AS (
+
+    SELECT
+    
+        *,
+        'Campaign Manager' AS data_source,
+        'Campaign Manager' AS channel_source_name,
+        'Paid' AS channel_source_type,
+        'Display' AS channel_name
+  
+    FROM data
+    
+),
+
+pivot_conversions AS (
 
     SELECT
 
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'advertiser_id', 'campaign_id', 'site_id', 'placement_id', 'ad_id', 'creative_id']) }} AS id,
         data_source,
         account_id,
         account_name,
@@ -39,8 +52,8 @@ final AS (
         {%- for conversion_field in conversion_fields -%}
 
             {{- dbt_utils.pivot(
-                'activity_group_formatted',
-                dbt_utils.get_column_values(ref('google_campaign_manager__conversions_setup'), 'activity_group_formatted'),
+                'activity_group',
+                dbt_utils.get_column_values(ref('stg_google_campaign_manager__ads_creatives_placements'), 'activity_group')|map('replace',' ','_')|list,
                 True,
                 'sum',
                 '=',
@@ -56,8 +69,8 @@ final AS (
         {%- for conversion_field in conversion_fields -%}
 
             {{- dbt_utils.pivot(
-                'activity_formatted',
-                dbt_utils.get_column_values(ref('google_campaign_manager__conversions_setup'), 'activity_formatted'),
+                'activity',
+                dbt_utils.get_column_values(ref('stg_google_campaign_manager__ads_creatives_placements'), 'activity')|map('replace',' ','_')|list,
                 True,
                 'sum',
                 '=',
@@ -70,9 +83,20 @@ final AS (
 
         {%- endfor -%}
 
-    FROM data
+    FROM general_definitions
 
-    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22
+
+),
+
+final AS (
+
+    SELECT
+
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'advertiser_id', 'campaign_id', 'site_id', 'placement_id', 'ad_id', 'creative_id']) }} AS id,
+        *
+
+    FROM pivot_conversions
 
 )
 

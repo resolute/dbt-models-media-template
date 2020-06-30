@@ -1,3 +1,9 @@
+{# Format Facebook Ads custom conversions list to mimic the Improvado custom conversion columns #}
+{%- set conversions_formatted = var('facebook_ads_custom_conversions')|map('lower')|map('replace',' ','_')|list -%}
+
+{# Get a list of the columns from the upstream model #}
+{%- set cols = adapter.get_columns_in_relation(ref('stg_facebook_ads__creative')) -%}
+
 WITH
 
 data AS (
@@ -112,6 +118,18 @@ rename_columns_and_set_defaults AS (
         subscribe_total,
         subscribe_total_value,
         view_content
+
+        {#- Loop through each custom conversion from the dbt variable. Then loop through each upstream model column to check if the custom conversion is contained in any of the columns. If there is a match then return the upstream column  -#}
+        {%- for conv in conversions_formatted -%}
+
+            {%- for col in cols if conv in col.column -%}
+        
+                ,
+        {{ col.column }}
+
+            {%- endfor -%}
+
+        {% endfor %}
         
      FROM general_definitions
 

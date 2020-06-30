@@ -1,3 +1,9 @@
+{{-
+    config(
+        enabled = var('twitter_organic_ids') != None
+    )
+-}}
+
 WITH
 
 data AS (
@@ -43,7 +49,7 @@ rename_columns_and_set_defaults AS (
         0 AS impressions_unique,
         impressions AS impressions,
         engagements AS engagements,
-        clicks AS link_clicks,
+        app_clicks AS link_clicks,
         video_mrc_views AS video_views,
         video_3s100pct_views AS video_completions,
         0 AS video_view_time
