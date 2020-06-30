@@ -61,3 +61,49 @@ models:
     utils:
       +materialized: view
       +schema: utils
+
+# Configuring sources
+sources:
+  wgs:
+    agency_4333:
+      # Website data source
+      ga_session_performance:
+        +enabled: false
+      
+      # Paid media data sources
+      facebook_ads_creative:
+        +enabled: true
+      facebook_campaign_month_reach:
+        +enabled: true
+      dcm_ads_placement_sites:
+        +enabled: true
+      dcm_ads_creatives_placements:
+        +enabled: true
+      dcm_geo_extended:
+        +enabled: true
+      pinterest_ads_pins_1v_30en_30cl:
+        +enabled: true
+      pinterest_ads_audience_groups:
+        +enabled: true
+
+      # Organic media data sources
+      facebook_pages_post:
+        +enabled: false
+      facebook_pages_page:
+        +enabled: false
+      instagram_organic_post:
+        +enabled: false
+      instagram_organic_page_info:
+        +enabled: false
+      linkedin_organic_share_lifetime:
+        +enabled: false
+      linkedin_organic_followers_lifetime:
+        +enabled: false
+      twitter_organic_tweets:
+        +enabled: var('twitter_organic_ids') != None
+      twitter_page:
+        +enabled: false
+      youtube_organic_top_videos:
+        +enabled: false
+      youtube_organic_traffic_source_daily:
+        +enabled: false
