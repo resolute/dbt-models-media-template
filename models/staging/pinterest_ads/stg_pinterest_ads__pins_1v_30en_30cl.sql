@@ -29,4 +29,4 @@ final AS (
 
 )
 
-SELECT * FROM final WHERE spend > 0
+SELECT * FROM final
