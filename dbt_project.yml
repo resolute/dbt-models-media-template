@@ -71,6 +71,10 @@ sources:
         +enabled: false
       
       # Paid media data sources
+      google_adwords_ads:
+        +enabled: true
+      google_adwords_search_query_extended:
+        +enabled: true
       facebook_ads_creative:
         +enabled: true
       facebook_campaign_month_reach:
