@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: stg_google_ads__ads
+    description: A table containing daily ad performance data from Google Ads
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_google_ads__search_query_extended
+    description: A table containing daily search query and keyword performance data from Google Ads
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
