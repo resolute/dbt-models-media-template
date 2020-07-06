@@ -1,3 +1,12 @@
+{# Identify the standard LinkedIn Ads conversion metrics to include in this model #}
+{%- set standard_conversions = [
+    'external_website_conversions',
+    'post_click_conv',
+    'post_view_conv',
+    'one_click_lead_form_opens',
+    'one_click_leads',
+    ]-%}
+
 WITH
 
 data AS (
@@ -47,11 +56,11 @@ rename_columns_and_set_defaults AS (
         channel_source_type,
         channel_name,
         date,
+        campaign_group_id,
+        campaign_group_name,
         campaign_id,
         campaign_name,
         campaign_type,
-        campaign_group_id,
-        campaign_group_name,
         creative_id,
         ad_creative_name,
         ad_creative_text,
@@ -84,17 +93,20 @@ rename_columns_and_set_defaults AS (
         video_midpoint_completions,
         video_third_quartile_completions,
         video_completions,
-        external_website_conversions,
-        post_click_conv,
-        post_view_conv,
-        one_click_lead_form_opens,
-        one_click_leads,
         viral_impres,
         viral_click,
         viral_like,
         viral_comment,
         viral_share,
         viral_follow
+
+        {#- Loop through each standard conversion and rename column to include attribution model used -#}
+        {%- for conv in standard_conversions -%}
+        
+        ,
+        {{ conv }} AS conv_li_28c_1v_{{ conv }}
+
+        {%- endfor %}
         
      FROM general_definitions
 

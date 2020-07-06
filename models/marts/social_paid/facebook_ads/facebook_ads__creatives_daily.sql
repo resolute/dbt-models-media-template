@@ -1,5 +1,27 @@
+{# Identify the standard Facebook Ads conversion metrics to include in this model #}
+{%- set standard_conversions = [
+    'add_payment_info',
+    'add_to_cart',
+    'add_to_wishlist',
+    'complete_registration',
+    'donate_total',
+    'donate_total_value',
+    'initiate_checkout',
+    'landing_page_view',
+    'lead',
+    'purchase',
+    'purchase_value',
+    'search',
+    'search_total',
+    'start_trial_total_value',
+    'submit_application_total',
+    'subscribe_total',
+    'subscribe_total_value',
+    'view_content'
+    ]-%}
+
 {# Format Facebook Ads custom conversions list to mimic the Improvado custom conversion columns #}
-{%- set conversions_formatted = var('facebook_ads_custom_conversions')|map('lower')|map('replace',' ','_')|list -%}
+{%- set custom_conversions_formatted = var('facebook_ads_custom_conversions')|map('lower')|map('replace',' ','_')|list -%}
 
 {# Get a list of the columns from the upstream model #}
 {%- set cols = adapter.get_columns_in_relation(ref('stg_facebook_ads__creative')) -%}
@@ -96,36 +118,23 @@ rename_columns_and_set_defaults AS (
         video_p95_watched_actions,
         video_p100_watched_actions,
         video_avg_time_watched_actions,
-        video_play_actions_view_value,
-        add_payment_info,
-        add_to_cart,
-        add_to_wishlist,
-        complete_registration,
-        donate_total,
-        donate_total_value,
-        initiate_checkout,
-        landing_page_view,
-        lead,
-        purchase,
-        purchase_total,
-        purchase_value,
-        revenue,
-        search,
-        search_total,
-        start_trial_total,
-        start_trial_total_value,
-        submit_application_total,
-        subscribe_total,
-        subscribe_total_value,
-        view_content
+        video_play_actions_view_value
 
-        {#- Loop through each custom conversion from the dbt variable. Then loop through each upstream model column to check if the custom conversion is contained in any of the columns. If there is a match then return the upstream column  -#}
-        {%- for conv in conversions_formatted -%}
+        {#- Loop through each standard conversion and rename column to include attribution model used -#}
+        {%- for conv in standard_conversions -%}
+        
+        ,
+        {{ conv }} AS conv_fb_28c_1v_{{ conv }}
+
+        {%- endfor -%}
+
+        {#- Loop through each custom conversion from the dbt variable. Then loop through each upstream model column to check if the custom conversion is contained in any of the columns. If there is a match then return the upstream column and rename column to include attribution model used -#}
+        {%- for conv in custom_conversions_formatted -%}
 
             {%- for col in cols if conv in col.column -%}
         
-                ,
-        {{ col.column }}
+        ,
+        {{ col.column }} AS conv_fb_28c_1v_custom_{{ col.column|replace("dynamic_", "") }}
 
             {%- endfor -%}
 
