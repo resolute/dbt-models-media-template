@@ -51,8 +51,29 @@ models:
     
     marts:
       +materialized: table
+
+      display:
+        google_campaign_manager:
+          intermediate:
+            +materialized: view
+            +schema: staging
+
+      social_organic:
+        intermediate:
+          +materialized: view
+          +schema: staging
+
+      social_paid:
+        intermediate:
+          +materialized: view
+          +schema: staging
+          
       summary:
-        enabled: false
+        +enabled: false
+        intermediate:
+          +materialized: view
+          +schema: staging
+
     
     staging:
       +materialized: view
