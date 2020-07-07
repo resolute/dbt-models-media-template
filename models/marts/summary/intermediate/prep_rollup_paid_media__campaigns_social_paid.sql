@@ -1,11 +1,11 @@
 {# Get a list of the columns from the upstream model #}
-{%- set cols = adapter.get_columns_in_relation(ref('social_paid__campaigns_rollup')) -%}
+{%- set cols = adapter.get_columns_in_relation(ref('rollup_social_paid__campaigns')) -%}
 
 WITH
 
 data AS (
   
-    SELECT * FROM {{ ref('social_paid__campaigns_rollup') }}
+    SELECT * FROM {{ ref('rollup_social_paid__campaigns') }}
 
 ),
 

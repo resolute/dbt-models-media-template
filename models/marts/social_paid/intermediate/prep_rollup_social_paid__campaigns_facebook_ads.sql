@@ -1,11 +1,11 @@
 {# Get a list of the columns from the upstream model #}
-{%- set cols = adapter.get_columns_in_relation(ref('facebook_ads__creatives_daily')) -%}
+{%- set cols = adapter.get_columns_in_relation(ref('facebook_ads__performance_daily')) -%}
 
 WITH
 
 data AS (
   
-    SELECT * FROM {{ ref('facebook_ads__creatives_daily') }}
+    SELECT * FROM {{ ref('facebook_ads__performance_daily') }}
 
 ),
 
