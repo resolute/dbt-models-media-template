@@ -1,8 +1,8 @@
 version: 2
 
 models:
-  - name: executive_summary
-    description: A table containing the daily aggregated totals for each digital platform
+  - name: rollup_paid_media__campaigns
+    description: A table containing the daily aggregated totals for each paid media platform
     columns:
       - name: id
         description: This is a surrogate key

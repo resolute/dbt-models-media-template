@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: facebook_ads__creatives_daily
+  - name: facebook_ads__performance_daily
     description: A table containing the daily totals for each Facebook ad creative
     columns:
       - name: id
