@@ -52,6 +52,9 @@ models:
       +materialized: table
 
       display:
+        intermediate:
+          +materialized: view
+          +schema: staging
         google_campaign_manager:
           intermediate:
             +materialized: view

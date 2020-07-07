@@ -121,7 +121,7 @@ rename_columns_and_set_defaults AS (
         {%- for conv in standard_conversions -%}
         
         ,
-        {{ conv }} AS conv_fb_28c_1v_{{ conv }}
+        {{ conv }} AS conv_fb_{{ conv }}_28c_1v
 
         {%- endfor -%}
 
@@ -129,7 +129,7 @@ rename_columns_and_set_defaults AS (
         {%- for conv in custom_conversions -%}
 
         ,
-        {{ conv }} AS conv_fb_28c_1v_custom_{{ conv|replace("dynamic_", "") }}
+        {{ conv }} AS conv_fb_custom_{{ conv|replace("dynamic_", "") }}_28c_1v
 
         {%- endfor %}
         

@@ -1,11 +1,11 @@
 {# Get a list of the columns from the upstream model #}
-{%- set cols = adapter.get_columns_in_relation(ref('linkedin_ads__performance_daily')) -%}
+{%- set cols = adapter.get_columns_in_relation(ref('rollup_display__campaigns')) -%}
 
 WITH
 
 data AS (
   
-    SELECT * FROM {{ ref('linkedin_ads__performance_daily') }}
+    SELECT * FROM {{ ref('rollup_display__campaigns') }}
 
 ),
 
@@ -25,16 +25,7 @@ aggregate AS (
         
         SUM(impressions) AS impressions,
         SUM(link_clicks) AS link_clicks,
-        SUM(cost) AS cost,
-        SUM(total_engagements) AS post_engagements,
-        SUM(likes) AS post_reactions,
-        SUM(comment) AS post_comments,
-        SUM(share) AS post_shares,
-        SUM(video_views) AS video_views,
-        SUM(video_first_quartile_completions) AS video_p25_watched,
-        SUM(video_midpoint_completions) AS video_p50_watched,
-        SUM(video_third_quartile_completions) AS video_p75_watched,
-        SUM(video_completions) AS video_completions
+        SUM(cost) AS cost
 
         {%- for col in cols if "conv_" in col.column -%}
 

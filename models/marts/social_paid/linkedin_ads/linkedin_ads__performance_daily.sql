@@ -104,7 +104,7 @@ rename_columns_and_set_defaults AS (
         {%- for conv in standard_conversions -%}
         
         ,
-        {{ conv }} AS conv_li_28c_1v_{{ conv }}
+        {{ conv }} AS conv_li_{{ conv }}
 
         {%- endfor %}
         

@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: google_campaign_manager__performance_daily
+    description: A table containing the daily totals for each Google Campaign Mangaer ad
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
