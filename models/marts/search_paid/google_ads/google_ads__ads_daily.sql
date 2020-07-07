@@ -1,3 +1,13 @@
+{# Identify the standard LinkedIn Ads conversion metrics to include in this model #}
+{%- set standard_conversions = [
+    'conv',
+    'conversions',
+    'view_through_conv',
+    'conversion_value',
+    'purchase',
+    'revenue'
+    ]-%}
+
 WITH
 
 data AS (
@@ -110,14 +120,15 @@ rename_columns_and_set_defaults AS (
         video_quartile_25,
         video_quartile_50,
         video_quartile_75,
-        video_quartile_100,
-        conv,
-        conversions,
-        view_through_conv,
-        conversion_value,
-        conversion_rate,
-        purchase,
-        revenue
+        video_quartile_100
+        
+        {#- Loop through each standard conversion and rename column -#}
+        {%- for conv in standard_conversions -%}
+        
+        ,
+        {{ conv }} AS conv_gads_{{ conv }}
+
+        {%- endfor %}
         
      FROM general_definitions
 

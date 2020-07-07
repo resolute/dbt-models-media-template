@@ -1,3 +1,9 @@
+{{-
+    config(
+        enabled = false
+    )
+-}}
+
 WITH
 
 --Social Organic Data

@@ -4,7 +4,7 @@
     'post_click_conv',
     'post_view_conv',
     'one_click_lead_form_opens',
-    'one_click_leads',
+    'one_click_leads'
     ]-%}
 
 WITH

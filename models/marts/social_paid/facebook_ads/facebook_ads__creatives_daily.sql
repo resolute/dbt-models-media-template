@@ -1,4 +1,4 @@
-{# Identify the standard Facebook Ads conversion metrics to include in this model #}
+{# Get a list of the standard Facebook Ads conversion metrics to include in this model #}
 {%- set standard_conversions = [
     'add_payment_info',
     'add_to_cart',
@@ -20,11 +20,8 @@
     'view_content'
     ]-%}
 
-{# Format Facebook Ads custom conversions list to mimic the Improvado custom conversion columns #}
-{%- set custom_conversions_formatted = var('facebook_ads_custom_conversions')|map('lower')|map('replace',' ','_')|list -%}
-
-{# Get a list of the columns from the upstream model #}
-{%- set cols = adapter.get_columns_in_relation(ref('stg_facebook_ads__creative')) -%}
+{# Get a list of the Facebook Ads custom conversions that are active for the Facebook Ads accounts #}
+{%- set custom_conversions = dbt_utils.get_query_results_as_dict("select * from" ~ ref('facebook_ads__account_conversions')).field_name -%}
 
 WITH
 
@@ -128,17 +125,13 @@ rename_columns_and_set_defaults AS (
 
         {%- endfor -%}
 
-        {#- Loop through each custom conversion from the dbt variable. Then loop through each upstream model column to check if the custom conversion is contained in any of the columns. If there is a match then return the upstream column and rename column to include attribution model used -#}
-        {%- for conv in custom_conversions_formatted -%}
+        {#- Loop through each custom conversion and rename column to include attribution model used -#}
+        {%- for conv in custom_conversions -%}
 
-            {%- for col in cols if conv in col.column -%}
-        
         ,
-        {{ col.column }} AS conv_fb_28c_1v_custom_{{ col.column|replace("dynamic_", "") }}
+        {{ conv }} AS conv_fb_28c_1v_custom_{{ conv|replace("dynamic_", "") }}
 
-            {%- endfor -%}
-
-        {% endfor %}
+        {%- endfor %}
         
      FROM general_definitions
 
