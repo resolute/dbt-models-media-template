@@ -4,7 +4,7 @@ WITH
 
 data AS (
   
-    SELECT * FROM {{ ref('stg_google_campaign_manager__ads_creatives_placements') }}
+    SELECT * FROM {{ ref('prep_google_campaign_manager__conversions_daily') }}
 
 ),
 
@@ -52,15 +52,15 @@ pivot_conversions AS (
         {%- for conversion_field in conversion_fields -%}
 
             {{- dbt_utils.pivot(
-                'activity_group',
-                dbt_utils.get_column_values(ref('stg_google_campaign_manager__ads_creatives_placements'), 'activity_group')|map('replace',' ','_')|list,
+                'activity_group_formatted',
+                dbt_utils.get_column_values(ref('prep_google_campaign_manager__conversions_daily'), 'activity_group_formatted'),
                 True,
                 'sum',
                 '=',
                 'conv_gcm_' ~ conversion_field ~ '_activity_group_',
                 '',
                 conversion_field,
-                'NULL',
+                0,
                 True
             ) -}}{%- if not loop.last -%},{%- endif -%}
 
@@ -69,15 +69,15 @@ pivot_conversions AS (
         {%- for conversion_field in conversion_fields -%}
 
             {{- dbt_utils.pivot(
-                'activity',
-                dbt_utils.get_column_values(ref('stg_google_campaign_manager__ads_creatives_placements'), 'activity')|map('replace',' ','_')|list,
+                'activity_formatted',
+                dbt_utils.get_column_values(ref('prep_google_campaign_manager__conversions_daily'), 'activity_formatted'),
                 True,
                 'sum',
                 '=',
                 'conv_gcm_' ~ conversion_field ~ '_activity_',
                 '',
                 conversion_field,
-                'NULL',
+                0,
                 True
             ) -}}{%- if not loop.last -%},{%- endif -%}
 

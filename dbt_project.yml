@@ -59,6 +59,14 @@ models:
           intermediate:
             +materialized: view
             +schema: staging
+      search_paid:
+        intermediate:
+          +materialized: view
+          +schema: staging
+        google_ads:
+          intermediate:
+            +materialized: view
+            +schema: staging
 
       social_organic:
         intermediate:

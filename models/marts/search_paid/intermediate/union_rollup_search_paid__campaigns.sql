@@ -1,5 +1,5 @@
 {#- Create list variable of upstream models that could be used in the rollup -#}
-{%- set upstream_models = ['prep_rollup_paid_media__campaigns_social_paid', 'prep_rollup_paid_media__campaigns_display', 'prep_rollup_paid_media__campaigns_search_paid'] -%}
+{%- set upstream_models = ['prep_rollup_search_paid__campaigns_google_ads'] -%}
 
 {#- When ref() is placed within a conditional block, dbt needs to infer all dependencies for this model. To fix this, need the following hint at the top of the model -#}
 -- depends_on: {% for model in upstream_models -%} {{ ref(model) }} {%- if not loop.last %},{% endif %} {% endfor %}

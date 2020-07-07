@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: google_ads__performance_daily
+    description: A table containing the daily totals for each Google ads ad
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
