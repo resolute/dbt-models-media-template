@@ -1,8 +1,6 @@
-{{-
-    config(
-        enabled = var('facebook_organic_ids') != None
-    )
--}}
+{%- set source_account_ids = var('facebook_organic_ids') -%}
+
+{{- unused_source_check(source_account_ids) -}}
 
 WITH
 
@@ -10,7 +8,7 @@ source_data AS (
 
     SELECT * FROM {{ source('improvado', 'facebook_pages_page') }}
 
-    WHERE account_id IN UNNEST({{ var('facebook_organic_ids') }})
+    WHERE account_id IN UNNEST({{ source_account_ids }})
 
 ),
 

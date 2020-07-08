@@ -1,10 +1,14 @@
+{%- set source_account_ids = var('pinterest_ads_ids') -%}
+
+{{- unused_source_check(source_account_ids) -}}
+
 WITH
 
 source_data AS (
 
     SELECT * FROM {{ source('improvado', 'pinterest_ads_pins_1v_30en_30cl') }}
 
-    WHERE account_id IN UNNEST({{ var('pinterest_ads_ids') }})
+    WHERE account_id IN UNNEST({{ source_account_ids }})
 
 ),
 

@@ -1,10 +1,14 @@
+{%- set source_account_ids = var('google_campaign_manager_ids') -%}
+
+{{- unused_source_check(source_account_ids) -}}
+
 WITH
 
 source_data AS (
 
     SELECT * FROM {{ source('improvado', 'dcm_geo_extended') }}
 
-    WHERE advertiser_id IN UNNEST({{ var('google_campaign_manager_ids') }})
+    WHERE advertiser_id IN UNNEST({{ source_account_ids }})
 
 ),
 

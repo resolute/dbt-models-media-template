@@ -27,19 +27,19 @@ config-version: 2
 
 vars:
   client_name: 'william_grant'
-  google_analytics_ids: 
+  google_analytics_ids: []
   google_ads_ids: ['9381907822', '3742196383', '7924374334', '8584468339']
   google_campaign_manager_ids: ['4816067', '5165559', '4796962', '9412988']
   facebook_ads_ids: ['act_10153307131161289', 'act_10153216470876289', 'act_10153651985701289', 'act_10153313311861289', 'act_1151624751539530']
   linkedin_ads_ids: ['502534715']
-  twitter_ads_ids: 
+  twitter_ads_ids: []
   pinterest_ads_ids: ['549760653624', '549759455869', '549760732021']
-  facebook_organic_ids: 
-  instagram_organic_ids: 
-  linkedin_organic_ids: 
-  twitter_organic_ids: 
-  pinterest_organic_ids: 
-  youtube_organic_ids: 
+  facebook_organic_ids: []
+  instagram_organic_ids: []
+  linkedin_organic_ids: []
+  twitter_organic_ids: []
+  pinterest_organic_ids: []
+  youtube_organic_ids: []
 
 # Configuring models
 models:

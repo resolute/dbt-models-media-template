@@ -1,8 +1,6 @@
-{{-
-    config(
-        enabled = var('instagram_organic_ids') != None
-    )
--}}
+{%- set source_account_ids = var('instagram_organic_ids') -%}
+
+{{- unused_source_check(source_account_ids) -}}
 
 WITH
 
@@ -10,7 +8,7 @@ source_data AS (
 
     SELECT * FROM {{ source('improvado', 'instagram_organic_page_info') }}
 
-    WHERE account_id IN UNNEST({{ var('instagram_organic_ids') }})
+    WHERE account_id IN UNNEST({{ source_account_ids }})
 
 ),
 

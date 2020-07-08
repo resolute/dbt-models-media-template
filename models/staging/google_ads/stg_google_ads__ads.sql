@@ -1,10 +1,14 @@
+{%- set source_account_ids = var('google_ads_ids') -%}
+
+{{- unused_source_check(source_account_ids) -}}
+
 WITH
 
 source_data AS (
 
     SELECT * FROM {{ source('improvado', 'google_adwords_ads') }}
 
-    WHERE account_id IN UNNEST({{ var('google_ads_ids') }})
+    WHERE account_id IN UNNEST({{ source_account_ids }})
 
 ),
 

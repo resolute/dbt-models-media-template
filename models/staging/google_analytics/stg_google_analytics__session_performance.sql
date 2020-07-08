@@ -1,8 +1,6 @@
-{{-
-    config(
-        enabled = var('google_analytics_ids') != None
-    )
--}}
+{%- set source_account_ids = var('google_analytics_ids') -%}
+
+{{- unused_source_check(source_account_ids) -}}
 
 WITH
 
@@ -10,7 +8,7 @@ source_data AS (
 
     SELECT * FROM {{ source('improvado', 'ga_session_performance') }}
 
-    WHERE account_id IN UNNEST({{ var('google_analytics_ids') }})
+    WHERE account_id IN UNNEST({{ source_account_ids }})
 
 ),
 

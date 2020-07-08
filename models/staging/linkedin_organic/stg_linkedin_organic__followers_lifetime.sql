@@ -1,8 +1,6 @@
-{{-
-    config(
-        enabled = var('linkedin_organic_ids') != None
-    )
--}}
+{%- set source_account_ids = var('linkedin_organic_ids') -%}
+
+{{- unused_source_check(source_account_ids) -}}
 
 WITH
 
@@ -10,7 +8,7 @@ source_data AS (
 
     SELECT * FROM {{ source('improvado', 'linkedin_organic_followers_lifetime') }}
 
-    WHERE account_id IN UNNEST({{ var('linkedin_organic_ids') }})
+    WHERE account_id IN UNNEST({{ source_account_ids }})
 
 ),
 
