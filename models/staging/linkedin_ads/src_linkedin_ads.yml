@@ -15,3 +15,7 @@ sources:
     tables:
       - name: linkedin_ads_creatives
         identifier: 'linkedin_ads_creatives_*'
+      
+      - name: linkedin_ads_conversions
+        identifier: 'linkedin_ads_conversions_*'
+    

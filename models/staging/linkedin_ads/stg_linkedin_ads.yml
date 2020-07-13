@@ -9,3 +9,13 @@ models:
         tests:
           - unique
           - not_null
+
+  - name: stg_linkedin_ads__conversions
+    description: A table containing daily conversion performance data from LinkedIn Ads
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null
+    

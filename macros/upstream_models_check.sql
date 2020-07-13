@@ -1,25 +1,42 @@
-{%- macro upstream_models_check(relations) -%}
+{%- macro upstream_models_check(relations, custom_schema, account_ids) -%}
 
-{#- Create list variable of upstream models that could be used in the rollup -#}
-{%- set upstream_models = relations -%}
+{#- Create list variable of used/non-empty upstream models relations -#}
+{% set used_upstream_models = [] -%}
+{% for relation in relations -%}
+    {% if execute %}
+        {% for source in graph.sources.values() if source.database == relation.database and source.schema == relation.schema and source.identifier == relation.identifier -%}
+            {%- if account_ids != [] and account_ids != None -%}
+                {% set source_account_ids_check_query %}
+                    select distinct account_id
+                    from {{ relation }}
+                    where account_id IN UNNEST({{ account_ids }})
+                {% endset %}
+                {% set results = run_query(source_account_ids_check_query) %}
+                {% set results_list = results.columns[0].values() %}
+                {%- if results_list|length > 0 -%}
+                    {%- do used_upstream_models.append(relation) -%}
+                {%- endif -%}
+            {%- endif -%}
+        {% else %}
+            {%- if "unused_models" not in relation.schema -%}
+                {%- do used_upstream_models.append(relation) -%}
+            {%- endif -%}
+        {%- endfor %}
+    {% endif %}
+{%- endfor %}
 
-{#- When ref() is placed within a conditional block, dbt needs to infer all dependencies for this model. To fix this, need the following hint at the top of the model -#}
--- depends_on: {% for model in upstream_models -%} {{ ref(model) }} {%- if not loop.last %},{% endif %} {% endfor %}
+{%- if used_upstream_models|length > 0 -%}
+    {{-
+        config(
+            schema = custom_schema
+        )
+    -}}
+{% else %}
+    {{-
+        config(
+            schema = custom_schema ~ '_unused_models'
+        )
+    -}}
+{%- endif -%}
 
-{#-  Since this model is using the dbt "graph" variable, then we need to use the execute flag to ensure that this code only executes at run-time and not at parse-time.
-See this for more information: https://docs.getdbt.com/reference/dbt-jinja-functions/graph/#accessing-models -#}
-{% if execute -%}
-
-    {#- Create list variable of enabled upstream models relations -#}
-    {% set enabled_upstream_models = [] -%}
-    {% for node in graph.nodes.values() -%}
-        {%- if node.name in upstream_models and node.config.enabled -%}
-            {%- do enabled_upstream_models.append(ref(node.name)) -%}
-        {%- endif -%}
-    {%- endfor %}
-
-    {{ return(enabled_upstream_models) }}
-
-{%- endif %}
-
-{%- endmacro -%}
+{%- endmacro  -%}

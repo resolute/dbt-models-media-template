@@ -1,7 +1,5 @@
 {%- set source_account_ids = var('facebook_organic_ids') -%}
 
-{{- unused_source_check(source_account_ids) -}}
-
 WITH
 
 source_data AS (

@@ -1,9 +1,3 @@
-{{-
-    config(
-        enabled = var('youtube_organic_ids') != None
-    )
--}}
-
 WITH
 
 yt_organic AS (

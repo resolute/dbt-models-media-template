@@ -31,7 +31,7 @@ vars:
   google_ads_ids: ['9381907822', '3742196383', '7924374334', '8584468339']
   google_campaign_manager_ids: ['4816067', '5165559', '4796962', '9412988']
   facebook_ads_ids: ['act_10153307131161289', 'act_10153216470876289', 'act_10153651985701289', 'act_10153313311861289', 'act_1151624751539530']
-  linkedin_ads_ids: ['502534715']
+  linkedin_ads_ids: ['506578922']
   twitter_ads_ids: []
   pinterest_ads_ids: ['549760653624', '549759455869', '549760732021']
   facebook_organic_ids: []
@@ -59,6 +59,7 @@ models:
           intermediate:
             +materialized: view
             +schema: staging
+            
       search_paid:
         intermediate:
           +materialized: view
@@ -81,6 +82,10 @@ models:
           intermediate:
             +materialized: view
             +schema: staging
+        linkedin_ads:
+          intermediate:
+            +materialized: view
+            +schema: staging
           
       summary:
         intermediate:
@@ -95,53 +100,3 @@ models:
     utils:
       +materialized: view
       +schema: utils
-
-# Configuring sources
-sources:
-  wgs:
-    improvado:
-      # Website data source
-      ga_session_performance:
-        +enabled: false
-      
-      # Paid media data sources
-      google_adwords_ads:
-        +enabled: true
-      google_adwords_search_query_extended:
-        +enabled: true
-      facebook_ads_creative:
-        +enabled: true
-      facebook_campaign_month_reach:
-        +enabled: true
-      dcm_ads_placement_sites:
-        +enabled: true
-      dcm_ads_creatives_placements:
-        +enabled: true
-      dcm_geo_extended:
-        +enabled: true
-      pinterest_ads_pins_1v_30en_30cl:
-        +enabled: true
-      pinterest_ads_audience_groups:
-        +enabled: true
-
-      # Organic media data sources
-      facebook_pages_post:
-        +enabled: false
-      facebook_pages_page:
-        +enabled: false
-      instagram_organic_post:
-        +enabled: false
-      instagram_organic_page_info:
-        +enabled: false
-      linkedin_organic_share_lifetime:
-        +enabled: false
-      linkedin_organic_followers_lifetime:
-        +enabled: false
-      twitter_organic_tweets:
-        +enabled: var('twitter_organic_ids') != None
-      twitter_page:
-        +enabled: false
-      youtube_organic_top_videos:
-        +enabled: false
-      youtube_organic_traffic_source_daily:
-        +enabled: false

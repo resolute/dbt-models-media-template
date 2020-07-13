@@ -106,6 +106,7 @@ rename_columns_and_set_defaults AS (
         post_reactions,
         comments AS post_comments,
         shares AS post_shares,
+        onsite_post_save AS post_saves,
         page_likes,
         video_view_3s,
         video_30_sec_watched_actions,

@@ -1,4 +1,12 @@
-{%- set conversion_fields = ["total_conversions", "view_through_conversions", "click_through_conversions", "total_conversions_revenue", "view_through_revenue", "click_through_revenue"] -%}
+{# Identify the conversion metrics to include in this model #}
+{%- set conversion_fields = [
+    'total_conversions',
+    'view_through_conversions',
+    'click_through_conversions',
+    'total_conversions_revenue',
+    'view_through_revenue',
+    'click_through_revenue'
+    ]-%}
 
 WITH
 

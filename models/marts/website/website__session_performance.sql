@@ -1,9 +1,3 @@
-{{-
-    config(
-        enabled = var('google_analytics_ids') != None
-    )
--}}
-
 WITH
 
 data AS (
