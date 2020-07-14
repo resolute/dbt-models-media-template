@@ -1,0 +1,22 @@
+WITH
+
+data AS (
+  
+    SELECT * FROM {{ ref('stg_google_ads__search_query_conversions') }}
+
+),
+
+-- Format the conversion dimensions to all lowercase and remove any non letter, number, or underscore.
+final AS (
+
+    SELECT
+    
+        *,
+        REGEXP_REPLACE(REPLACE(LOWER(conv_category_name), " ", "_"), r"([^a-zA-Z0-9_])", "") AS conversion_category_formatted,
+        REGEXP_REPLACE(REPLACE(LOWER(conv_type_name), " ", "_"), r"([^a-zA-Z0-9_])", "") AS conversion_name_formatted
+    
+    FROM data
+    
+)
+
+SELECT * FROM final

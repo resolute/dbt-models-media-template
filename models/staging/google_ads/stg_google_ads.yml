@@ -27,3 +27,12 @@ models:
         tests:
           - unique
           - not_null
+  
+  - name: stg_google_ads__search_query_conversions
+    description: A table containing daily keyword conversion performance data from Google Ads
+    columns:
+      - name: id
+        description: This is a surrogate key
+        tests:
+          - unique
+          - not_null

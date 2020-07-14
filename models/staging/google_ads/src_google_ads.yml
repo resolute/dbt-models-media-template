@@ -21,3 +21,6 @@ sources:
       
       - name: google_adwords_ad_conversions
         identifier: 'google_adwords_ad_conversions_*'
+
+      - name: google_adwords_search_query_conversions
+        identifier: 'google_adwords_search_query_conversions_*'

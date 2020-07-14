@@ -9,7 +9,7 @@ WITH
 
 data AS (
   
-    SELECT * FROM {{ ref('prep_google_ads__ad_conversions_daily') }}
+    SELECT * FROM {{ ref('prep_google_ads__search_query_conversions_daily') }}
 
 ),
   
@@ -41,21 +41,19 @@ pivot_conversions AS (
         customer_id,
         campaign_id,
         campaign_name,
-        adset_id,
-        adset_name,
-        ad_id,
-        ad_name,
-        description,
-        ad_network_type_1,
-        headline_1 AS headline1,
-        headline_2 AS headline2,
-        creative_urls AS destination_url,
+        ad_group_id AS adset_id,
+        ad_group_name AS adset_name,
+        keyword_id,
+        keyword AS keyword_name,
+        network AS ad_network_type_1,
+        search_term,
+        match_type AS query_match_type,
 
         {%- for conversion_field in conversion_fields -%}
 
             {{- dbt_utils.pivot(
                 'conversion_category_formatted',
-                dbt_utils.get_column_values(ref('prep_google_ads__ad_conversions_daily'), 'conversion_category_formatted'),
+                dbt_utils.get_column_values(ref('prep_google_ads__search_query_conversions_daily'), 'conversion_category_formatted'),
                 True,
                 'sum',
                 '=',
@@ -72,7 +70,7 @@ pivot_conversions AS (
 
             {{- dbt_utils.pivot(
                 'conversion_name_formatted',
-                dbt_utils.get_column_values(ref('prep_google_ads__ad_conversions_daily'), 'conversion_name_formatted'),
+                dbt_utils.get_column_values(ref('prep_google_ads__search_query_conversions_daily'), 'conversion_name_formatted'),
                 True,
                 'sum',
                 '=',
@@ -87,7 +85,7 @@ pivot_conversions AS (
         
     FROM general_definitions
 
-    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17
 
 ),
 
@@ -95,7 +93,7 @@ final AS (
 
     SELECT
         
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'campaign_id', 'adset_id', 'ad_id', 'ad_network_type_1']) }} AS id,
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'campaign_id', 'adset_id', 'keyword_id', 'search_term', 'ad_network_type_1']) }} AS id,
         *
     
     FROM pivot_conversions
