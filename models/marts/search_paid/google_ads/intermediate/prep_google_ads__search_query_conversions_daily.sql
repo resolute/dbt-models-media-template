@@ -12,8 +12,8 @@ final AS (
     SELECT
     
         *,
-        REGEXP_REPLACE(REPLACE(LOWER(conv_category_name), " ", "_"), r"([^a-zA-Z0-9_])", "") AS conversion_category_formatted,
-        REGEXP_REPLACE(REPLACE(LOWER(conv_type_name), " ", "_"), r"([^a-zA-Z0-9_])", "") AS conversion_name_formatted
+        REGEXP_REPLACE(REPLACE(LOWER(conversion_category), " ", "_"), r"([^a-zA-Z0-9_])", "") AS conversion_category_formatted,
+        REGEXP_REPLACE(REPLACE(LOWER(conversion_name), " ", "_"), r"([^a-zA-Z0-9_])", "") AS conversion_name_formatted
     
     FROM data
     

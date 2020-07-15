@@ -26,11 +26,11 @@ aggregate AS (
         SUM(impressions) AS impressions,
         SUM(link_clicks) AS link_clicks,
         SUM(cost) AS cost,
-        SUM(views) AS video_views,
-        SUM(video_quartile_25) AS video_p25_watched,
-        SUM(video_quartile_50) AS video_p50_watched,
-        SUM(video_quartile_75) AS video_p75_watched,
-        SUM(video_quartile_100) AS video_completions
+        SUM(video_views) AS video_views,
+        SUM(video_p25_watched) AS video_p25_watched,
+        SUM(video_p50_watched) AS video_p50_watched,
+        SUM(video_p75_watched) AS video_p75_watched,
+        SUM(video_completions) AS video_completions
 
         {%- for col in cols if "conv_" in col.column -%}
 

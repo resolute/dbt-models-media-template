@@ -10,14 +10,59 @@ source_data AS (
 
 ),
 
+rename_recast AS (
+
+    SELECT
+
+        account_id,
+        account_name,
+        date,
+        customer_id,
+        account_descriptive_name AS account_desc_name,
+        campaign_id,
+        campaign_name,
+        campaign_type,
+        adset_id AS ad_group_id,
+        adset_name AS ad_group_name,
+        keyword_id,
+        keyword_name,
+        ad_network_type_1,
+        search_term,
+        query_match_type,
+        avg_pos,
+        
+        imps AS impressions,
+        clicks AS link_clicks,
+        spend AS cost,
+        engagements,
+        interactions,
+        views AS video_views,
+        video_quartile_25 AS video_p25_watched,
+        video_quartile_50 AS video_p50_watched,
+        video_quartile_75 AS video_p75_watched,
+        video_quartile_100 AS video_completions,
+        conv AS all_conversions,
+        revenue AS all_conversion_value,
+        conversions,
+        conversion_value,
+        view_through_conv
+
+    FROM source_data
+
+),
+
 final AS (
   
     SELECT 
     
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'campaign_id', 'adset_id', 'keyword_id', 'search_term', 'query_match_type']) }} AS id,
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'campaign_id', 'ad_group_id', 'keyword_id', 'search_term', 'query_match_type']) }} AS id,
+        'Google Ads' AS data_source,
+        'Google' AS channel_source_name,
+        'Paid' AS channel_source_type,
+        'Paid Search' AS channel_name,
         *
     
-    FROM source_data
+    FROM rename_recast
 
 )
 
