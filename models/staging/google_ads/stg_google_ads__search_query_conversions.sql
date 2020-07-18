@@ -14,6 +14,7 @@ rename_recast AS (
 
     SELECT
 
+        {# Dimensions -#}
         account_id,
         account_name,
         date,
@@ -32,11 +33,12 @@ rename_recast AS (
         conv_tracker_id AS conversion_tracker_id,
         conversion_source,
         
-        conv AS all_conversions,
-        revenue AS all_conversion_value,
-        conversions,
-        conversion_value,
-        view_through_conv
+        {#- Conversions -#}
+        conv AS all_conv,
+        revenue AS value_all_conv,
+        conversions AS conversions,
+        conversion_value AS value_conversions,
+        view_through_conv AS conversions_view_through
 
     FROM source_data
 

@@ -1,10 +1,10 @@
 {# Identify the conversion metrics to include in this model #}
 {%- set conversion_fields = [
-    'all_conversions',
-    'all_conversion_value',
+    'all_conv',
+    'value_all_conv',
     'conversions',
-    'conversion_value',
-    'view_through_conv'
+    'value_conversions',
+    'conversions_view_through'
     ]-%}
 
 WITH
@@ -19,6 +19,7 @@ pivot_conversions AS (
 
     SELECT
     
+        {# Dimensions -#}
         data_source,
         channel_source_name,
         channel_source_type,
@@ -36,6 +37,8 @@ pivot_conversions AS (
         ad_network_type_1,
         search_term,
         query_match_type,
+
+        {#- Conversions -#}
 
         {%- for conversion_field in conversion_fields -%}
 

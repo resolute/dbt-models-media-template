@@ -14,6 +14,7 @@ rename_recast AS (
 
     SELECT
 
+        {# Dimensions -#}
         account_id,
         account_name,
         date,
@@ -31,21 +32,26 @@ rename_recast AS (
         query_match_type,
         avg_pos,
         
+        {#- Metrics -#}
         imps AS impressions,
         clicks AS link_clicks,
         spend AS cost,
         engagements,
         interactions,
+
+        {#- Video metrics -#}
         views AS video_views,
         video_quartile_25 AS video_p25_watched,
         video_quartile_50 AS video_p50_watched,
         video_quartile_75 AS video_p75_watched,
         video_quartile_100 AS video_completions,
-        conv AS all_conversions,
-        revenue AS all_conversion_value,
-        conversions,
-        conversion_value,
-        view_through_conv
+
+        {#- Conversions -#}
+        conv AS all_conv,
+        revenue AS value_all_conv,
+        conversions AS conversions,
+        conversion_value AS value_conversions,
+        view_through_conv AS conversions_view_through
 
     FROM source_data
 
