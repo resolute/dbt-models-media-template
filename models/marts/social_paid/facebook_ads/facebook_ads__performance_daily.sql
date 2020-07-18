@@ -1,27 +1,11 @@
-{# Get a list of the standard Facebook Ads conversion metrics to include in this model #}
-{%- set standard_conversions = [
-    'add_payment_info',
-    'add_to_cart',
-    'add_to_wishlist',
-    'complete_registration',
-    'donate_total',
-    'donate_total_value',
-    'initiate_checkout',
-    'landing_page_view',
-    'lead',
-    'purchase',
-    'purchase_value',
-    'search',
-    'search_total',
-    'start_trial_total_value',
-    'submit_application_total',
-    'subscribe_total',
-    'subscribe_total_value',
-    'view_content'
-    ]-%}
-
-{# Get a list of the Facebook Ads custom conversions that are active for the Facebook Ads accounts #}
-{%- set custom_conversions = dbt_utils.get_query_results_as_dict("select * from" ~ ref('facebook_ads__account_conversions')).field_name -%}
+{#- Get a list of the Facebook Ads conversions that are active for the Facebook Ads accounts -#}
+{%- set conversions = dbt_utils.get_query_results_as_dict("select * from" ~ ref('facebook_ads__account_conversions')) -%}
+{%- set active_conversions = [] -%}
+{%- for column, value in conversions.items() -%}
+    {%- if value[0] != 0.0 -%}
+        {% do active_conversions.append(column) -%}
+    {%- endif -%}
+{%- endfor -%}
 
 WITH
 
@@ -30,45 +14,12 @@ data AS (
     SELECT * FROM {{ ref('stg_facebook_ads__creative') }}
 
 ),
-  
-extract_utm_params AS (
+
+final AS (
 
     SELECT
     
-        *,
-        REGEXP_EXTRACT(website_destination_url,r'[?&]utm_source=([^&]+)') as utm_source,
-        REGEXP_EXTRACT(website_destination_url,r'[?&]utm_medium=([^&]+)') as utm_medium,
-        REGEXP_EXTRACT(website_destination_url,r'[?&]utm_campaign=([^&]+)') as utm_campaign,
-        REGEXP_EXTRACT(website_destination_url,r'[?&]utm_content=([^&]+)') as utm_content,
-        REGEXP_EXTRACT(website_destination_url,r'[?&]utm_term=([^&]+)') as utm_term
-    
-    FROM data
-    
-),
-  
-general_definitions AS (
-
-    SELECT
-    
-        *,
-        'Facebook Paid' AS data_source,
-
-        CASE
-            WHEN instagram_permalink_url IS NULL THEN 'Facebook'
-            WHEN instagram_permalink_url IS NOT NULL THEN 'Instagram'
-        END AS channel_source_name,
-
-        'Paid' AS channel_source_type,
-        'Paid Social' AS channel_name
-  
-    FROM extract_utm_params
-    
-),
-
-rename_columns_and_set_defaults AS (
-
-    SELECT
-    
+        {# Dimensions -#}
         id,
         data_source,
         account_id,
@@ -79,73 +30,99 @@ rename_columns_and_set_defaults AS (
         date,
         campaign_id,
         campaign_name,
+        campaign_type,
         adset_id,
         adset_name,
         ad_id,
         ad_name,
         creative_id,
         creative_name,
-        objective AS ad_objective,
-        publication_date AS ad_publish_date,
-        object_type AS ad_type,
-        creative_link AS ad_permalink_url,
-        image_url AS ad_thumbnail_url,
-        body AS ad_message,
-        website_destination_url AS ad_destination_link_url,
-        utm_source,
-        utm_medium,
-        utm_campaign,
-        utm_content,
-        utm_term,
+        ad_objective,
+        ad_publication_date,
+        ad_type,
+        body,
+        name,
+        description,
+        caption,
+        call_to_action_type,
+        format_option,
+        preview_shareable_link,
+        instagram_permalink_url,
+        creative_link,
+        image,
+        image_url,
+        website_destination_url,
+        creative_destination_url,
+        video_creative_destination_url,
+        buying_type,
+        lead_gen_form_id,
+        object_story_id,
+        effective_object_story_id,
+        effective_status,
         
-        reach AS impressions_unique,
-        impressions AS impressions,
-        outbound_clicks AS link_clicks,
-        spend AS cost,
-        post_engagement AS post_engagements,
+        {#- Impression and Cost metrics -#}
+        reach,
+        impressions,
+        cost,
+
+        {#- Click Metrics -#}
+        link_clicks,
+        unique_inline_link_clicks,
+        outbound_clicks,
+        unique_outbound_clicks,
+        clicks,
+
+        {#- Engagement metrics -#}
+        post_engagement_total,
+        inline_post_engagement,
         post_reactions,
-        comments AS post_comments,
-        shares AS post_shares,
-        onsite_post_save AS post_saves,
+        post_likes,
+        post_comments,
+        post_shares,
+        post_saves,
+        post_story_total,
+        page_engagement_total,
+        page_story_total,
         page_likes,
-        video_view_3s,
-        video_30_sec_watched_actions,
-        video_p25_watched_actions,
-        video_p50_watched_actions,
-        video_p75_watched_actions,
-        video_p95_watched_actions,
-        video_p100_watched_actions,
-        video_avg_time_watched_actions,
-        video_play_actions_view_value
+        app_engagement_total,
+        app_story_total,
+        app_use,
+        mobile_app_install,
+        instagram_profile_engagement_total,
 
-        {#- Loop through each standard conversion and rename column to include attribution model used -#}
-        {%- for conv in standard_conversions -%}
+        {#- Video metrics -#}
+        video_views,
+        video_play,
+        video_play_actions_view_value,
+        video_p25_watched,
+        video_p50_watched,
+        video_p75_watched,
+        video_p95_watched,
+        video_completions,
+        video_10_sec_watched_actions,
+        video_thru_play,
+        video_30_sec_watched_actions,
+        video_avg_time_watched_actions,
+        video_average_play_time_count,
+        video_avg_percent_watched_actions,
+
+        {#- Other metrics -#}
+        views,
+        relevance_score,
+        purchase,
+        purchase_value
+
+        {#- Conversions -#}
+
+        {#- Loop through each active conversion -#}
+        {%- for conv in active_conversions -%}
         
         ,
-        {{ conv }} AS conv_fb_{{ conv }}_28c_1v
-
-        {%- endfor -%}
-
-        {#- Loop through each custom conversion and rename column to include attribution model used -#}
-        {%- for conv in custom_conversions -%}
-
-        ,
-        {{ conv }} AS conv_fb_custom_{{ conv|replace("dynamic_", "") }}_28c_1v
+        {{ conv }}
 
         {%- endfor %}
         
-     FROM general_definitions
-
-),
-
-final AS (
-
-    SELECT
-        
-        *,
-        DATE_DIFF(date, ad_publish_date, DAY) AS ad_age_in_days
-    
-    FROM rename_columns_and_set_defaults
+     FROM data
 
 )
   
