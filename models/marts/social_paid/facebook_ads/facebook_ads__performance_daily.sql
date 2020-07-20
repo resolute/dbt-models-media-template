@@ -66,11 +66,11 @@ final AS (
         cost,
 
         {#- Click Metrics -#}
-        link_clicks,
+        clicks,
         unique_inline_link_clicks,
         outbound_clicks,
         unique_outbound_clicks,
-        clicks,
+        all_clicks,
 
         {#- Engagement metrics -#}
         post_engagement_total,
@@ -92,7 +92,7 @@ final AS (
 
         {#- Video metrics -#}
         video_views,
-        video_play,
+        video_view_3s,
         video_play_actions_view_value,
         video_p25_watched,
         video_p50_watched,
@@ -107,10 +107,7 @@ final AS (
         video_avg_percent_watched_actions,
 
         {#- Other metrics -#}
-        views,
-        relevance_score,
         purchase,
-        purchase_value
 
         {#- Conversions -#}
 

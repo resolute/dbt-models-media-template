@@ -59,11 +59,11 @@ rename_recast AS (
         spend AS cost,
 
         {#- Click Metrics -#}
-        clicks AS link_clicks,
+        clicks,
         unique_inline_link_clicks,
         outbound_clicks,
         unique_outbound_clicks,
-        all_clicks AS clicks,
+        all_clicks,
 
         {#- Engagement metrics -#}
         post_engagement AS post_engagement_total,
@@ -84,8 +84,8 @@ rename_recast AS (
         instagram_profile_engagement AS instagram_profile_engagement_total,
 
         {#- Video metrics -#}
-        video_view_3s AS video_views,
-        video_play,
+        video_view_3s AS video_view_3s,
+        views AS video_views,
         video_play_actions_view_value,
         video_p25_watched_actions AS video_p25_watched,
         video_p50_watched_actions AS video_p50_watched,
@@ -100,10 +100,7 @@ rename_recast AS (
         video_avg_percent_watched_actions,
 
         {#- Other metrics -#}
-        views,
-        relevance_score,
         purchase,
-        purchase_value,
 
         {#- Conversions -#}
         conv AS conv_fb_conversions_28c_1v,
@@ -120,8 +117,8 @@ rename_recast AS (
         initiate_checkout AS conv_fb_initiate_checkout_28c_1v,
         landing_page_view AS conv_fb_landing_page_view_28c_1v,
         unique_landing_page_view AS conv_fb_unique_landing_page_view_28c_1v,
-        lead AS conv_fb_lead_total_28c_1v,
-        leads AS conv_fb_leads_28c_1v,
+        lead_grouped AS conv_fb_onfb_lead_total_28c_1v,
+        leads AS conv_fb_lead_total_28c_1v,
         purchase_total AS conv_fb_purchase_total_28c_1v,
         fb_pixel_purchase AS conv_fb_purchase_28c_1v,
         fb_mobile_purchase AS conv_fb_mobile_purchase_28c_1v,
@@ -140,7 +137,7 @@ rename_recast AS (
         offsite_conversion_fb_pixel_purchase_1d_view_7d_click AS conv_fb_purchase_7c_1v,
         offsite_conversion_fb_pixel_purchase_value_1d_view_1d_click AS conv_fb_value_purchase_1c_1v,
         offsite_conversion_fb_pixel_purchase_value_1d_view_7d_click AS conv_fb_value_purchase_7c_1v,
-        revenue AS conv_fb_revenue_28c_1v,
+        purchase_value AS conv_fb_value_purchase_28c_1v,
         revenue_click_through AS conv_fb_revenue_click_through_28c,
         revenue_view_through AS conv_fb_revenue_view_through_1v,
         fb_offline_purchases AS conv_fb_offline_purchase_28c_1v,
@@ -157,8 +154,6 @@ rename_recast AS (
         subscribe_total_value AS conv_fb_value_subscribe_28c_1v,
         view_content AS conv_fb_view_content_28c_1v,
         fb_mobile_content_view AS conv_fb_mobile_view_content_28c_1v,
-        lead_grouped AS conv_fb_onfb_lead_total_28c_1v,
-        lead_form AS conv_fb_onfb_lead_28c_1v,
         omni_add_to_cart AS conv_fb_omni_add_to_cart_28c_1v,
         omni_complete_registration AS conv_fb_omni_complete_registration_28c_1v,
         omni_custom AS conv_fb_omni_custom_28c_1v,
