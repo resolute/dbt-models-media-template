@@ -38,7 +38,6 @@ rename_recast AS (
         viral_conversions,
         viral_post_click_conversions AS viral_conversions_click_through,
         viral_post_view_conversions AS viral_conversions_view_through
-        
 
     FROM source_data
 

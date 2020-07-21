@@ -79,14 +79,26 @@ rename_recast AS (
         video_quartile_25 AS video_p25_watched,
         video_quartile_50 AS video_p50_watched,
         video_quartile_75 AS video_p75_watched,
-        video_quartile_100 AS video_completions,
+        video_quartile_100 AS video_completions
 
-        {#- Conversions -#}
-        conv AS all_conv,
-        revenue AS value_all_conv,
-        conversions AS conversions,
-        conversion_value AS value_conversions,
-        view_through_conv AS conversions_view_through
+        -- Excluded conversion metrics --
+        /*
+        conv,
+        revenue,
+        conversions,
+        conversion_value,
+        view_through_conv,
+        conversion_rate,
+        purchase,
+        conversions_donate,
+        all_conv_donate,
+        conversions_20_mile_conversion,
+        all_conv_20_mile_conversion,
+        conversions_conversion,
+        all_conv_conversion,
+        conversions_individual_registration,
+        all_conv_individual_registration,
+        */
 
     FROM source_data
 

@@ -43,6 +43,16 @@ rename_recast AS (
         conversion_value AS value_conversions,
         view_through_conv AS conversions_view_through
 
+        -- Excluded conversion metrics --
+        /*
+        cross_device_conversions,
+        leads_conversions,
+        other_conversions,
+        page_view_conversions,
+        sales_conversions,
+        sign_up_conversions,
+        */
+
     FROM source_data
 
 ),
