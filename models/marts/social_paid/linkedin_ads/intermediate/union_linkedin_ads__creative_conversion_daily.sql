@@ -1,3 +1,3 @@
 {{ dbt_utils.union_relations(
-    relations=[ref('linkedin_ads__creatives_daily'), ref('linkedin_ads__conversions_daily')]
+    relations=[ref('stg_linkedin_ads__creatives'), ref('linkedin_ads__conversions_daily')]
 ) }}

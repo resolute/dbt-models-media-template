@@ -1,8 +1,12 @@
 {# Identify the conversion metrics to include in this model #}
 {%- set conversion_fields = [
     'conversions',
-    'post_click_conversions',
-    'conversion_value'
+    'value_conversions',
+    'conversions_click_through',
+    'conversions_view_through',
+    'viral_conversions',
+    'viral_conversions_click_through',
+    'viral_conversions_view_through'
     ]-%}
 
 WITH
@@ -12,25 +16,12 @@ data AS (
     SELECT * FROM {{ ref('prep_linkedin_ads__conversions_daily') }}
 
 ),
-  
-general_definitions AS (
-
-    SELECT
-    
-        *,
-        'LinkedIn Paid' AS data_source,
-        'LinkedIn' AS channel_source_name,
-        'Paid' AS channel_source_type,
-        'Paid Social' AS channel_name
-  
-    FROM data
-    
-),
 
 pivot_conversions AS (
 
     SELECT
     
+        {# Dimensions -#}
         data_source,
         account_id,
         account_name,
@@ -43,6 +34,8 @@ pivot_conversions AS (
         campaign_id,
         campaign_name,
         campaign_type,
+
+        {#- Conversions -#}
 
         {%- for conversion_field in conversion_fields -%}
 
@@ -78,7 +71,7 @@ pivot_conversions AS (
 
         {%- endfor -%}
         
-    FROM general_definitions
+    FROM data
 
     GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
 
