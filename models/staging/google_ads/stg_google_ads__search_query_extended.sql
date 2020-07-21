@@ -46,7 +46,7 @@ rename_recast AS (
         video_quartile_75 AS video_p75_watched,
         video_quartile_100 AS video_completions,
 
-        -- Excluded conversion metrics --
+        -- Excluded fields --
         /*
         conv,
         revenue,

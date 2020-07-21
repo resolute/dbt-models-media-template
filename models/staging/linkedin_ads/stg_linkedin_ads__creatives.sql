@@ -64,7 +64,7 @@ rename_recast AS (
         one_click_lead_form_opens AS conv_one_click_lead_form_opens,
         one_click_leads AS conv_one_click_leads
 
-        -- Excluded conversion metrics --
+        -- Excluded fields --
         /*
         external_website_conversions,
         post_click_conv,

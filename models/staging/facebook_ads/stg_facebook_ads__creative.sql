@@ -53,16 +53,12 @@ rename_recast AS (
         effective_object_story_id,
         effective_status,
         
-        {#- Impression and Cost metrics -#}
+        {#- General metrics -#}
         reach,
         impressions,
         spend AS cost,
-
-        {#- Click Metrics -#}
         clicks,
-        unique_inline_link_clicks,
         outbound_clicks,
-        unique_outbound_clicks,
         all_clicks,
 
         {#- Engagement metrics -#}
@@ -84,7 +80,7 @@ rename_recast AS (
         instagram_profile_engagement AS instagram_profile_engagement_total,
 
         {#- Video metrics -#}
-        video_view_3s AS video_view_3s,
+        video_view_3s,
         views AS video_views,
         video_play_actions_view_value,
         video_p25_watched_actions AS video_p25_watched,
@@ -92,20 +88,12 @@ rename_recast AS (
         video_p75_watched_actions AS video_p75_watched,
         video_p95_watched_actions AS video_p95_watched,
         video_p100_watched_actions AS video_completions,
-        video_10_sec_watched_actions,
         thru_play AS video_thru_play,
         video_30_sec_watched_actions,
         video_avg_time_watched_actions,
         average_play_time_count AS video_average_play_time_count,
-        video_avg_percent_watched_actions,
-
-        {#- Other metrics -#}
-        purchase,
 
         {#- Conversions -#}
-        conv AS conv_fb_conversions_28c_1v,
-        conv_value AS conv_fb_value_conversions_28c_1v,
-        offsite_conversion AS conv_fb_offsite_conversion_total_28c_1v,
         add_payment_info AS conv_fb_add_payment_info_28c_1v,
         fb_mobile_add_payment_info AS conv_fb_mobile_add_payment_info_28c_1v,
         add_to_cart AS conv_fb_add_to_cart_28c_1v,
@@ -116,7 +104,6 @@ rename_recast AS (
         donate_total_value AS conv_fb_value_donate_28c_1v,
         initiate_checkout AS conv_fb_initiate_checkout_28c_1v,
         landing_page_view AS conv_fb_landing_page_view_28c_1v,
-        unique_landing_page_view AS conv_fb_unique_landing_page_view_28c_1v,
         lead_grouped AS conv_fb_onfb_lead_total_28c_1v,
         leads AS conv_fb_lead_total_28c_1v,
         purchase_total AS conv_fb_purchase_total_28c_1v,
@@ -140,8 +127,6 @@ rename_recast AS (
         purchase_value AS conv_fb_value_purchase_28c_1v,
         revenue_click_through AS conv_fb_revenue_click_through_28c,
         revenue_view_through AS conv_fb_revenue_view_through_1v,
-        fb_offline_purchases AS conv_fb_offline_purchase_28c_1v,
-        fb_offline_purchase_conv_value AS conv_fb_value_offline_purchase_28c_1v,
         search_total AS conv_fb_search_total_28c_1v,
         search AS conv_fb_search_28c_1v,
         start_trial_total AS conv_fb_start_trial_28c_1v,
@@ -154,6 +139,8 @@ rename_recast AS (
         subscribe_total_value AS conv_fb_value_subscribe_28c_1v,
         view_content AS conv_fb_view_content_28c_1v,
         fb_mobile_content_view AS conv_fb_mobile_view_content_28c_1v,
+        fb_offline_purchases AS conv_fb_offline_purchase_28c_1v,
+        fb_offline_purchase_conv_value AS conv_fb_value_offline_purchase_28c_1v,
         omni_add_to_cart AS conv_fb_omni_add_to_cart_28c_1v,
         omni_complete_registration AS conv_fb_omni_complete_registration_28c_1v,
         omni_custom AS conv_fb_omni_custom_28c_1v,
@@ -170,7 +157,32 @@ rename_recast AS (
         ,
         {{ col.column }} AS conv_fb_custom_{{ col.column|replace("dynamic_", "") }}_28c_1v
 
-        {%- endfor  %}      
+        {%- endfor  %}
+
+        -- Excluded fields --
+        /*
+        purchase, --This is duplicate field as fb_pixel_purchase
+        frequency,
+        cost_per_unique_landing_page_view,
+        */
+
+        -- Deprecated fields --
+        /*
+        unique_inline_link_clicks,
+        unique_outbound_clicks,
+        video_play,
+        cost_per_10_sec_video_view,
+        video_10_sec_watched_actions,
+        video_avg_percent_watched_actions,
+        lead_form,
+        revenue,
+        relevance_score,
+        lead,
+        conv_value,
+        offsite_conversion,
+        conv,
+        unique_landing_page_view,
+        */
 
     FROM source_data
 

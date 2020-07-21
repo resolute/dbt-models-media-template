@@ -20,7 +20,6 @@ final AS (
     SELECT
     
         {# Dimensions -#}
-        id,
         data_source,
         account_id,
         account_name,
@@ -60,16 +59,12 @@ final AS (
         effective_object_story_id,
         effective_status,
         
-        {#- Impression and Cost metrics -#}
+        {#- General metrics -#}
         reach,
         impressions,
         cost,
-
-        {#- Click Metrics -#}
         clicks,
-        unique_inline_link_clicks,
         outbound_clicks,
-        unique_outbound_clicks,
         all_clicks,
 
         {#- Engagement metrics -#}
@@ -91,23 +86,18 @@ final AS (
         instagram_profile_engagement_total,
 
         {#- Video metrics -#}
-        video_views,
         video_view_3s,
+        video_views,
         video_play_actions_view_value,
         video_p25_watched,
         video_p50_watched,
         video_p75_watched,
         video_p95_watched,
         video_completions,
-        video_10_sec_watched_actions,
         video_thru_play,
         video_30_sec_watched_actions,
         video_avg_time_watched_actions,
-        video_average_play_time_count,
-        video_avg_percent_watched_actions,
-
-        {#- Other metrics -#}
-        purchase,
+        video_average_play_time_count
 
         {#- Conversions -#}
 
