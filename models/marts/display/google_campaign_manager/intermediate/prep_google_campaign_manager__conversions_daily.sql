@@ -2,7 +2,7 @@ WITH
 
 data AS (
   
-    SELECT * FROM {{ ref('stg_google_campaign_manager__ads_creatives_placements') }}
+    SELECT * FROM {{ ref('stg_google_campaign_manager__ads_creatives_conversions') }}
 
 ),
 

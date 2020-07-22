@@ -66,7 +66,7 @@ rename_recast AS (
         gmail_ad_marketing_img_desc,
         device_preference,
 
-        {#- Metrics -#}
+        {#- General metrics -#}
         imps AS impressions,
         spend AS cost,
         clicks AS link_clicks,

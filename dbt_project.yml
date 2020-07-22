@@ -92,11 +92,6 @@ models:
           +materialized: view
           +schema: staging
 
-    
     staging:
       +materialized: view
       +schema: staging
-          
-    utils:
-      +materialized: view
-      +schema: utils

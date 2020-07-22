@@ -32,7 +32,7 @@ rename_recast AS (
         query_match_type,
         avg_pos,
         
-        {#- Metrics -#}
+        {#- General metrics -#}
         imps AS impressions,
         clicks AS link_clicks,
         spend AS cost,

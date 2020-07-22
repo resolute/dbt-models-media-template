@@ -1,11 +1,11 @@
 {# Identify the conversion metrics to include in this model #}
 {%- set conversion_fields = [
-    'total_conversions',
-    'view_through_conversions',
-    'click_through_conversions',
-    'total_conversions_revenue',
-    'view_through_revenue',
-    'click_through_revenue'
+    'conversions',
+    'conversions_click_through',
+    'conversions_view_through',
+    'value_conversions',
+    'value_conversions_click_through',
+    'value_conversions_view_through'
     ]-%}
 
 WITH
@@ -14,20 +14,6 @@ data AS (
   
     SELECT * FROM {{ ref('prep_google_campaign_manager__conversions_daily') }}
 
-),
-
-general_definitions AS (
-
-    SELECT
-    
-        *,
-        'Campaign Manager' AS data_source,
-        'Campaign Manager' AS channel_source_name,
-        'Paid' AS channel_source_type,
-        'Display' AS channel_name
-  
-    FROM data
-    
 ),
 
 pivot_conversions AS (
@@ -91,7 +77,7 @@ pivot_conversions AS (
 
         {%- endfor -%}
 
-    FROM general_definitions
+    FROM data
 
     GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22
 

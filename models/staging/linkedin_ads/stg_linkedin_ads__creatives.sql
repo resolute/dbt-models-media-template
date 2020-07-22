@@ -31,7 +31,7 @@ rename_recast AS (
         destination_url,
         video_duration,
         
-        {#- Metrics -#}
+        {#- General metrics -#}
         impres AS impressions,
         click AS link_clicks,
         action_clicks,
