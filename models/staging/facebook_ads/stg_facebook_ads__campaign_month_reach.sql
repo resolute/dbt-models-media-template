@@ -10,14 +10,53 @@ source_data AS (
 
 ),
 
+rename_recast AS (
+
+    SELECT
+
+        {# Dimensions -#}
+        account_id,
+        account_name,
+        date AS month_start_date,
+        end_date AS month_end_date,
+        campaign_id,
+        campaign_name,
+
+        {#- General metrics -#}
+        reach,
+        estimated_ad_recallers,
+        unique_clicks,
+        unique_outbound_clicks_value,
+        unique_inline_link_clicks,
+        unique_like_value,
+        unique_video_view_value,
+        unique_landing_page_view_value,
+        unique_offsite_conversion_value,
+        unique_fb_pixel_add_to_cart_value,
+        unique_mobile_app_install_value
+
+        -- Excluded fields --
+        /*
+        frequency,
+        */
+
+
+    FROM source_data
+
+),
+
 final AS (
   
     SELECT 
     
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'campaign_id']) }} AS id,
+        {{ dbt_utils.surrogate_key(['month_start_date', 'account_id', 'campaign_id']) }} AS id,
+        'Facebook Paid' AS data_source,
+        'Facebook' AS channel_source_name,
+        'Paid' AS channel_source_type,
+        'Paid Social' AS channel_name,
         *
     
-    FROM source_data
+    FROM rename_recast
 
 )
 

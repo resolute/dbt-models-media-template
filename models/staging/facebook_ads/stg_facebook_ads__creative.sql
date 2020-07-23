@@ -192,7 +192,7 @@ final AS (
   
     SELECT 
     
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'creative_id']) }} AS id,
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'ad_id', 'creative_id']) }} AS id,
         'Facebook Paid' AS data_source,
 
         CASE

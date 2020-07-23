@@ -55,7 +55,7 @@ final AS (
   
     SELECT 
     
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'advertiser_id', 'campaign_id', 'site_id', 'placement_id', 'ad_id', 'creative_id', 'activity_id']) }} AS id,
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'advertiser_id', 'site_id', 'placement_id', 'placement_size', 'ad_id', 'creative_id', 'activity_id']) }} AS id,
         'Campaign Manager' AS data_source,
         'Campaign Manager' AS channel_source_name,
         'Paid' AS channel_source_type,
