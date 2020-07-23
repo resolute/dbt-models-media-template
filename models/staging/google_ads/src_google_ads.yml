@@ -16,6 +16,9 @@ sources:
       - name: google_adwords_ads
         identifier: 'google_adwords_ads_*'
 
+      - name: google_adwords_keywords_extended
+        identifier: 'google_adwords_keywords_extended_*'
+      
       - name: google_adwords_search_query_extended
         identifier: 'google_adwords_search_query_extended_*'
       
