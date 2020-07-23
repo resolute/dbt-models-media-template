@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'wgs'
+name: 'media_template'
 version: '1.0.0'
 
 # This setting configures which "profile" dbt uses for this project.
@@ -43,7 +43,7 @@ vars:
 
 # Configuring models
 models:
-  wgs:
+  media_template:
     +persist_docs:
       relation: true
       columns: true
