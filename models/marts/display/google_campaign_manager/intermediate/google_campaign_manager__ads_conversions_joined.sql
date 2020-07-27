@@ -13,7 +13,7 @@ WITH
 
 ad_data AS (
 
-    SELECT * FROM {{ ref('google_campaign_manager__ads_placement_sites_aggregated') }}
+    SELECT * FROM {{ ref('google_campaign_manager__ads_aggregated') }}
 
 ),
 
