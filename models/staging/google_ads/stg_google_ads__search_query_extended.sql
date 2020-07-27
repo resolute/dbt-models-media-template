@@ -34,8 +34,8 @@ rename_recast AS (
         
         {#- General metrics -#}
         imps AS impressions,
-        clicks AS link_clicks,
         spend AS cost,
+        clicks AS link_clicks,
         engagements,
         interactions,
 

@@ -33,15 +33,15 @@ rename_recast AS (
         ad_network_type_1,
         match_type,
         avg_pos,
-        criteria_destination_url,
+        criteria_destination_url AS destination_url,
         label_ids,
         kw_labels AS labels,
         
         {#- General metrics -#}
         imps AS impressions,
         eligible_impressions,
-        clicks AS link_clicks,
         spend AS cost,
+        clicks AS link_clicks,
         engagements,
         interactions,
         quality_score,

@@ -1,1 +1,1 @@
-{{ replace_null_values(ref('union_google_ads__search_query_conversion_daily')) }}
+{{ replace_null_values(ref('google_ads__search_query_conversion_joined')) }}

@@ -1,1 +1,1 @@
-{{ replace_null_values(ref('union_google_campaign_manager__ad_conversion_daily')) }}
+{{ replace_null_values(ref('google_campaign_manager__ads_conversions_joined')) }}

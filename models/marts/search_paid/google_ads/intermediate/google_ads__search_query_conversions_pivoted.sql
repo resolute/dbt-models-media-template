@@ -11,7 +11,7 @@ WITH
 
 data AS (
   
-    SELECT * FROM {{ ref('prep_google_ads__search_query_conversions_daily') }}
+    SELECT * FROM {{ ref('google_ads__search_query_conversions_pivot_prep') }}
 
 ),
 
@@ -44,7 +44,7 @@ pivot_conversions AS (
 
             {{- dbt_utils.pivot(
                 'conversion_category_formatted',
-                dbt_utils.get_column_values(ref('prep_google_ads__search_query_conversions_daily'), 'conversion_category_formatted'),
+                dbt_utils.get_column_values(ref('google_ads__search_query_conversions_pivot_prep'), 'conversion_category_formatted'),
                 True,
                 'sum',
                 '=',
@@ -61,7 +61,7 @@ pivot_conversions AS (
 
             {{- dbt_utils.pivot(
                 'conversion_name_formatted',
-                dbt_utils.get_column_values(ref('prep_google_ads__search_query_conversions_daily'), 'conversion_name_formatted'),
+                dbt_utils.get_column_values(ref('google_ads__search_query_conversions_pivot_prep'), 'conversion_name_formatted'),
                 True,
                 'sum',
                 '=',
@@ -84,7 +84,7 @@ final AS (
 
     SELECT
         
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'campaign_id', 'ad_group_id', 'keyword_id', 'search_term', 'ad_network_type_1']) }} AS id,
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'ad_group_id', 'keyword_id', 'ad_network_type_1', 'search_term', 'query_match_type']) }} AS id,
         *
     
     FROM pivot_conversions

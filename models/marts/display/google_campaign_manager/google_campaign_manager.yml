@@ -2,7 +2,10 @@ version: 2
 
 models:
   - name: google_campaign_manager__performance_daily
-    description: A table containing the daily totals for each Google Campaign Mangaer ad
+    description: A table containing the daily totals for each Google Campaign Mangaer creative, ad, and placement
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('google_campaign_manager__ads_placement_sites_aggregated')
     columns:
       - name: id
         description: This is a surrogate key

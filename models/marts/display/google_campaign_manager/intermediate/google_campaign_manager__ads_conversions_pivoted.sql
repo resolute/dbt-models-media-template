@@ -12,7 +12,7 @@ WITH
 
 data AS (
   
-    SELECT * FROM {{ ref('prep_google_campaign_manager__conversions_daily') }}
+    SELECT * FROM {{ ref('google_campaign_manager__ads_conversions_pivot_prep') }}
 
 ),
 
@@ -47,7 +47,7 @@ pivot_conversions AS (
 
             {{- dbt_utils.pivot(
                 'activity_group_formatted',
-                dbt_utils.get_column_values(ref('prep_google_campaign_manager__conversions_daily'), 'activity_group_formatted'),
+                dbt_utils.get_column_values(ref('google_campaign_manager__ads_conversions_pivot_prep'), 'activity_group_formatted'),
                 True,
                 'sum',
                 '=',
@@ -64,7 +64,7 @@ pivot_conversions AS (
 
             {{- dbt_utils.pivot(
                 'activity_formatted',
-                dbt_utils.get_column_values(ref('prep_google_campaign_manager__conversions_daily'), 'activity_formatted'),
+                dbt_utils.get_column_values(ref('google_campaign_manager__ads_conversions_pivot_prep'), 'activity_formatted'),
                 True,
                 'sum',
                 '=',
@@ -87,7 +87,7 @@ final AS (
 
     SELECT
 
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'advertiser_id', 'campaign_id', 'site_id', 'placement_id', 'ad_id', 'creative_id']) }} AS id,
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'advertiser_id', 'site_id', 'placement_id', 'placement_size', 'ad_id', 'creative_id']) }} AS id,
         *
 
     FROM pivot_conversions
