@@ -5,7 +5,7 @@ models:
     description: A table containing the daily aggregated totals for each paid media platform
     columns:
       - name: id
-        description: This is a surrogate key
+        description: Surrogate primary key
         tests:
           - unique
           - not_null

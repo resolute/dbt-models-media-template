@@ -20,12 +20,13 @@ final AS (
     SELECT
     
         {# Dimensions -#}
+        id,
         data_source,
-        account_id,
-        account_name,
         channel_source_name,
         channel_source_type,
         channel_name,
+        account_id,
+        account_name,
         date,
         campaign_id,
         campaign_name,

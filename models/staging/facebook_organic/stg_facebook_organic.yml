@@ -5,7 +5,7 @@ models:
     description: A table containing lifetime post performance data from Facebook Pages
     columns:
       - name: id
-        description: This is a surrogate key
+        description: Surrogate primary key
         tests:
           - unique
           - not_null
@@ -14,7 +14,7 @@ models:
     description: A table containing daily page performance data from Facebook Pages
     columns:
       - name: id
-        description: This is a surrogate key
+        description: Surrogate primary key
         tests:
           - unique
           - not_null

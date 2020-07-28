@@ -5,7 +5,7 @@ models:
     description: A table containing the daily totals for each social platform's campaigns
     columns:
       - name: id
-        description: This is a surrogate key
+        description: Surrogate primary key
         tests:
           - unique
           - not_null

@@ -5,7 +5,7 @@ models:
     description: A table containing the daily totals for each Facebook ad creative
     columns:
       - name: id
-        description: This is a surrogate key
+        description: Surrogate primary key
         tests:
           - unique
           - not_null
@@ -14,7 +14,7 @@ models:
     description: A table containing the monthly reach totals by campaign from Facebook Ads
     columns:
       - name: id
-        description: This is a surrogate key
+        description: Surrogate primary key
         tests:
           - unique
           - not_null
