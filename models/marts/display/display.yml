@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: rollup_display__campaigns
+    description: A table containing the daily totals for each display platform's campaigns
+    columns:
+      - name: id
+        description: Surrogate primary key
+        tests:
+          - unique
+          - not_null

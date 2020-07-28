@@ -2,10 +2,10 @@ version: 2
 
 models:
   - name: stg_facebook_ads__creative
-    description: A table containing daily creative performance data from Facebook Ads
+    description: A table containing daily ad and creative performance data from Facebook Ads
     columns:
       - name: id
-        description: This is a surrogate key
+        description: Surrogate primary key
         tests:
           - unique
           - not_null
@@ -14,7 +14,7 @@ models:
     description: A table containing monthly campaign reach data from Facebook Ads
     columns:
       - name: id
-        description: This is a surrogate key
+        description: Surrogate primary key
         tests:
           - unique
           - not_null

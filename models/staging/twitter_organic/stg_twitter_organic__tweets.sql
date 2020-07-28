@@ -1,8 +1,4 @@
-{{-
-    config(
-        enabled = var('twitter_organic_ids') != None
-    )
--}}
+{%- set source_account_ids = var('twitter_organic_ids') -%}
 
 WITH
 
@@ -10,7 +6,7 @@ source_data AS (
 
     SELECT * FROM {{ source('improvado', 'twitter_organic_tweets') }}
 
-    WHERE account_id IN UNNEST({{ var('twitter_organic_ids') }})
+    WHERE account_id IN UNNEST({{ source_account_ids }})
 
 ),
 

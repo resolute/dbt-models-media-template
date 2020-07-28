@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: stg_google_ads__ads
+    description: A table containing daily ad performance data from Google Ads
+    columns:
+      - name: id
+        description: Surrogate primary key
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_google_ads__keywords_extended
+    description: A table containing daily keyword performance data from Google Ads
+    columns:
+      - name: id
+        description: Surrogate primary key
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_google_ads__search_query_extended
+    description: A table containing daily search query performance data from Google Ads
+    columns:
+      - name: id
+        description: Surrogate primary key
+        tests:
+          - unique
+          - not_null
+  
+  - name: stg_google_ads__ad_conversions
+    description: A table containing daily ad conversion performance data from Google Ads
+    columns:
+      - name: id
+        description: Surrogate primary key
+        tests:
+          - unique
+          - not_null
+  
+  - name: stg_google_ads__keywords_conversions
+    description: A table containing daily keyword conversion performance data from Google Ads
+    columns:
+      - name: id
+        description: Surrogate primary key
+        tests:
+          - unique
+          - not_null
+  
+  - name: stg_google_ads__search_query_conversions
+    description: A table containing daily search query conversion performance data from Google Ads
+    columns:
+      - name: id
+        description: Surrogate primary key
+        tests:
+          - unique
+          - not_null

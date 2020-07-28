@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: linkedin_ads__performance_daily
+    description: A table containing the daily totals for each LinkedIn ads creative
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('linkedin_ads__ads_aggregated')
+    columns:
+      - name: id
+        description: Surrogate primary key
+        tests:
+          - unique
+          - not_null

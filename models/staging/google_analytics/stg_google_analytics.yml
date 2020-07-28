@@ -5,7 +5,7 @@ models:
     description: A table containing daily session performance data from Google Analytics
     columns:
       - name: id
-        description: This is a surrogate key
+        description: Surrogate primary key
         tests:
           - unique
           - not_null

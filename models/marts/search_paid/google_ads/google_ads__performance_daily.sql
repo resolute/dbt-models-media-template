@@ -1,0 +1,1 @@
+{{ replace_null_values(ref('google_ads__ads_conversions_joined')) }}
