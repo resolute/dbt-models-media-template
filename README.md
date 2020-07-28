@@ -1,6 +1,6 @@
-Welcome to your new dbt project!
+Welcome to the media template dbt project!
 
-### Using the starter project
+### Using the media template project
 
 Try running the following commands:
 - dbt run
