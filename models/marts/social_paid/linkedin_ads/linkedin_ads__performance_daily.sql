@@ -1,1 +1,1 @@
-{{ replace_null_values(ref('union_linkedin_ads__creative_conversion_daily')) }}
+{{ replace_null_values(ref('linkedin_ads__ads_conversions_joined')) }}

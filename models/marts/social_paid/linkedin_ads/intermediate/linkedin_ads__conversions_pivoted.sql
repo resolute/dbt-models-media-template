@@ -13,7 +13,7 @@ WITH
 
 data AS (
   
-    SELECT * FROM {{ ref('prep_linkedin_ads__conversions_daily') }}
+    SELECT * FROM {{ ref('linkedin_ads__conversions_pivot_prep') }}
 
 ),
 
@@ -41,7 +41,7 @@ pivot_conversions AS (
 
             {{- dbt_utils.pivot(
                 'conversion_type_formatted',
-                dbt_utils.get_column_values(ref('prep_linkedin_ads__conversions_daily'), 'conversion_type_formatted'),
+                dbt_utils.get_column_values(ref('linkedin_ads__conversions_pivot_prep'), 'conversion_type_formatted'),
                 True,
                 'sum',
                 '=',
@@ -58,7 +58,7 @@ pivot_conversions AS (
 
             {{- dbt_utils.pivot(
                 'conversion_name_formatted',
-                dbt_utils.get_column_values(ref('prep_linkedin_ads__conversions_daily'), 'conversion_name_formatted'),
+                dbt_utils.get_column_values(ref('linkedin_ads__conversions_pivot_prep'), 'conversion_name_formatted'),
                 True,
                 'sum',
                 '=',
