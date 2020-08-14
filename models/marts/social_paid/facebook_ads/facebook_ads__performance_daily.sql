@@ -67,6 +67,9 @@ final AS (
         clicks,
         outbound_clicks,
         all_clicks,
+        inline_link_clicks,
+        unique_clicks,
+        unique_link_click,
 
         {#- Engagement metrics -#}
         post_engagement_total,
