@@ -1,0 +1,37 @@
+version: 2
+
+macros:
+  - name: aggregate_model
+    description: A macro to aggregate a model based on its column's data types.
+    arguments:
+      - name: relation
+        type: relation or expression
+        description: The Relation to aggregate.
+      - name: aggregate_function
+        type: string
+        description: The aggregation SQL function that will be applied to each numeric column. Defaults to SUM.
+      - name: exclude_cols
+        type: list of columns
+        description: A list of columns to exclude from the resulting table. Defaults to [].
+      - name: exclude_agg_cols
+        type: list of columns
+        description: A list of numeric columns to exclude from the aggregation function but keep in the resulting table. Defaults to [].
+
+  - name: replace_null_values
+    description: A macro to replace null values in a model based on its column's data types.
+    arguments:
+      - name: relation
+        type: relation or expression
+        description: The Relation to replace null values in.
+      - name: numeric
+        type: float
+        description: The value to replace all null values found in columns with a numeric data type. Defaults to 0.0.
+      - name: integer
+        type: integer
+        description: The value to replace all null values found in columns with an integer data type. Defaults to 0.
+      - name: float
+        type: float
+        description: The value to replace all null values found in columns with a float data type. Defaults to 0.0.
+      - name: string
+        type: string
+        description: The value to replace all null values found in columns with a string data type. Defaults to 'null'.
