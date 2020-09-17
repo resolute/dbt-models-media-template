@@ -20,6 +20,8 @@ pivot_conversions AS (
 
     SELECT
 
+        {# Dimensions -#}
+
         data_source,
         account_id,
         account_name,
@@ -41,41 +43,51 @@ pivot_conversions AS (
         creative,
         ad_type,
         creative_pixel_size,
-        placement_size,
+        placement_size
 
-        {%- for conversion_field in conversion_fields -%}
+        {#- Conversions -#}
 
-            {{- dbt_utils.pivot(
-                'activity_group_formatted',
-                dbt_utils.get_column_values(ref('google_campaign_manager__ads_conversions_pivot_prep'), 'activity_group_formatted'),
-                True,
-                'sum',
-                '=',
-                'conv_gcm_' ~ conversion_field ~ '_activity_group_',
-                '',
-                conversion_field,
-                0,
-                True
-            ) -}}{%- if not loop.last -%},{%- endif -%}
+        {%- set conv_cat_values = dbt_utils.get_column_values(ref('google_campaign_manager__ads_conversions_pivot_prep'), 'activity_group_formatted') -%}
+        {%- if conv_cat_values != None -%}
+        ,
+            {%- for conversion_field in conversion_fields -%}
 
-        {%- endfor -%},
+                {{- dbt_utils.pivot(
+                    'activity_group_formatted',
+                    conv_cat_values,
+                    True,
+                    'sum',
+                    '=',
+                    'conv_gcm_' ~ conversion_field ~ '_activity_group_',
+                    '',
+                    conversion_field,
+                    0,
+                    True
+                ) -}}{%- if not loop.last -%},{%- endif -%}
 
-        {%- for conversion_field in conversion_fields -%}
+            {%- endfor -%}
+        {%- endif %}
 
-            {{- dbt_utils.pivot(
-                'activity_formatted',
-                dbt_utils.get_column_values(ref('google_campaign_manager__ads_conversions_pivot_prep'), 'activity_formatted'),
-                True,
-                'sum',
-                '=',
-                'conv_gcm_' ~ conversion_field ~ '_activity_',
-                '',
-                conversion_field,
-                0,
-                True
-            ) -}}{%- if not loop.last -%},{%- endif -%}
+        {%- set conv_name_values = dbt_utils.get_column_values(ref('google_campaign_manager__ads_conversions_pivot_prep'), 'activity_formatted') -%}
+        {%- if conv_name_values != None -%}
+        ,
+            {%- for conversion_field in conversion_fields -%}
 
-        {%- endfor -%}
+                {{- dbt_utils.pivot(
+                    'activity_formatted',
+                    conv_name_values,
+                    True,
+                    'sum',
+                    '=',
+                    'conv_gcm_' ~ conversion_field ~ '_activity_',
+                    '',
+                    conversion_field,
+                    0,
+                    True
+                ) -}}{%- if not loop.last -%},{%- endif -%}
+
+            {%- endfor -%}
+        {%- endif %}
 
     FROM data
 
