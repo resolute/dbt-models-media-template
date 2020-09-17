@@ -36,43 +36,51 @@ pivot_conversions AS (
         keyword_name,
         ad_network_type_1,
         search_term,
-        query_match_type,
+        query_match_type
 
         {#- Conversions -#}
 
-        {%- for conversion_field in conversion_fields -%}
+        {%- set conv_cat_values = dbt_utils.get_column_values(ref('google_ads__search_query_conversions_pivot_prep'), 'conversion_category_formatted') -%}
+        {%- if conv_cat_values != None -%}
+        ,
+            {%- for conversion_field in conversion_fields -%}
 
-            {{- dbt_utils.pivot(
-                'conversion_category_formatted',
-                dbt_utils.get_column_values(ref('google_ads__search_query_conversions_pivot_prep'), 'conversion_category_formatted'),
-                True,
-                'sum',
-                '=',
-                'conv_gad_' ~ conversion_field ~ '_conversion_category_',
-                '',
-                conversion_field,
-                0,
-                True
-            ) -}}{%- if not loop.last -%},{%- endif -%}
+                {{- dbt_utils.pivot(
+                    'conversion_category_formatted',
+                    conv_cat_values,
+                    True,
+                    'sum',
+                    '=',
+                    'conv_gad_' ~ conversion_field ~ '_conversion_category_',
+                    '',
+                    conversion_field,
+                    0,
+                    True
+                ) -}}{%- if not loop.last -%},{%- endif -%}
 
-        {%- endfor -%},
+            {%- endfor -%}
+        {%- endif %}
 
-        {%- for conversion_field in conversion_fields -%}
+        {%- set conv_name_values = dbt_utils.get_column_values(ref('google_ads__search_query_conversions_pivot_prep'), 'conversion_name_formatted') -%}
+        {%- if conv_name_values != None -%}
+        ,
+            {%- for conversion_field in conversion_fields -%}
 
-            {{- dbt_utils.pivot(
-                'conversion_name_formatted',
-                dbt_utils.get_column_values(ref('google_ads__search_query_conversions_pivot_prep'), 'conversion_name_formatted'),
-                True,
-                'sum',
-                '=',
-                'conv_gad_' ~ conversion_field ~ '_conversion_name_',
-                '',
-                conversion_field,
-                0,
-                True
-            ) -}}{%- if not loop.last -%},{%- endif -%}
+                {{- dbt_utils.pivot(
+                    'conversion_name_formatted',
+                    conv_name_values,
+                    True,
+                    'sum',
+                    '=',
+                    'conv_gad_' ~ conversion_field ~ '_conversion_name_',
+                    '',
+                    conversion_field,
+                    0,
+                    True
+                ) -}}{%- if not loop.last -%},{%- endif -%}
 
-        {%- endfor -%}
+            {%- endfor -%}
+        {%- endif %}
         
     FROM data
 
