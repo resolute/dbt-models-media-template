@@ -1,5 +1,8 @@
 {%- set source_account_ids = var('facebook_ads_ids') -%}
 
+{# Get a list of the columns from the upstream model #}
+{%- set cols = adapter.get_columns_in_relation(source('improvado', 'facebook_ads_placements')) -%}
+
 WITH
 
 source_data AS (
@@ -32,7 +35,7 @@ rename_recast AS (
         publisher_platform,
         platform_position,
         
-        {#- General metrics -#}
+        {# General metrics -#}
         reach,
         imps AS impressions,
         spend AS cost,
@@ -43,7 +46,7 @@ rename_recast AS (
         --unique_clicks,
         --unique_link_click,
 
-        {#- Engagement metrics -#}
+        {# Engagement metrics -#}
         post_engagement AS post_engagement_total,
         inline_post_engagement,
         post_reactions,
@@ -75,7 +78,7 @@ rename_recast AS (
         canvas_avg_view_time,
         --instagram_profile_engagement AS instagram_profile_engagement_total,
 
-        {#- Video metrics -#}
+        {# Video metrics -#}
         video_view_3s,
         views AS video_views,
         video_play_actions_view_value,
@@ -89,7 +92,7 @@ rename_recast AS (
         --video_avg_time_watched_actions,
         --average_play_time_count AS video_average_play_time_count,
 
-        {#- Conversions -#}
+        {# Conversions -#}
         add_payment_info AS conv_fb_add_payment_info_28c_1v,
         fb_mobile_add_payment_info AS conv_fb_mobile_add_payment_info_28c_1v,
         add_payment_info_value AS conv_fb_value_add_payment_info_28c_1v,
@@ -110,7 +113,6 @@ rename_recast AS (
         lead_grouped AS conv_fb_onfb_lead_total_28c_1v,
         leads AS conv_fb_lead_total_28c_1v,
         lead_value AS conv_fb_value_lead_total_28c_1v,
-        --purchase_total AS conv_fb_purchase_total_28c_1v,
         fb_pixel_purchase AS conv_fb_purchase_28c_1v,
         fb_mobile_purchase AS conv_fb_mobile_purchase_28c_1v,
         fb_mobile_purchase_28d_click AS conv_fb_mobile_purchase_click_through_28c,
@@ -151,17 +153,17 @@ rename_recast AS (
         fb_offline_purchases AS conv_fb_offline_purchase_28c_1v,
         fb_offline_purchase_conv_value AS conv_fb_value_offline_purchase_28c_1v,
 
-        {#- Collaborative Ads Conversions -#}
+        {# Collaborative Ads Conversions -#}
         catalog_add_to_cart_total AS conv_fb_catalog_add_to_cart_28c_1v,
         catalog_add_to_cart_total_value AS conv_fb_value_catalog_add_to_cart_28c_1v,
-        catalog_view_content_total AS conv_fb_catalog_view_content_28c_1v,
-        catalog_view_content_total_value AS conv_fb_value_catalog_view_content_28c_1v,
+        catalog_view_content_total AS conv_fb_catalog_content_view_28c_1v,
+        catalog_view_content_total_value AS conv_fb_value_catalog_content_view_28c_1v,
         catalog_purchase_total AS conv_fb_catalog_purchase_28c_1v,
         catalog_purchase_total_value AS conv_fb_value_catalog_purchase_28c_1v,
         catalog_website_add_to_cart AS conv_fb_catalog_website_add_to_cart_28c_1v,
         catalog_website_add_to_cart_value AS conv_fb_value_catalog_website_add_to_cart_28c_1v,
-        catalog_website_view_content AS conv_fb_catalog_website_view_content_28c_1v,
-        catalog_website_view_content_value AS conv_fb_value_catalog_website_view_content_28c_1v,
+        catalog_website_view_content AS conv_fb_catalog_website_content_view_28c_1v,
+        catalog_website_view_content_value AS conv_fb_value_catalog_website_content_view_28c_1v,
         catalog_website_purchase AS conv_fb_catalog_website_purchase_28c_1v,
         catalog_website_purchase_value AS conv_fb_value_catalog_website_purchase_28c_1v,
         catalog_mobile_add_to_cart AS conv_fb_catalog_mobile_add_to_cart_28c_1v,
@@ -172,10 +174,20 @@ rename_recast AS (
         catalog_mobile_purchase_value AS conv_fb_value_catalog_mobile_purchase_28c_1v,
         catalog_omni_add_to_cart AS conv_fb_catalog_omni_add_to_cart_28c_1v,
         catalog_omni_add_to_cart_value AS conv_fb_value_catalog_omni_add_to_cart_28c_1v,
-        catalog_omni_view_content AS conv_fb_catalog_omni_view_content_28c_1v,
-        catalog_omni_view_content_value AS conv_fb_value_catalog_omni_view_content_28c_1v,
+        catalog_omni_view_content AS conv_fb_catalog_omni_content_view_28c_1v,
+        catalog_omni_view_content_value AS conv_fb_value_catalog_omni_content_view_28c_1v,
         catalog_omni_purchase AS conv_fb_catalog_omni_purchase_28c_1v,
         catalog_omni_purchase_value AS conv_fb_value_catalog_omni_purchase_28c_1v
+
+        {# Custom conversions -#}
+
+        {#- Loop through each custom conversion and rename column to include attribution model used -#}
+        {%- for col in cols if "dynamic_" in col.column -%}
+
+        ,
+        {{ col.column }} AS conv_fb_custom_{{ col.column|replace("dynamic_", "") }}_28c_1v
+
+        {%- endfor  %}
 
         -- Excluded fields --
         /*

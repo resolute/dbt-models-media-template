@@ -178,6 +178,16 @@ rename_recast AS (
         catalog_omni_purchase AS conv_fb_catalog_omni_purchase_28c_1v,
         catalog_omni_purchase_value AS conv_fb_value_catalog_omni_purchase_28c_1v
 
+        {#- Custom conversions -#}
+
+        {#- Loop through each custom conversion and rename column to include attribution model used -#}
+        {%- for col in cols if "dynamic_" in col.column -%}
+
+        ,
+        {{ col.column }} AS conv_fb_custom_{{ col.column|replace("dynamic_", "") }}_28c_1v
+
+        {%- endfor  %}
+
         -- Excluded fields --
         /*
         purchase, --This is duplicate field as fb_pixel_purchase

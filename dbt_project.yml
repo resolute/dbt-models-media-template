@@ -1,5 +1,5 @@
 name: 'media_template'
-version: '0.0.1'
+version: '0.0.3'
 config-version: 2
 
 require-dbt-version: [">=0.17.1"]
@@ -23,7 +23,7 @@ vars:
   google_analytics_ids: []
   google_ads_ids: []
   google_campaign_manager_ids: []
-  facebook_ads_ids: ['act_10153216470876289']
+  facebook_ads_ids: []
   linkedin_ads_ids: []
   twitter_ads_ids: []
   pinterest_ads_ids: []
