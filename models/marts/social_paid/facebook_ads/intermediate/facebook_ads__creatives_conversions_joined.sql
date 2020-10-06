@@ -1,5 +1,5 @@
 {#- Get a list of the Facebook Ads conversions that are active for the Facebook Ads accounts -#}
-{%- set conversions = dbt_utils.get_query_results_as_dict("select * from" ~ ref('facebook_ads__account_conversions')) -%}
+{%- set conversions = dbt_utils.get_query_results_as_dict("select * from" ~ ref('facebook_ads__creatives_conversions')) -%}
 {%- set active_conversions = [] -%}
 {%- for column, value in conversions.items() -%}
     {%- if value[0] != 0.0 -%}

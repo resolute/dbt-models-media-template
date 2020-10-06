@@ -1,5 +1,5 @@
 {#- Get a list of fields that are not conversions -#}
-{%- set cols = adapter.get_columns_in_relation(ref('facebook_ads__performance_daily')) -%}
+{%- set cols = adapter.get_columns_in_relation(ref('facebook_ads__ads_performance_daily')) -%}
 {%- set non_conversions = [] -%}
 {%- for col in cols -%}
     {%- if "conv_" not in col.column -%}
@@ -12,7 +12,7 @@ WITH
 unpivot AS (
 
     {{ dbt_utils.unpivot(
-        relation=ref('facebook_ads__performance_daily'),
+        relation=ref('facebook_ads__ads_performance_daily'),
         cast_to='string',
         exclude=non_conversions,
         remove=[],

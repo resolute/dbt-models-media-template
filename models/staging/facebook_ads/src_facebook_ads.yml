@@ -16,6 +16,9 @@ sources:
       - name: facebook_ads_creative
         identifier: 'facebook_ads_creative_*'
 
+      - name: facebook_ads_placements
+        identifier: 'facebook_ads_placements_*'
+
       - name: facebook_campaign_month_reach
         identifier: 'facebook_campaign_month_reach_*'
         loaded_at_field: TIMESTAMP(end_date)
