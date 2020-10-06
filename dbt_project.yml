@@ -23,7 +23,7 @@ vars:
   google_analytics_ids: []
   google_ads_ids: []
   google_campaign_manager_ids: []
-  facebook_ads_ids: []
+  facebook_ads_ids: ['act_10153216470876289']
   linkedin_ads_ids: []
   twitter_ads_ids: []
   pinterest_ads_ids: []

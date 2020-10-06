@@ -1,13 +1,10 @@
 {%- set source_account_ids = var('facebook_ads_ids') -%}
 
-{# Get a list of the columns from the upstream model #}
-{%- set cols = adapter.get_columns_in_relation(source('improvado', 'facebook_ads_creative')) -%}
-
 WITH
 
 source_data AS (
 
-    SELECT * FROM {{ source('improvado', 'facebook_ads_creative') }}
+    SELECT * FROM {{ source('improvado', 'facebook_ads_placements') }}
 
     WHERE account_id IN UNNEST({{ source_account_ids }})
 
@@ -28,41 +25,23 @@ rename_recast AS (
         adset_name,
         ad_id,
         ad_name,
-        creative_id,
-        creative_name,
         objective AS ad_objective,
-        DATE(CAST(publication_date AS DATETIME)) AS ad_publication_date,
-        object_type AS ad_type,
-        body,
-        name,
-        description,
-        caption,
-        call_to_action_type,
-        format_option,
-        preview_shareable_link,
-        instagram_permalink_url,
-        creative_link,
-        image,
-        image_url,
-        website_destination_url,
-        creative_destination_url,
-        video_creative_destination_url,
-        buying_type,
-        lead_gen_form_id,
-        object_story_id,
-        effective_object_story_id,
+        DATE(CAST(created_time AS DATETIME)) AS ad_publication_date,
         effective_status,
+        impression_device,
+        publisher_platform,
+        platform_position,
         
         {#- General metrics -#}
         reach,
-        impressions,
+        imps AS impressions,
         spend AS cost,
         clicks,
         outbound_clicks,
         all_clicks,
-        inline_link_clicks,
-        unique_clicks,
-        unique_link_click,
+        --inline_link_clicks,
+        --unique_clicks,
+        --unique_link_click,
 
         {#- Engagement metrics -#}
         post_engagement AS post_engagement_total,
@@ -71,16 +50,30 @@ rename_recast AS (
         likes AS post_likes,
         comments AS post_comments,
         shares AS post_shares,
-        onsite_post_save AS post_saves,
-        post_story AS post_story_total,
+        --onsite_post_save AS post_saves,
+        post_saved_28d_click,
+        post_saved_1d_view,
+        --post_story AS post_story_total,
         page_engagement AS page_engagement_total,
-        page_story AS page_story_total,
+        --page_story AS page_story_total,
         page_likes,
-        app_engagement AS app_engagement_total,
-        app_story AS app_story_total,
+        page_likes_click_attr AS page_likes_28c,
+        page_likes_1d_view AS page_likes_1v,
+        --app_engagement AS app_engagement_total,
+        --app_story AS app_story_total,
         app_use,
         mobile_app_install,
-        instagram_profile_engagement AS instagram_profile_engagement_total,
+        mobile_app_install_1d_click AS mobile_app_install_1c,
+        mobile_app_install_28d_click AS mobile_app_install_28c,
+        contact_total,
+        location_searches,
+        photo_view,
+        products_customized,
+        schedule_total,
+        event_responses,
+        canvas_avg_view_perc,
+        canvas_avg_view_time,
+        --instagram_profile_engagement AS instagram_profile_engagement_total,
 
         {#- Video metrics -#}
         video_view_3s,
@@ -92,28 +85,36 @@ rename_recast AS (
         video_p95_watched_actions AS video_p95_watched,
         video_p100_watched_actions AS video_completions,
         thru_play AS video_thru_play,
-        video_30_sec_watched_actions,
-        video_avg_time_watched_actions,
-        average_play_time_count AS video_average_play_time_count,
+        --video_30_sec_watched_actions,
+        --video_avg_time_watched_actions,
+        --average_play_time_count AS video_average_play_time_count,
 
         {#- Conversions -#}
         add_payment_info AS conv_fb_add_payment_info_28c_1v,
         fb_mobile_add_payment_info AS conv_fb_mobile_add_payment_info_28c_1v,
+        add_payment_info_value AS conv_fb_value_add_payment_info_28c_1v,
         add_to_cart AS conv_fb_add_to_cart_28c_1v,
+        adds_to_cart_click AS conv_fb_add_to_cart_28c,
+        adds_to_cart_value_1d_view AS conv_fb_add_to_cart_1v,
+        add_to_cart_value AS conv_fb_add_to_cart_value_28c_1v,
         add_to_wishlist AS conv_fb_add_to_wishlist_28c_1v,
+        add_to_wishlist_value AS conv_fb_value_add_to_wishlist_28c_1v,
         complete_registration AS conv_fb_complete_registration_28c_1v,
         fb_mobile_complete_registration AS conv_fb_mobile_complete_registration_28c_1v,
+        complete_registration_value AS conv_fb_value_complete_registration_28c_1v,
         donate_total AS conv_fb_donate_28c_1v,
-        donate_total_value AS conv_fb_value_donate_28c_1v,
+        --donate_total_value AS conv_fb_value_donate_28c_1v,
         initiate_checkout AS conv_fb_initiate_checkout_28c_1v,
+        initiate_checkout_value AS conv_fb_value_initiate_checkout_28c_1v,
         landing_page_view AS conv_fb_landing_page_view_28c_1v,
         lead_grouped AS conv_fb_onfb_lead_total_28c_1v,
         leads AS conv_fb_lead_total_28c_1v,
-        purchase_total AS conv_fb_purchase_total_28c_1v,
+        lead_value AS conv_fb_value_lead_total_28c_1v,
+        --purchase_total AS conv_fb_purchase_total_28c_1v,
         fb_pixel_purchase AS conv_fb_purchase_28c_1v,
         fb_mobile_purchase AS conv_fb_mobile_purchase_28c_1v,
-        mobile_click_through AS conv_fb_mobile_purchase_click_through_28c,
-        mobile_view_through AS conv_fb_mobile_purchase_view_through_1v,
+        fb_mobile_purchase_28d_click AS conv_fb_mobile_purchase_click_through_28c,
+        fb_mobile_purchase_1d_view AS conv_fb_mobile_purchase_view_through_1v,
         offsite_conversion_fb_pixel_purchase_1d_click AS conv_fb_purchase_1c,
         offsite_conversion_fb_pixel_purchase_7d_click AS conv_fb_purchase_7c,
         offsite_conversion_fb_pixel_purchase_28d_click AS conv_fb_purchase_28c,
@@ -128,29 +129,27 @@ rename_recast AS (
         offsite_conversion_fb_pixel_purchase_value_1d_view_1d_click AS conv_fb_value_purchase_1c_1v,
         offsite_conversion_fb_pixel_purchase_value_1d_view_7d_click AS conv_fb_value_purchase_7c_1v,
         purchase_value AS conv_fb_value_purchase_28c_1v,
-        revenue_click_through AS conv_fb_value_click_through_28c,
-        revenue_view_through AS conv_fb_value_view_through_1v,
-        search_total AS conv_fb_search_total_28c_1v,
+        fb_mobile_purchase_conv AS conv_fb_value_mobile_purchase_28c_1v,
+        fb_mobile_purchase_conv_1d_view AS conv_fb_value_mobile_purchase_1v,
+        fb_mobile_purchase_conv_28d_click AS conv_fb_value_mobile_purchase_28c,
         search AS conv_fb_search_28c_1v,
+        search_value AS conv_fb_value_search_28c_1v,
         start_trial_total AS conv_fb_start_trial_28c_1v,
         start_trial_total_value AS conv_fb_value_start_trial_28c_1v,
-        start_trial_website AS conv_fb_website_start_trial_28c_1v,
-        start_trial_mobile_app AS conv_fb_mobile_start_trial_28c_1v,
         submit_application_total AS conv_fb_submit_application_28c_1v,
-        action_subscribe_total AS conv_fb_subscribe_total_28c_1v,
         subscribe_total AS conv_fb_subscribe_28c_1v,
         subscribe_total_value AS conv_fb_value_subscribe_28c_1v,
         view_content AS conv_fb_view_content_28c_1v,
         fb_mobile_content_view AS conv_fb_mobile_view_content_28c_1v,
+        view_content_1d_view AS conv_fb_view_content_1v,
+        view_content_28d_click AS conv_fb_view_content_28c,
+        view_content_value AS conv_fb_value_view_content_28c_1v,
+        offers_saved_28d_click AS conv_fb_offers_saved_28c,
+        offers_saved_1d_view AS conv_fb_offers_saved_1v,
+        action_offsite_conversion AS conv_fb_offsite_conversion,
+        offsite_conversion_value AS conv_fb_value_offsite_conversion,
         fb_offline_purchases AS conv_fb_offline_purchase_28c_1v,
         fb_offline_purchase_conv_value AS conv_fb_value_offline_purchase_28c_1v,
-        omni_add_to_cart AS conv_fb_omni_add_to_cart_28c_1v,
-        omni_complete_registration AS conv_fb_omni_complete_registration_28c_1v,
-        omni_custom AS conv_fb_omni_custom_28c_1v,
-        omni_initiated_checkout AS conv_fb_omni_initiated_checkout_28c_1v,
-        omni_purchase AS conv_fb_omni_purchase_28c_1v,
-        omni_search AS conv_fb_omni_search_28c_1v,
-        omni_view_content AS conv_fb_omni_view_content_28c_1v,
 
         {#- Collaborative Ads Conversions -#}
         catalog_add_to_cart_total AS conv_fb_catalog_add_to_cart_28c_1v,
@@ -181,26 +180,27 @@ rename_recast AS (
         -- Excluded fields --
         /*
         purchase, --This is duplicate field as fb_pixel_purchase
+        purchase_conv_value_28d_click, --This is duplicate field as offsite_conversion_fb_pixel_purchase_value_28d_click
+        purchase_conv_value_1d_view, --This is duplicate field as offsite_conversion_fb_pixel_purchase_value_1d_view
+        purchase_1d_view, --This is duplicate field as offsite_conversion_fb_pixel_purchase_1d_view
+	    purchase_28d_click, --This is duplicate field as offsite_conversion_fb_pixel_purchase_28d_click
         frequency,
-        cost_per_unique_landing_page_view,
         */
 
         -- Deprecated fields --
         /*
         unique_inline_link_clicks,
-        unique_outbound_clicks,
         video_play,
-        cost_per_10_sec_video_view,
         video_10_sec_watched_actions,
         video_avg_percent_watched_actions,
         lead_form,
-        revenue,
-        relevance_score,
         lead,
         conv_value,
         offsite_conversion,
         conv,
         unique_landing_page_view,
+        total_actions,
+        trials_started,
         */
 
     FROM source_data
@@ -211,12 +211,13 @@ final AS (
   
     SELECT 
     
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'ad_id', 'creative_id']) }} AS id,
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'ad_id', 'impression_device', 'publisher_platform', 'platform_position']) }} AS id,
         'Facebook Paid' AS data_source,
 
         CASE
-            WHEN instagram_permalink_url IS NULL THEN 'Facebook'
-            WHEN instagram_permalink_url IS NOT NULL THEN 'Instagram'
+            WHEN publisher_platform = 'facebook' THEN 'Facebook'
+            WHEN publisher_platform = 'instagram' THEN 'Instagram'
+            ELSE publisher_platform
         END AS channel_source_name,
 
         'Paid' AS channel_source_type,

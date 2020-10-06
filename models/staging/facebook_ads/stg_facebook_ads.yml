@@ -9,6 +9,15 @@ models:
         tests:
           - unique
           - not_null
+  
+  - name: stg_facebook_ads__placements
+    description: A table containing daily ad and placement performance data from Facebook Ads
+    columns:
+      - name: id
+        description: Surrogate primary key
+        tests:
+          - unique
+          - not_null
 
   - name: stg_facebook_ads__campaign_month_reach
     description: A table containing monthly campaign reach data from Facebook Ads
