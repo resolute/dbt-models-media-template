@@ -9,12 +9,3 @@ models:
         tests:
           - unique
           - not_null
-
-  - name: stg_pinterest_ads__audience_groups
-    description: A table containing daily audience data from Pinterest Ads
-    columns:
-      - name: id
-        description: Surrogate primary key
-        tests:
-          - unique
-          - not_null
