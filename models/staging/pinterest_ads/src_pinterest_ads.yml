@@ -15,6 +15,3 @@ sources:
     tables:
       - name: pinterest_ads_pins_1v_30en_30cl
         identifier: 'pinterest_ads_pins_1v_30en_30cl_*'
-
-      - name: pinterest_ads_audience_groups
-        identifier: 'pinterest_ads_audience_groups_*'
