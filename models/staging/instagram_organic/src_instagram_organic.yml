@@ -14,7 +14,7 @@ sources:
 
     tables:
       - name: instagram_organic_post
-        identifier: 'instagram_organic_post_*'
+        identifier: 'instagram_organic_post_20*'
 
       - name: instagram_organic_page_info
-        identifier: 'instagram_organic_page_info_*'
+        identifier: 'instagram_organic_page_info_20*'

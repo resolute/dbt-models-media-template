@@ -14,7 +14,7 @@ sources:
 
     tables:
       - name: twitter_organic_tweets
-        identifier: 'twitter_organic_tweets_*'
+        identifier: 'twitter_organic_tweets_20*'
 
       - name: twitter_page
-        identifier: 'twitter_page_*'
+        identifier: 'twitter_page_20*'
