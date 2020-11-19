@@ -13,45 +13,74 @@ source_data AS (
 
 ),
 
+facebook_entity_ad_data AS (
+
+    SELECT * FROM {{ ref('stg_facebook_ads__entity_ads') }}
+
+),
+
+facebook_entity_adset_data AS (
+
+    SELECT * FROM {{ ref('stg_facebook_ads__entity_adsets') }}
+
+),
+
+facebook_entity_campaign_data AS (
+
+    SELECT * FROM {{ ref('stg_facebook_ads__entity_campaigns') }}
+
+),
+
+facebook_entity_creative_data AS (
+
+    SELECT * FROM {{ ref('stg_facebook_ads__entity_creatives') }}
+
+),
+
 rename_recast AS (
 
     SELECT
 
         {# Dimensions -#}
-        account_id,
-        account_name,
-        date,
-        campaign_id,
-        campaign_name,
-        campaign_type,
-        adset_id,
-        adset_name,
-        ad_id,
-        ad_name,
-        creative_id,
-        creative_name,
-        objective AS ad_objective,
-        DATE(CAST(publication_date AS DATETIME)) AS ad_publication_date,
-        object_type AS ad_type,
-        body,
-        name,
-        description,
-        caption,
-        call_to_action_type,
-        format_option,
-        preview_shareable_link,
-        instagram_permalink_url,
-        creative_link,
-        image,
-        image_url,
-        website_destination_url,
-        creative_destination_url,
-        video_creative_destination_url,
-        buying_type,
-        lead_gen_form_id,
-        object_story_id,
-        effective_object_story_id,
-        effective_status,
+        source_data.account_id,
+        facebook_entity_ad_data.account_name AS account_name,
+        source_data.account_name AS account_name_on_date,
+        source_data.date,
+        source_data.campaign_id,
+        facebook_entity_campaign_data.campaign_name AS campaign_name,
+        source_data.campaign_name AS campaign_name_on_date,
+        source_data.campaign_type,
+        source_data.adset_id,
+        facebook_entity_adset_data.adset_name AS adset_name,
+        source_data.adset_name AS adset_name_on_date,
+        source_data.ad_id,
+        facebook_entity_ad_data.ad_name AS ad_name,
+        source_data.ad_name AS ad_name_on_date,
+        source_data.creative_id,
+        facebook_entity_creative_data.creative_name AS creative_name,
+        source_data.creative_name AS creative_name_on_date,
+        source_data.objective AS ad_objective,
+        DATE(CAST(source_data.publication_date AS DATETIME)) AS ad_publication_date,
+        source_data.object_type AS ad_type,
+        source_data.body,
+        source_data.name,
+        source_data.description,
+        source_data.caption,
+        source_data.call_to_action_type,
+        source_data.format_option,
+        source_data.preview_shareable_link,
+        source_data.instagram_permalink_url,
+        source_data.creative_link,
+        source_data.image,
+        source_data.image_url,
+        source_data.website_destination_url,
+        source_data.creative_destination_url,
+        source_data.video_creative_destination_url,
+        source_data.buying_type,
+        source_data.lead_gen_form_id,
+        source_data.object_story_id,
+        source_data.effective_object_story_id,
+        source_data.effective_status,
         
         {#- General metrics -#}
         reach,
@@ -214,6 +243,18 @@ rename_recast AS (
         */
 
     FROM source_data
+
+    LEFT JOIN facebook_entity_ad_data
+        ON source_data.ad_id = facebook_entity_ad_data.ad_id
+
+    LEFT JOIN facebook_entity_adset_data
+        ON source_data.adset_id = facebook_entity_adset_data.adset_id
+
+    LEFT JOIN facebook_entity_campaign_data
+        ON source_data.campaign_id = facebook_entity_campaign_data.campaign_id
+
+    LEFT JOIN facebook_entity_creative_data
+        ON source_data.creative_id = facebook_entity_creative_data.creative_id
 
 ),
 

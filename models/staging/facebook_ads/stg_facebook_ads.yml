@@ -27,3 +27,39 @@ models:
         tests:
           - unique
           - not_null
+  
+  - name: stg_facebook_ads__entity_ads
+    description: A table containing dimension data for ads from Facebook Ads
+    columns:
+      - name: ad_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+  
+  - name: stg_facebook_ads__entity_adsets
+    description: A table containing dimension data for adsets from Facebook Ads
+    columns:
+      - name: adset_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+  
+  - name: stg_facebook_ads__entity_campaigns
+    description: A table containing dimension data for campaigns from Facebook Ads
+    columns:
+      - name: campaign_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+  
+  - name: stg_facebook_ads__entity_creatives
+    description: A table containing dimension data for creatives from Facebook Ads
+    columns:
+      - name: creative_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
