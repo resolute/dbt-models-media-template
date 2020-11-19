@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: website_session_performance
+  - name: website__session_performance
     description: A table containing session performance data from Google Analytics properties
     columns:
       - name: id

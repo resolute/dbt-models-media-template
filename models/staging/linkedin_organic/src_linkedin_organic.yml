@@ -14,7 +14,7 @@ sources:
 
     tables:
       - name: linkedin_organic_share_lifetime
-        identifier: 'linkedin_organic_share_lifetime_*'
+        identifier: 'linkedin_organic_share_lifetime_20*'
 
       - name: linkedin_organic_followers_lifetime
-        identifier: 'linkedin_organic_followers_lifetime_*'
+        identifier: 'linkedin_organic_followers_lifetime_20*'
