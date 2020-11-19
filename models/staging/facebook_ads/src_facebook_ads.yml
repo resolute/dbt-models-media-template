@@ -22,3 +22,15 @@ sources:
       - name: facebook_campaign_month_reach
         identifier: 'facebook_campaign_month_reach_*'
         loaded_at_field: TIMESTAMP(end_date)
+
+      - name: facebook_entity_ads
+        identifier: 'facebook_entity_ads_*'
+    
+      - name: facebook_entity_adsets
+        identifier: 'facebook_entity_adsets_*'
+
+      - name: facebook_entity_campaigns
+        identifier: 'facebook_entity_campaigns_*'
+      
+      - name: facebook_entity_creatives
+        identifier: 'facebook_entity_creatives_*'

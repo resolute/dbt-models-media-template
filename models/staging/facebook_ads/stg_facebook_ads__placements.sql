@@ -13,27 +13,49 @@ source_data AS (
 
 ),
 
+facebook_entity_ad_data AS (
+
+    SELECT * FROM {{ ref('stg_facebook_ads__entity_ads') }}
+
+),
+
+facebook_entity_adset_data AS (
+
+    SELECT * FROM {{ ref('stg_facebook_ads__entity_adsets') }}
+
+),
+
+facebook_entity_campaign_data AS (
+
+    SELECT * FROM {{ ref('stg_facebook_ads__entity_campaigns') }}
+
+),
+
 rename_recast AS (
 
     SELECT
 
         {# Dimensions -#}
-        account_id,
-        account_name,
-        date,
-        campaign_id,
-        campaign_name,
+        source_data.account_id,
+        facebook_entity_ad_data.account_name AS account_name,
+        source_data.account_name AS account_name_on_date,
+        source_data.date,
+        source_data.campaign_id,
+        facebook_entity_campaign_data.campaign_name AS campaign_name,
+        source_data.campaign_name AS campaign_name_on_date,
         campaign_type,
-        adset_id,
-        adset_name,
-        ad_id,
-        ad_name,
-        objective AS ad_objective,
-        DATE(CAST(created_time AS DATETIME)) AS ad_publication_date,
-        effective_status,
-        impression_device,
-        publisher_platform,
-        platform_position,
+        source_data.adset_id,
+        facebook_entity_adset_data.adset_name AS adset_name,
+        source_data.adset_name AS adset_name_on_date,
+        source_data.ad_id,
+        facebook_entity_ad_data.ad_name AS ad_name,
+        source_data.ad_name AS ad_name_on_date,
+        source_data.objective AS ad_objective,
+        DATE(CAST(source_data.created_time AS DATETIME)) AS ad_publication_date,
+        source_data.effective_status,
+        source_data.impression_device,
+        source_data.publisher_platform,
+        source_data.platform_position,
         
         {# General metrics -#}
         reach,
@@ -216,6 +238,15 @@ rename_recast AS (
         */
 
     FROM source_data
+
+    LEFT JOIN facebook_entity_ad_data
+        ON source_data.ad_id = facebook_entity_ad_data.ad_id
+
+    LEFT JOIN facebook_entity_adset_data
+        ON source_data.adset_id = facebook_entity_adset_data.adset_id
+
+    LEFT JOIN facebook_entity_campaign_data
+        ON source_data.campaign_id = facebook_entity_campaign_data.campaign_id
 
 ),
 
