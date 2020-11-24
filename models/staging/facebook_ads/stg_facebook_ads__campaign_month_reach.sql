@@ -16,13 +16,19 @@ facebook_entity_campaign_data AS (
 
 ),
 
+facebook_entity_account_data AS (
+
+    SELECT * FROM {{ ref('stg_facebook_ads__entity_accounts') }}
+
+),
+
 rename_recast AS (
 
     SELECT
 
         {# Dimensions -#}
         source_data.account_id,
-        facebook_entity_campaign_data.account_name AS account_name,
+        facebook_entity_account_data.account_name AS account_name,
         source_data.account_name AS account_name_on_date,
         source_data.date AS month_start_date,
         source_data.end_date AS month_end_date,
@@ -53,6 +59,9 @@ rename_recast AS (
 
     LEFT JOIN facebook_entity_campaign_data
         ON source_data.campaign_id = facebook_entity_campaign_data.campaign_id
+
+    LEFT JOIN facebook_entity_account_data
+        ON source_data.account_id = facebook_entity_account_data.account_id
 
 ),
 
