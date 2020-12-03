@@ -16,7 +16,7 @@ rename_recast_dedupe AS (
 
         account_id,
         account_name,
-        id AS ad_id,
+        ad_id,
         name AS ad_name,
         adset_id,
         campaign_id,
