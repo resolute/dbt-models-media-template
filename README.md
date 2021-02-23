@@ -9,7 +9,6 @@ This package contains transformation models, designed to be starting models for 
 ### Paid Media
 #### google_campaign_manager__performance_daily
 Each record represents the daily performance of each Google Campaign Manager creative, ad, and placement.
-
 ##### Improvado Report Types:
 * dcm_ads_creatives_placements
 * dcm_ads_placement_sites
@@ -114,7 +113,7 @@ packages:
 ```
 
 ## Configuration
-By default, this package will look for your LinkedIn Ad Analytics data in the `linkedin_ads` schema of your [target database](https://docs.getdbt.com/docs/running-a-dbt-project/using-the-command-line-interface/configure-your-profile). If this is not where your LinkedIn Ad Analytics data is, please add the following configuration to your `dbt_project.yml` file:
+By default, this package will look for your data in the Improvado BigQuery schema. For each data source you need to populate the appropriate Improvado account_id, please add the following configuration to your `dbt_project.yml` file:
 
 ```yml
 # dbt_project.yml
@@ -123,22 +122,20 @@ By default, this package will look for your LinkedIn Ad Analytics data in the `l
 config-version: 2
 
 vars:
-    linkedin_schema: your_database_name
-    linkedin_database: your_schema_name 
+  google_analytics_ids: []            # List of Google Analytics View IDs
+  google_ads_ids: []                  # List of Google Ads Account IDs 
+  google_campaign_manager_ids: []     # List of Google Campaign Manager Advertiser IDs
+  facebook_ads_ids: []                # List of Facebook Ads Account IDs 
+  linkedin_ads_ids: []                # List of LinkedIn Ads Account IDs 
+  twitter_ads_ids: []                 # List of Twitter Ads Account IDs 
+  pinterest_ads_ids: []               # List of Pinterest Account IDs 
+  facebook_organic_ids: []            # List of Facebook Account IDs 
+  instagram_organic_ids: []           # List of Instagram Account IDs 
+  linkedin_organic_ids: []            # List of LinkedIn Account IDs 
+  twitter_organic_ids: []             # List of Twitter Account IDs 
+  pinterest_organic_ids: []           # List of Pinterest Account IDs 
+  youtube_organic_ids: []             # List of YouTube Account IDs 
 ```
-
-Additionally, the package allows you to select whether you want to add in costs in USD or the local currency of the ad. By default, the package used USD. If you would like to have costs in the local currency, add the following variable to your `dbt_project.yml` file:
-
-```yml
-# dbt_project.yml
-
-...
-config-version: 2
-
-vars:
-    linkedin__use_local_currency: True
-```
-
 
 ## Contributions
 
@@ -148,9 +145,6 @@ or open PRs against `master`. Check out
 on the best workflow for contributing to a package.
 
 ## Resources:
-- Find all of Fivetran's pre-built dbt packages in our [dbt hub](https://hub.getdbt.com/fivetran/)
-- Learn more about Fivetran [here](https://fivetran.com/docs)
-- Check out [Fivetran's blog](https://fivetran.com/blog)
 - Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
 - Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
 - Join the [chat](http://slack.getdbt.com/) on Slack for live discussions and support
