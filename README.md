@@ -113,7 +113,19 @@ packages:
 ```
 
 ## Configuration
-By default, this package will look for your data in the Improvado BigQuery schema. For each data source you need to populate the appropriate Improvado account_id, please add the following configuration to your `dbt_project.yml` file:
+By default, this package will look for your data in the Improvado BigQuery schema. If this is not where your data is, please add the following configuration to your `dbt_project.yml` file:
+
+```yml
+# dbt_project.yml
+
+...
+config-version: 2
+
+vars:
+    improvado_schema: your_schema_name
+    improvado_database: your_database_name 
+```
+Additionally, for each data source you need to populate the appropriate Improvado account_id, please add the following configuration to your `dbt_project.yml` file:
 
 ```yml
 # dbt_project.yml
