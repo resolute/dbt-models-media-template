@@ -1,1 +1,0 @@
-{{ replace_null_values(ref('google_campaign_manager__ads_conversions_joined')) }}

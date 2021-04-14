@@ -125,7 +125,7 @@ vars:
     improvado_schema: your_schema_name
     improvado_database: your_database_name 
 ```
-Additionally, for each data source you need to populate the appropriate Improvado account_id, please add the following configuration to your `dbt_project.yml` file:
+For each data source you need to populate the appropriate Improvado account_id, please add the following configuration to your `dbt_project.yml` file:
 
 ```yml
 # dbt_project.yml
@@ -134,19 +134,33 @@ Additionally, for each data source you need to populate the appropriate Improvad
 config-version: 2
 
 vars:
-  google_analytics_ids: []            # List of Google Analytics View IDs
-  google_ads_ids: []                  # List of Google Ads Account IDs 
-  google_campaign_manager_ids: []     # List of Google Campaign Manager Advertiser IDs
-  facebook_ads_ids: []                # List of Facebook Ads Account IDs 
-  linkedin_ads_ids: []                # List of LinkedIn Ads Account IDs 
-  twitter_ads_ids: []                 # List of Twitter Ads Account IDs 
-  pinterest_ads_ids: []               # List of Pinterest Account IDs 
-  facebook_organic_ids: []            # List of Facebook Account IDs 
-  instagram_organic_ids: []           # List of Instagram Account IDs 
-  linkedin_organic_ids: []            # List of LinkedIn Account IDs 
-  twitter_organic_ids: []             # List of Twitter Account IDs 
-  pinterest_organic_ids: []           # List of Pinterest Account IDs 
-  youtube_organic_ids: []             # List of YouTube Account IDs 
+  google_analytics_ids: []            # List of Google Analytics View IDs eg. ['123']
+  google_ads_ids: []                  # List of Google Ads Account IDs eg. ['123']
+  google_campaign_manager_ids: []     # List of Google Campaign Manager Advertiser IDs eg. ['123']
+  facebook_ads_ids: []                # List of Facebook Ads Account IDs eg. ['123']
+  linkedin_ads_ids: []                # List of LinkedIn Ads Account IDs eg. ['123']
+  twitter_ads_ids: []                 # List of Twitter Ads Account IDs eg. ['123']
+  pinterest_ads_ids: []               # List of Pinterest Account IDs eg. ['123']
+  facebook_organic_ids: []            # List of Facebook Account IDs eg. ['123']
+  instagram_organic_ids: []           # List of Instagram Account IDs eg. ['123']
+  linkedin_organic_ids: []            # List of LinkedIn Account IDs eg. ['123']
+  twitter_organic_ids: []             # List of Twitter Account IDs eg. ['123']
+  pinterest_organic_ids: []           # List of Pinterest Account IDs eg. ['123']
+  youtube_organic_ids: []             # List of YouTube Account IDs eg. ['123']
+```
+
+The package assumes that all custom conversions for Google Ads, Google Campaign Mananger, and LinkedIn Ads are not enabled. If you want to include custom conversions from these data sources, enable those data sources' custom conversions in this package by setting the relevant variables to `true`:
+
+```yml
+# dbt_project.yml
+
+...
+config-version: 2
+
+vars:
+  google_ads_conversions_enabled: true
+  google_campaign_manager_conversions_enabled: true
+  linkedin_ads_conversions_enabled: true
 ```
 
 ## Contributions

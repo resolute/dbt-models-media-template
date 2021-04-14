@@ -1,1 +1,0 @@
-{{ replace_null_values(ref('facebook_ads__creatives_conversions_joined')) }}

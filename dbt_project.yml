@@ -19,19 +19,20 @@ clean-targets:
     - "dbt_modules"
 
 vars:
-  client_name: ''
-  google_analytics_ids: []
-  google_ads_ids: []
-  google_campaign_manager_ids: []
   facebook_ads_ids: []
-  linkedin_ads_ids: []
-  twitter_ads_ids: []
-  pinterest_ads_ids: []
   facebook_organic_ids: []
+  google_ads_ids: []
+  google_ads_conversions_enabled: false
+  google_analytics_ids: []
+  google_campaign_manager_ids: []
+  google_campaign_manager_conversions_enabled: false
   instagram_organic_ids: []
+  linkedin_ads_ids: []
+  linkedin_ads_conversions_enabled: false
   linkedin_organic_ids: []
+  pinterest_ads_ids: []
+  twitter_ads_ids: []
   twitter_organic_ids: []
-  pinterest_organic_ids: []
   youtube_organic_ids: []
 
 models:
@@ -40,50 +41,96 @@ models:
       relation: true
       columns: true
     
-    marts:
-      +materialized: table
-
+    rollups:
       display:
+        +materialized: table
         intermediate:
           +materialized: view
           +schema: staging
-        google_campaign_manager:
-          intermediate:
-            +materialized: view
-            +schema: staging
-            
       search_paid:
+        +materialized: table
         intermediate:
           +materialized: view
           +schema: staging
-        google_ads:
-          intermediate:
-            +materialized: view
-            +schema: staging
-
       social_organic:
+        +materialized: table
         intermediate:
           +materialized: view
           +schema: staging
-
       social_paid:
+        +materialized: table
         intermediate:
           +materialized: view
           +schema: staging
-        facebook_ads:
-          intermediate:
-            +materialized: view
-            +schema: staging
-        linkedin_ads:
-          intermediate:
-            +materialized: view
-            +schema: staging
-          
       summary:
+        +materialized: table
         intermediate:
           +materialized: view
           +schema: staging
 
-    staging:
-      +materialized: view
-      +schema: staging
+    
+    facebook_ads:
+      marts:
+        +materialized: table
+      intermediate:
+        +schema: staging
+      staging:
+        +schema: staging
+    
+    facebook_organic:
+      staging:
+        +schema: staging
+    
+    google_ads:
+      marts:
+        +materialized: table
+      intermediate:
+        +schema: staging
+      staging:
+        +schema: staging
+
+    google_analytics:
+      marts:
+        +materialized: table
+      staging:
+        +schema: staging
+
+    google_campaign_manager:
+      marts:
+        +materialized: table
+      intermediate:
+        +schema: staging
+      staging:
+        +schema: staging
+    
+    instagram_organic:
+      staging:
+        +schema: staging
+    
+    linkedin_ads:
+      marts:
+        +materialized: table
+      intermediate:
+        +schema: staging
+      staging:
+        +schema: staging
+
+    linkedin_organic:
+      staging:
+        +schema: staging
+    
+    pinterest_ads:
+      marts:
+        +materialized: table
+      staging:
+        +schema: staging
+      
+    twitter_organic:
+      staging:
+        +schema: staging
+
+    youtube_organic:
+      marts:
+        +materialized: table
+      staging:
+        +schema: staging
