@@ -1,3 +1,5 @@
+{{ config(enabled= (var('facebook_ads_ids'))|length > 0 is true) }}
+
 {%- set source_account_ids = var('facebook_ads_ids') -%}
 
 {# Get a list of the columns from the upstream model #}

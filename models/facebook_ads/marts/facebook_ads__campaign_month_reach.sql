@@ -1,3 +1,5 @@
+{{ config(enabled= (var('facebook_ads_ids'))|length > 0 is true) }}
+
 WITH
 
 data AS (

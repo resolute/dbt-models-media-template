@@ -1,3 +1,5 @@
+{{ config(enabled= (var('linkedin_ads_ids'))|length > 0 is true) }}
+
 {%- set source_account_ids = var('linkedin_ads_ids') -%}
 
 WITH

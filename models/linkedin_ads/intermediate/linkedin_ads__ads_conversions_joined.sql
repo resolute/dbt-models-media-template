@@ -1,3 +1,5 @@
+{{ config(enabled= (var('linkedin_ads_ids'))|length > 0 is true) }}
+
 {%- if var('linkedin_ads_conversions_enabled')-%}
 
 {# Get a list of the columns from the conversion data model #}
