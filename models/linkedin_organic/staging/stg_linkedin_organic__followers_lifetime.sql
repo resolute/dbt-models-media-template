@@ -1,6 +1,6 @@
 {%- set source_account_ids = var('linkedin_organic_ids') -%}
 
-{{ config(enabled= (var('instagram_organic_ids'))|length > 0 is true) }}
+{{ config(enabled= (var('linkedin_organic_ids'))|length > 0 is true) }}
 
 WITH
 

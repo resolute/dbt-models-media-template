@@ -1,6 +1,6 @@
 {%- set source_account_ids = var('twitter_organic_ids') -%}
 
-{{ config(enabled= (var('instagram_organic_ids'))|length > 0 is true) }}
+{{ config(enabled= (var('twitter_organic_ids'))|length > 0 is true) }}
 
 WITH
 
