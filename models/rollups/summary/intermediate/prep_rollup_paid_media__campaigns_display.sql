@@ -1,3 +1,9 @@
+{%- set relations_list = get_display_files() -%}
+
+{%- if relations_list|length < 1 -%}
+{{ config(enabled=false) }}
+{%- endif -%}
+
 {# Get a list of the columns from the upstream model #}
 {%- set cols = adapter.get_columns_in_relation(ref('rollup_display__campaigns')) -%}
 

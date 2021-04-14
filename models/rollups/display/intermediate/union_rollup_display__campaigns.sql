@@ -1,3 +1,9 @@
+{%- set relations_list = get_display_files() -%}
+
+{%- if relations_list|length < 1 -%}
+{{ config(enabled=false) }}
+{%- endif -%}
+
 {{ dbt_utils.union_relations(
-    relations= [ref('prep_rollup_display__campaigns_google_campaign_manager')]
+    relations= get_display_files()
 ) }}

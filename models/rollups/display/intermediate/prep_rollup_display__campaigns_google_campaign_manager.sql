@@ -1,3 +1,5 @@
+{{ config(enabled= (var('google_campaign_manager_ids'))|length > 0 is true) }}
+
 {# Get a list of the columns from the upstream model #}
 {%- set cols = adapter.get_columns_in_relation(ref('google_campaign_manager__performance_daily')) -%}
 

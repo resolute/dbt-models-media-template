@@ -1,3 +1,5 @@
+{{ config(enabled= (var('youtube_organic_ids'))|length > 0 is true) }}
+
 WITH
 
 yt_organic AS (

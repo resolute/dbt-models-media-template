@@ -1,3 +1,5 @@
+{{ config(enabled= (var('google_campaign_manager_ids'))|length > 0 is true) }}
+
 {%- if var('google_campaign_manager_conversions_enabled') -%}
 
 {# Get a list of the columns from the conversion data model #}

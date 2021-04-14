@@ -48,3 +48,9 @@ macros:
   
   - name: get_social_paid_files
     description: A macro to return a list of the paid social data models for the social rollup models based on whether each platform has account ids for their respective variables in dbt_project.
+  
+  - name: get_display_files
+    description: A macro to return a list of the paid display data models for the display rollup models based on whether each platform has account ids for their respective variables in dbt_project.
+  
+  - name: get_search_paid_files
+    description: A macro to return a list of the paid search data models for the search rollup models based on whether each platform has account ids for their respective variables in dbt_project.

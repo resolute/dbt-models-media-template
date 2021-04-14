@@ -1,3 +1,5 @@
+{{ config(enabled= (var('google_ads_ids'))|length > 0 is true) }}
+
 WITH
 
 aggregate AS (

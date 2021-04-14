@@ -1,3 +1,5 @@
+{{ config(enabled= (var('google_analytics_ids'))|length > 0 is true) }}
+
 WITH
 
 data AS (

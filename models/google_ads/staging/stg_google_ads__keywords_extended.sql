@@ -1,5 +1,7 @@
 {%- set source_account_ids = var('google_ads_ids') -%}
 
+{{ config(enabled= (var('google_ads_ids'))|length > 0 is true) }}
+
 WITH
 
 source_data AS (
