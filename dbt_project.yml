@@ -30,7 +30,6 @@ vars:
   instagram_organic_ids: []
   linkedin_organic_ids: []
   twitter_organic_ids: []
-  pinterest_organic_ids: []
   youtube_organic_ids: []
 
 models:
