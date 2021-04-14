@@ -19,16 +19,16 @@ clean-targets:
     - "dbt_modules"
 
 vars:
-  google_analytics_ids: []
-  google_ads_ids: []
-  google_campaign_manager_ids: []
   facebook_ads_ids: []
-  linkedin_ads_ids: []
-  twitter_ads_ids: []
-  pinterest_ads_ids: []
   facebook_organic_ids: []
+  google_ads_ids: []
+  google_analytics_ids: []
+  google_campaign_manager_ids: []
   instagram_organic_ids: []
+  linkedin_ads_ids: []
   linkedin_organic_ids: []
+  pinterest_ads_ids: []
+  twitter_ads_ids: []
   twitter_organic_ids: []
   youtube_organic_ids: []
 
