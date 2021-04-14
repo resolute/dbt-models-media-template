@@ -1,3 +1,5 @@
+{{ config(enabled= (var('linkedin_organic_ids'))|length > 0 is true) }}
+
 WITH
 
 data AS (

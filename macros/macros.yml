@@ -35,3 +35,16 @@ macros:
       - name: string
         type: string
         description: The value to replace all null values found in columns with a string data type. Defaults to 'null'.
+  
+  - name: get_summary_files
+    description: A macro to return a list of the data models for the summary rollup models based on whether each platform has account ids for their respective variables in dbt_project.
+  
+  - name: get_social_organic_files
+    description: A macro to return a list of the organic social data models for the social rollup models based on whether each platform has account ids for their respective variables in dbt_project.
+    arguments:
+      - name: table_type
+        type: string
+        description: Valid values are 'followers' or 'posts'. This will determine the types of data models to return in the list.
+  
+  - name: get_social_paid_files
+    description: A macro to return a list of the paid social data models for the social rollup models based on whether each platform has account ids for their respective variables in dbt_project.

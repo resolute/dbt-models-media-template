@@ -1,9 +1,15 @@
+{%- set relations_list = get_social_organic_files('posts') -%}
+
+{%- if relations_list|length < 1 -%}
+{{ config(enabled=false) }}
+{%- endif -%}
+
 WITH
 
 union_tables AS (
 
 {{ dbt_utils.union_relations(
-    relations= [ref('facebook_organic__posts_lifetime'), ref('instagram_organic__posts_lifetime'), ref('twitter_organic__posts_lifetime'), ref('linkedin_organic__posts_lifetime')],
+    relations= relations_list,
     exclude= ['id']
 ) }}
 
