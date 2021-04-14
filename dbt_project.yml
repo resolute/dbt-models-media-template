@@ -40,50 +40,96 @@ models:
       relation: true
       columns: true
     
-    marts:
-      +materialized: table
-
+    rollups:
       display:
+        +materialized: table
         intermediate:
           +materialized: view
           +schema: staging
-        google_campaign_manager:
-          intermediate:
-            +materialized: view
-            +schema: staging
-            
       search_paid:
+        +materialized: table
         intermediate:
           +materialized: view
           +schema: staging
-        google_ads:
-          intermediate:
-            +materialized: view
-            +schema: staging
-
       social_organic:
+        +materialized: table
         intermediate:
           +materialized: view
           +schema: staging
-
       social_paid:
+        +materialized: table
         intermediate:
           +materialized: view
           +schema: staging
-        facebook_ads:
-          intermediate:
-            +materialized: view
-            +schema: staging
-        linkedin_ads:
-          intermediate:
-            +materialized: view
-            +schema: staging
-          
       summary:
+        +materialized: table
         intermediate:
           +materialized: view
           +schema: staging
 
-    staging:
-      +materialized: view
-      +schema: staging
+    
+    facebook_ads:
+      marts:
+        +materialized: table
+      intermediate:
+        +schema: staging
+      staging:
+        +schema: staging
+    
+    facebook_organic:
+      staging:
+        +schema: staging
+    
+    google_ads:
+      marts:
+        +materialized: table
+      intermediate:
+        +schema: staging
+      staging:
+        +schema: staging
+
+    google_analytics:
+      marts:
+        +materialized: table
+      staging:
+        +schema: staging
+
+    google_campaign_manager:
+      marts:
+        +materialized: table
+      intermediate:
+        +schema: staging
+      staging:
+        +schema: staging
+    
+    instagram_organic:
+      staging:
+        +schema: staging
+    
+    linkedin_ads:
+      marts:
+        +materialized: table
+      intermediate:
+        +schema: staging
+      staging:
+        +schema: staging
+
+    linkedin_organic:
+      staging:
+        +schema: staging
+    
+    pinterest_ads:
+      marts:
+        +materialized: table
+      staging:
+        +schema: staging
+      
+    twitter_organic:
+      staging:
+        +schema: staging
+
+    youtube_organic:
+      marts:
+        +materialized: table
+      staging:
+        +schema: staging
