@@ -1,3 +1,5 @@
+{%- if var('linkedin_ads_conversions_enabled')-%}
+
 {# Get a list of the columns from the conversion data model #}
 {%- set cols = adapter.get_columns_in_relation(ref('linkedin_ads__conversions_pivoted')) -%}
 
@@ -42,3 +44,7 @@ final AS (
 )
 
 SELECT * FROM final
+
+{% else %}
+SELECT * FROM {{ ref('linkedin_ads__ads_aggregated') }}
+{% endif %}

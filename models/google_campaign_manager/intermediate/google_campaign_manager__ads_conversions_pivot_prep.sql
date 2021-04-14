@@ -1,3 +1,5 @@
+{{ config(enabled=var('google_campaign_manager_conversions_enabled')) }}
+
 WITH
 
 data AS (

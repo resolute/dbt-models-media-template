@@ -125,7 +125,7 @@ vars:
     improvado_schema: your_schema_name
     improvado_database: your_database_name 
 ```
-Additionally, for each data source you need to populate the appropriate Improvado account_id, please add the following configuration to your `dbt_project.yml` file:
+For each data source you need to populate the appropriate Improvado account_id, please add the following configuration to your `dbt_project.yml` file:
 
 ```yml
 # dbt_project.yml
@@ -147,6 +147,20 @@ vars:
   twitter_organic_ids: []             # List of Twitter Account IDs 
   pinterest_organic_ids: []           # List of Pinterest Account IDs 
   youtube_organic_ids: []             # List of YouTube Account IDs 
+```
+
+The package assumes that all custom conversions for Google Ads, Google Campaign Mananger, and LinkedIn Ads are not enabled. If you want to include custom conversions from these data sources, enable those data sources' custom conversions in this package by setting the relevant variables to `true`:
+
+```yml
+# dbt_project.yml
+
+...
+config-version: 2
+
+vars:
+  google_ads_conversions_enabled: true
+  google_campaign_manager_conversions_enabled: true
+  linkedin_ads_conversions_enabled: true
 ```
 
 ## Contributions

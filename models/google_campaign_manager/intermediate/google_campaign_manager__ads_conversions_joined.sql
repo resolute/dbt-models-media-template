@@ -1,3 +1,5 @@
+{%- if var('google_campaign_manager_conversions_enabled') -%}
+
 {# Get a list of the columns from the conversion data model #}
 {%- set cols = adapter.get_columns_in_relation(ref('google_campaign_manager__ads_conversions_pivoted')) -%}
 
@@ -42,3 +44,7 @@ final AS (
 )
 
 SELECT * FROM final
+
+{% else %}
+SELECT * FROM {{ ref('google_campaign_manager__ads_aggregated') }}
+{% endif %}

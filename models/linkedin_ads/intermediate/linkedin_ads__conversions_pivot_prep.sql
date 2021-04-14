@@ -1,3 +1,5 @@
+{{ config(enabled=var('linkedin_ads_conversions_enabled')) }}
+
 WITH
 
 data AS (

@@ -1,3 +1,5 @@
+{{ config(enabled=var('linkedin_ads_conversions_enabled')) }}
+
 {# Identify the conversion metrics to include in this model #}
 {%- set conversion_fields = [
     'conversions',
