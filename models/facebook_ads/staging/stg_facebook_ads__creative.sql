@@ -188,6 +188,7 @@ rename_recast AS (
         omni_purchase AS conv_fb_omni_purchase_28c_1v,
         omni_search AS conv_fb_omni_search_28c_1v,
         omni_view_content AS conv_fb_omni_view_content_28c_1v,
+        store_visits AS conv_fb_store_visits_28c_1v,
 
         {#- Collaborative Ads Conversions -#}
         catalog_add_to_cart_total AS conv_fb_catalog_add_to_cart_28c_1v,
