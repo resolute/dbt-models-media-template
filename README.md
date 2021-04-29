@@ -144,12 +144,13 @@ vars:
   facebook_organic_ids: []            # List of Facebook Account IDs eg. ['123']
   instagram_organic_ids: []           # List of Instagram Account IDs eg. ['123']
   linkedin_organic_ids: []            # List of LinkedIn Account IDs eg. ['123']
+  twitter_ads_ids: []                 # List of Twitter Account IDs eg. ['123']
   twitter_organic_ids: []             # List of Twitter Account IDs eg. ['123']
   pinterest_organic_ids: []           # List of Pinterest Account IDs eg. ['123']
   youtube_organic_ids: []             # List of YouTube Account IDs eg. ['123']
 ```
 
-The package assumes that all custom conversions for Google Ads, Google Campaign Mananger, and LinkedIn Ads are not enabled. If you want to include custom conversions from these data sources, enable those data sources' custom conversions in this package by setting the relevant variables to `true`:
+The package assumes that all custom conversions for Google Ads, Google Campaign Mananger, LinkedIn Ads, and Twitter Ads are not enabled. If you want to include custom conversions from these data sources, enable those data sources' custom conversions in this package by setting the relevant variables to `true`:
 
 ```yml
 # dbt_project.yml
@@ -161,6 +162,7 @@ vars:
   google_ads_conversions_enabled: true
   google_campaign_manager_conversions_enabled: true
   linkedin_ads_conversions_enabled: true
+  twitter_ads_conversions_enabled: true
 ```
 
 ## Contributions
