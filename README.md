@@ -61,6 +61,11 @@ Each record represents the daily performance of each LinkedIn Ads creative.
 * linkedin_ads_creatives
 * linkedin_ads_conversions
 
+#### twitter_ads__promoted_tweets_performance_daily
+Each record represents the daily performance of each Twitter Ads promoted tweet.
+##### Improvado Report Types:
+* twitter_promoted_tweets_with_cards
+
 #### pinterest_ads__pins_performance_daily
 Each record represents the daily performance of each Pinterest Ads ad.
 ##### Improvado Report Types:
@@ -162,7 +167,6 @@ vars:
   google_ads_conversions_enabled: true
   google_campaign_manager_conversions_enabled: true
   linkedin_ads_conversions_enabled: true
-  twitter_ads_conversions_enabled: true
 ```
 
 ## Contributions

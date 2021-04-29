@@ -32,7 +32,6 @@ vars:
   linkedin_organic_ids: []
   pinterest_ads_ids: []
   twitter_ads_ids: []
-  twitter_ads_conversions_enabled: false
   twitter_organic_ids: []
   youtube_organic_ids: []
 

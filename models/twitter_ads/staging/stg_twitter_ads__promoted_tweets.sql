@@ -71,7 +71,7 @@ rename_recast AS (
         video_cta_clicks,
         video_content_starts,
         video_mrc_views,
-        video_3s100pct_views,
+        video_3s100pct_views
 
         {#- Conversions -#}
 
