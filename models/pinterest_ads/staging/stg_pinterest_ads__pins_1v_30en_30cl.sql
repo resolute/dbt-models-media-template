@@ -39,6 +39,7 @@ rename_recast AS (
         spend AS cost,
         spend_in_microdollar AS cost_in_microdollar,
         paid_clicks,
+        clickthrough_2 AS earned_clicks,
 
         {#- Engagement metrics -#}
         paid_closeups,
@@ -46,6 +47,7 @@ rename_recast AS (
         paid_engagements,
         downstream_engagements AS earned_engagements,
         paid_saves,
+        repin_2 AS earned_saves,
 
         {#- Video metrics -#}
         video_starts AS video_starts_paid,

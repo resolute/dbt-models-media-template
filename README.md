@@ -61,6 +61,11 @@ Each record represents the daily performance of each LinkedIn Ads creative.
 * linkedin_ads_creatives
 * linkedin_ads_conversions
 
+#### twitter_ads__promoted_tweets_performance_daily
+Each record represents the daily performance of each Twitter Ads promoted tweet.
+##### Improvado Report Types:
+* twitter_promoted_tweets_with_cards
+
 #### pinterest_ads__pins_performance_daily
 Each record represents the daily performance of each Pinterest Ads ad.
 ##### Improvado Report Types:
@@ -144,12 +149,13 @@ vars:
   facebook_organic_ids: []            # List of Facebook Account IDs eg. ['123']
   instagram_organic_ids: []           # List of Instagram Account IDs eg. ['123']
   linkedin_organic_ids: []            # List of LinkedIn Account IDs eg. ['123']
+  twitter_ads_ids: []                 # List of Twitter Account IDs eg. ['123']
   twitter_organic_ids: []             # List of Twitter Account IDs eg. ['123']
   pinterest_organic_ids: []           # List of Pinterest Account IDs eg. ['123']
   youtube_organic_ids: []             # List of YouTube Account IDs eg. ['123']
 ```
 
-The package assumes that all custom conversions for Google Ads, Google Campaign Mananger, and LinkedIn Ads are not enabled. If you want to include custom conversions from these data sources, enable those data sources' custom conversions in this package by setting the relevant variables to `true`:
+The package assumes that all custom conversions for Google Ads, Google Campaign Mananger, LinkedIn Ads, and Twitter Ads are not enabled. If you want to include custom conversions from these data sources, enable those data sources' custom conversions in this package by setting the relevant variables to `true`:
 
 ```yml
 # dbt_project.yml

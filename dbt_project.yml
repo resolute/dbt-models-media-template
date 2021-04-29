@@ -2,7 +2,7 @@ name: 'media_template'
 version: '0.0.4'
 config-version: 2
 
-require-dbt-version: [">=0.18.0", "<0.20.0"]
+require-dbt-version: [">=0.19.0", "<0.20.0"]
 
 profile: 'default'
 
@@ -124,7 +124,15 @@ models:
         +materialized: table
       staging:
         +schema: staging
-      
+    
+    twitter_ads:
+      marts:
+        +materialized: table
+      intermediate:
+        +schema: staging
+      staging:
+        +schema: staging
+
     twitter_organic:
       staging:
         +schema: staging
