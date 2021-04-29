@@ -14,7 +14,7 @@ sources:
 
     tables:
       - name: facebook_ads_creative
-        identifier: 'facebook_ads_creative_20*'
+        identifier: 'facebook_ads_creative_platform_20*'
 
       - name: facebook_ads_placements
         identifier: 'facebook_ads_placements_20*'

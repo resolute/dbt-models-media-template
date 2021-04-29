@@ -63,3 +63,12 @@ models:
         tests:
           - unique
           - not_null
+  
+  - name: stg_facebook_ads__entity_accounts
+    description: A table containing dimension data for accounts from Facebook Ads
+    columns:
+      - name: account_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
