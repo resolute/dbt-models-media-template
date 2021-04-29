@@ -42,7 +42,7 @@ Each record represents the daily performance of each Facebook Ads ad.
 #### facebook_ads__creatives_performance_daily
 Each record represents the daily performance of each Facebook Ads creative.
 ##### Improvado Report Types:
-* facebook_ads_creative
+* facebook_ads_creative_platform
 * facebook_entity_ads
 * facebook_entity_adsets
 * facebook_entity_campaigns
