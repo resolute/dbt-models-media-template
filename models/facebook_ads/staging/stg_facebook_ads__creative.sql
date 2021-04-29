@@ -51,170 +51,95 @@ rename_recast AS (
 
         {# Dimensions -#}
         source_data.account_id,
-        facebook_entity_account_data.account_name AS account_name,
-        source_data.account_name AS account_name_on_date,
+        account.account_name AS account_name,
         source_data.date,
         source_data.campaign_id,
-        facebook_entity_campaign_data.campaign_name AS campaign_name,
-        source_data.campaign_name AS campaign_name_on_date,
-        source_data.campaign_type,
+        campaign.campaign_name AS campaign_name,
+        campaign.start_time AS campaign_start_time,
+        campaign.stop_time AS campaign_stop_time,
+        campaign.objective AS campaign_objective,
+        campaign.buying_type AS campaign_buying_type,
+        campaign.status AS campaign_status,
+        campaign.effective_status AS campaign_effective_status,
+        campaign.configured_status AS campaign_configured_status,
         source_data.adset_id,
-        facebook_entity_adset_data.adset_name AS adset_name,
-        source_data.adset_name AS adset_name_on_date,
+        adset.adset_name AS adset_name,
+        adset.destination_type AS adset_destination_type,
+        adset.effective_status AS adset_effective_status,
+        adset.optimization_goal AS adset_optimization_goal,
+        adset.targeting AS adset_targeting,        
         source_data.ad_id,
-        facebook_entity_ad_data.ad_name AS ad_name,
-        source_data.ad_name AS ad_name_on_date,
+        ad.ad_name AS ad_name,
+        ad.status AS ad_status,
+        ad.effective_status AS ad_effective_status,
+        ad.created_time AS ad_created_time,
         source_data.creative_id,
-        facebook_entity_creative_data.creative_name AS creative_name,
-        source_data.creative_name AS creative_name_on_date,
-        source_data.objective AS ad_objective,
-        DATE(CAST(source_data.publication_date AS DATETIME)) AS ad_publication_date,
-        source_data.object_type AS ad_type,
-        source_data.body,
-        source_data.name,
-        source_data.description,
-        source_data.caption,
-        source_data.call_to_action_type,
-        source_data.format_option,
-        source_data.preview_shareable_link,
-        source_data.instagram_permalink_url,
-        source_data.creative_link,
-        source_data.image,
-        source_data.image_url,
-        source_data.website_destination_url,
-        source_data.creative_destination_url,
-        source_data.video_creative_destination_url,
-        source_data.buying_type,
-        source_data.lead_gen_form_id,
-        source_data.object_story_id,
-        source_data.effective_object_story_id,
-        source_data.effective_status,
-        
+        creative.creative_name AS creative_name,
+        creative.status AS creative_status,
+        creative.title AS creative_title,
+        creative.description AS creative_description,
+        creative.body AS creative_body,
+        creative.caption AS creative_caption,
+        creative.creative_link,
+        creative.link_og_id AS creative_link_og_id,
+        creative.link_url AS creative_link_url,
+        creative.thumbnail_url AS creative_thumbnail_url,
+        creative.image_url AS creative_image_url,
+        creative.url_tags AS creative_url_tags,
+        creative.object_type AS creative_object_type,
+        creative.call_to_action_type AS creative_call_to_action_type,
+        creative.creative_destination_url AS creative_creative_destination_url,
+        creative.template_url AS creative_template_url,
+        creative.object_id AS creative_object_id,
+        creative.object_story_id AS creative_object_story_id,
+        creative.effective_object_story_id AS creative_effective_object_story_id,
+        creative.object_url AS creative_object_url,
+        creative.actor_id AS creative_actor_id,
+        creative.video_id AS creative_video_id,
+        creative.instagram_actor_id AS creative_instagram_actor_id,
+        creative.instagram_story_id AS creative_instagram_story_id,
+        creative.effective_instagram_story_id AS creative_effective_instagram_story_id,
+        creative.instagram_permalink_url AS creative_instagram_permalink_url,
+        creative.branded_content_sponsor_page_id AS creative_branded_content_sponsor_page_id,
+        creative.lead_gen_form_id AS creative_lead_gen_form_id,
+        source_data.publisher_platform,
+
         {#- General metrics -#}
         reach,
         impressions,
         spend AS cost,
         clicks,
+        link_click AS link_clicks,
         outbound_clicks,
-        all_clicks,
-        inline_link_clicks,
-        unique_clicks,
-        unique_link_click,
 
         {#- Engagement metrics -#}
-        post_engagement AS post_engagement_total,
-        inline_post_engagement,
-        post_reactions,
-        likes AS post_likes,
-        comments AS post_comments,
-        shares AS post_shares,
-        onsite_post_save AS post_saves,
-        post_story AS post_story_total,
-        page_engagement AS page_engagement_total,
-        page_story AS page_story_total,
-        page_likes,
-        app_engagement AS app_engagement_total,
-        app_story AS app_story_total,
-        app_use,
-        mobile_app_install,
-        instagram_profile_engagement AS instagram_profile_engagement_total,
+        post_engagement AS post_engagements,
+        post_reaction AS post_reactions,
+        action_comment_value AS post_comments,
+        action_post_value AS post_shares,
+        action_like_value AS post_likes,
 
         {#- Video metrics -#}
-        video_view_3s,
         views AS video_views,
-        video_play_actions_view_value,
+        video_play_actions AS video_plays,
         video_p25_watched_actions AS video_p25_watched,
         video_p50_watched_actions AS video_p50_watched,
         video_p75_watched_actions AS video_p75_watched,
-        video_p95_watched_actions AS video_p95_watched,
         video_p100_watched_actions AS video_completions,
-        thru_play AS video_thru_play,
-        video_30_sec_watched_actions,
-        video_avg_time_watched_actions,
-        average_play_time_count AS video_average_play_time_count,
 
         {#- Conversions -#}
-        add_payment_info AS conv_fb_add_payment_info_28c_1v,
-        fb_mobile_add_payment_info AS conv_fb_mobile_add_payment_info_28c_1v,
-        add_to_cart AS conv_fb_add_to_cart_28c_1v,
-        add_to_wishlist AS conv_fb_add_to_wishlist_28c_1v,
-        complete_registration AS conv_fb_complete_registration_28c_1v,
-        fb_mobile_complete_registration AS conv_fb_mobile_complete_registration_28c_1v,
-        donate_total AS conv_fb_donate_28c_1v,
-        donate_total_value AS conv_fb_value_donate_28c_1v,
-        initiate_checkout AS conv_fb_initiate_checkout_28c_1v,
-        landing_page_view AS conv_fb_landing_page_view_28c_1v,
-        lead_grouped AS conv_fb_onfb_lead_total_28c_1v,
-        leads AS conv_fb_lead_total_28c_1v,
-        purchase_total AS conv_fb_purchase_total_28c_1v,
-        fb_pixel_purchase AS conv_fb_purchase_28c_1v,
-        fb_mobile_purchase AS conv_fb_mobile_purchase_28c_1v,
-        mobile_click_through AS conv_fb_mobile_purchase_click_through_28c,
-        mobile_view_through AS conv_fb_mobile_purchase_view_through_1v,
-        offsite_conversion_fb_pixel_purchase_1d_click AS conv_fb_purchase_1c,
-        offsite_conversion_fb_pixel_purchase_7d_click AS conv_fb_purchase_7c,
-        offsite_conversion_fb_pixel_purchase_28d_click AS conv_fb_purchase_28c,
-        offsite_conversion_fb_pixel_purchase_1d_view AS conv_fb_purchase_1v,
-        offsite_conversion_fb_pixel_purchase_value_1d_click AS conv_fb_value_purchase_1c,
-        offsite_conversion_fb_pixel_purchase_value_7d_click AS conv_fb_value_purchase_7c,
-        offsite_conversion_fb_pixel_purchase_value_28d_click AS conv_fb_value_purchase_28c,
-        offsite_conversion_fb_pixel_purchase_value_1d_view AS conv_fb_value_purchase_1v,
-        offsite_conversion_fb_pixel_purchase_value_28d_view AS conv_fb_value_purchase_28v,
-        offsite_conversion_fb_pixel_purchase_1d_view_1d_click AS conv_fb_purchase_1c_1v,
-        offsite_conversion_fb_pixel_purchase_1d_view_7d_click AS conv_fb_purchase_7c_1v,
-        offsite_conversion_fb_pixel_purchase_value_1d_view_1d_click AS conv_fb_value_purchase_1c_1v,
-        offsite_conversion_fb_pixel_purchase_value_1d_view_7d_click AS conv_fb_value_purchase_7c_1v,
+        purchase AS conv_fb_purchase_28c_1v,
         purchase_value AS conv_fb_value_purchase_28c_1v,
-        revenue_click_through AS conv_fb_value_click_through_28c,
-        revenue_view_through AS conv_fb_value_view_through_1v,
-        search_total AS conv_fb_search_total_28c_1v,
-        search AS conv_fb_search_28c_1v,
-        start_trial_total AS conv_fb_start_trial_28c_1v,
-        start_trial_total_value AS conv_fb_value_start_trial_28c_1v,
-        start_trial_website AS conv_fb_website_start_trial_28c_1v,
-        start_trial_mobile_app AS conv_fb_mobile_start_trial_28c_1v,
-        submit_application_total AS conv_fb_submit_application_28c_1v,
-        action_subscribe_total AS conv_fb_subscribe_total_28c_1v,
-        subscribe_total AS conv_fb_subscribe_28c_1v,
-        subscribe_total_value AS conv_fb_value_subscribe_28c_1v,
-        view_content AS conv_fb_view_content_28c_1v,
-        fb_mobile_content_view AS conv_fb_mobile_view_content_28c_1v,
-        fb_offline_purchases AS conv_fb_offline_purchase_28c_1v,
-        fb_offline_purchase_conv_value AS conv_fb_value_offline_purchase_28c_1v,
-        omni_add_to_cart AS conv_fb_omni_add_to_cart_28c_1v,
-        omni_complete_registration AS conv_fb_omni_complete_registration_28c_1v,
-        omni_custom AS conv_fb_omni_custom_28c_1v,
-        omni_initiated_checkout AS conv_fb_omni_initiated_checkout_28c_1v,
-        omni_purchase AS conv_fb_omni_purchase_28c_1v,
-        omni_search AS conv_fb_omni_search_28c_1v,
-        omni_view_content AS conv_fb_omni_view_content_28c_1v,
-        store_visits AS conv_fb_store_visits_28c_1v,
-
-        {#- Collaborative Ads Conversions -#}
-        catalog_add_to_cart_total AS conv_fb_catalog_add_to_cart_28c_1v,
-        catalog_add_to_cart_total_value AS conv_fb_value_catalog_add_to_cart_28c_1v,
-        catalog_view_content_total AS conv_fb_catalog_view_content_28c_1v,
-        catalog_view_content_total_value AS conv_fb_value_catalog_view_content_28c_1v,
-        catalog_purchase_total AS conv_fb_catalog_purchase_28c_1v,
-        catalog_purchase_total_value AS conv_fb_value_catalog_purchase_28c_1v,
-        catalog_website_add_to_cart AS conv_fb_catalog_website_add_to_cart_28c_1v,
-        catalog_website_add_to_cart_value AS conv_fb_value_catalog_website_add_to_cart_28c_1v,
-        catalog_website_view_content AS conv_fb_catalog_website_view_content_28c_1v,
-        catalog_website_view_content_value AS conv_fb_value_catalog_website_view_content_28c_1v,
-        catalog_website_purchase AS conv_fb_catalog_website_purchase_28c_1v,
-        catalog_website_purchase_value AS conv_fb_value_catalog_website_purchase_28c_1v,
-        catalog_mobile_add_to_cart AS conv_fb_catalog_mobile_add_to_cart_28c_1v,
-        catalog_mobile_add_to_cart_value AS conv_fb_value_catalog_mobile_add_to_cart_28c_1v,
-        catalog_mobile_content_view AS conv_fb_catalog_mobile_content_view_28c_1v,
-        catalog_mobile_content_view_value AS conv_fb_value_catalog_mobile_content_view_28c_1v,
-        catalog_mobile_purchase AS conv_fb_catalog_mobile_purchase_28c_1v,
-        catalog_mobile_purchase_value AS conv_fb_value_catalog_mobile_purchase_28c_1v,
-        catalog_omni_add_to_cart AS conv_fb_catalog_omni_add_to_cart_28c_1v,
-        catalog_omni_add_to_cart_value AS conv_fb_value_catalog_omni_add_to_cart_28c_1v,
-        catalog_omni_view_content AS conv_fb_catalog_omni_view_content_28c_1v,
-        catalog_omni_view_content_value AS conv_fb_value_catalog_omni_view_content_28c_1v,
-        catalog_omni_purchase AS conv_fb_catalog_omni_purchase_28c_1v,
-        catalog_omni_purchase_value AS conv_fb_value_catalog_omni_purchase_28c_1v
+        fb_mobile_purchase AS conv_fb_mobile_purchase_28c_1v,
+        fb_mobile_purchase_value AS conv_fb_value_mobile_purchase_28c_1v,
+        add_to_cart AS conv_fb_add_to_cart_28c_1v,
+        add_to_cart_value AS conv_fb_value_add_to_cart_28c_1v,
+        complete_registration AS conv_fb_complete_registration_28c_1v,
+        complete_registration_value AS conv_fb_value_complete_registration_28c_1v,
+        leads AS conv_fb_lead_total_28c_1v,
+        lead_value AS conv_fb_value_lead_total_28c_1v,
+        mobile_app_install AS conv_fb_mobile_app_install_28c_1v,
+        mobile_app_instal_value AS conv_fb_value_mobile_app_install_28c_1v
 
         {#- Custom conversions -#}
 
@@ -228,45 +153,24 @@ rename_recast AS (
 
         -- Excluded fields --
         /*
-        purchase, --This is duplicate field as fb_pixel_purchase
-        frequency,
-        cost_per_unique_landing_page_view,
-        */
-
-        -- Deprecated fields --
-        /*
-        unique_inline_link_clicks,
-        unique_outbound_clicks,
-        video_play,
-        cost_per_10_sec_video_view,
-        video_10_sec_watched_actions,
-        video_avg_percent_watched_actions,
-        lead_form,
-        revenue,
-        relevance_score,
-        lead,
-        conv_value,
-        offsite_conversion,
-        conv,
-        unique_landing_page_view,
         */
 
     FROM source_data
 
-    LEFT JOIN facebook_entity_ad_data
-        ON source_data.ad_id = facebook_entity_ad_data.ad_id
+    LEFT JOIN facebook_entity_ad_data AS ad
+        ON source_data.ad_id = ad.ad_id
 
-    LEFT JOIN facebook_entity_adset_data
-        ON source_data.adset_id = facebook_entity_adset_data.adset_id
+    LEFT JOIN facebook_entity_adset_data AS adset
+        ON source_data.adset_id = adset.adset_id
 
-    LEFT JOIN facebook_entity_campaign_data
-        ON source_data.campaign_id = facebook_entity_campaign_data.campaign_id
+    LEFT JOIN facebook_entity_campaign_data AS campaign
+        ON source_data.campaign_id = campaign.campaign_id
 
-    LEFT JOIN facebook_entity_creative_data
-        ON source_data.creative_id = facebook_entity_creative_data.creative_id
+    LEFT JOIN facebook_entity_creative_data AS creative
+        ON source_data.creative_id = creative.creative_id
 
-    LEFT JOIN facebook_entity_account_data
-        ON source_data.account_id = facebook_entity_account_data.account_id
+    LEFT JOIN facebook_entity_account_data AS account
+        ON source_data.account_id = account.account_id
 
 ),
 
@@ -274,12 +178,13 @@ final AS (
   
     SELECT 
     
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'ad_id', 'creative_id']) }} AS id,
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'ad_id', 'creative_id', 'publisher_platform']) }} AS id,
         'Facebook Paid' AS data_source,
 
         CASE
-            WHEN instagram_permalink_url IS NULL THEN 'Facebook'
-            WHEN instagram_permalink_url IS NOT NULL THEN 'Instagram'
+            WHEN publisher_platform = 'facebook' THEN 'Facebook'
+            WHEN publisher_platform = 'instagram' THEN 'Instagram'
+            ELSE publisher_platform
         END AS channel_source_name,
 
         'Paid' AS channel_source_type,
