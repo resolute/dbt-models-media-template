@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: social_organic__posts_rollup
+  - name: rollup_social_organic__posts
     description: A table containing the lifetime totals for each social platform's posts
     columns:
       - name: id
@@ -10,7 +10,7 @@ models:
           - unique
           - not_null
 
-  - name: social_organic__followers_rollup
+  - name: rollup_social_organic__followers
     description: A table containing the daily follower totals for each social platform's account
     columns:
       - name: id
