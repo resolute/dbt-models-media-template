@@ -44,9 +44,10 @@ rename_columns_and_set_defaults AS (
         
         0 AS impressions_unique,
         impressions AS impressions,
-        
         (clicks + likes + shares + comments) AS engagements,
-        
+        comments,
+        shares,
+        likes,
         clicks AS link_clicks,
         0 AS video_views,
         0 AS video_completions,

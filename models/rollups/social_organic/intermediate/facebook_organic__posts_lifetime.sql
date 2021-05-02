@@ -44,10 +44,10 @@ rename_columns_and_set_defaults AS (
         
         post_impressions_organic_unique AS impressions_unique,
         post_impressions_organic AS impressions,
-        
-        (total_comments + shares + post_clicks + post_reactions_anger_total + post_reactions_haha_total + post_reactions_like_total
-        + post_reactions_love_total + post_reactions_sorry_total + post_reactions_wow_total) AS engagements,
-        
+        (total_comments + shares + post_clicks + post_reactions_anger_total + post_reactions_haha_total + post_reactions_like_total + post_reactions_love_total + post_reactions_sorry_total + post_reactions_wow_total) AS engagements,
+        total_comments AS comments,
+        shares AS shares,
+        (post_reactions_anger_total + post_reactions_haha_total + post_reactions_like_total + post_reactions_love_total + post_reactions_sorry_total + post_reactions_wow_total) AS likes,
         post_clicks_by_link_clicks AS link_clicks,
         post_video_views AS video_views,
         post_video_complete_views_organic AS video_completions,
