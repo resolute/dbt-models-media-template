@@ -88,7 +88,7 @@ rename_recast AS (
         creative.url_tags AS creative_url_tags,
         creative.object_type AS creative_object_type,
         creative.call_to_action_type AS creative_call_to_action_type,
-        creative.creative_destination_url AS creative_creative_destination_url,
+        creative.creative_destination_url AS creative_destination_url,
         creative.template_url AS creative_template_url,
         creative.object_id AS creative_object_id,
         creative.object_story_id AS creative_object_story_id,

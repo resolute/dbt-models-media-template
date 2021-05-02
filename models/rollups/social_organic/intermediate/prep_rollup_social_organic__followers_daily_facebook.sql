@@ -1,10 +1,10 @@
-{{ config(enabled= (var('twitter_organic_ids'))|length > 0 is true) }}
+{{ config(enabled= (var('facebook_organic_ids'))|length > 0 is true) }}
 
 WITH
 
 data AS (
   
-    SELECT * FROM {{ ref('stg_twitter_organic__page') }}
+    SELECT * FROM {{ ref('stg_facebook_organic__page') }}
 
 ),
   
@@ -13,15 +13,15 @@ general_definitions AS (
     SELECT
     
         *,
-        'Twitter Organic' AS data_source,
-        'Twitter' AS channel_source_name,
+        'Facebook Organic' AS data_source,
+        'Facebook' AS channel_source_name,
         'Organic' AS channel_source_type,
         'Organic Social' AS channel_name
         
     FROM data
 
 ),
-
+  
 final AS (
 
     SELECT
@@ -34,8 +34,8 @@ final AS (
         channel_name,
         date,
         
-        followers_count AS social_followers_total,
-        followers_count - LAG(followers_count) OVER (PARTITION BY account_id ORDER BY date ASC) AS social_followers_net
+        page_fans AS social_followers_total,
+        page_fans - LAG(page_fans) OVER (PARTITION BY account_id ORDER BY date ASC) AS social_followers_net
         
      FROM general_definitions
 

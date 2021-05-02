@@ -1,10 +1,10 @@
-{{ config(enabled= (var('instagram_organic_ids'))|length > 0 is true) }}
+{{ config(enabled= (var('linkedin_organic_ids'))|length > 0 is true) }}
 
 WITH
 
 data AS (
   
-    SELECT * FROM {{ ref('stg_instagram_organic__post') }}
+    SELECT * FROM {{ ref('stg_linkedin_organic__share_lifetime') }}
 
 ),
   
@@ -13,8 +13,8 @@ general_definitions AS (
     SELECT
     
         *,
-        'Instagram Organic' AS data_source,
-        'Instagram' AS channel_source_name,
+        'LinkedIn Organic' AS data_source,
+        'LinkedIn' AS channel_source_name,
         'Organic' AS channel_source_type,
         'Organic Social' AS channel_name
         
@@ -33,20 +33,23 @@ rename_columns_and_set_defaults AS (
         channel_source_type,
         channel_name,
         date,
-        media_id AS post_id,
-        CAST(publication_date AS DATE) AS post_publish_date,
-        media_type AS post_type,
-        media_post_link_url AS post_permalink_url,
-        media_url AS post_thumbnail_url,
-        caption AS post_message,
+        share AS post_id,
+        DATE(CAST(created_date AS DATETIME)) AS post_publish_date,
+        '(not set)' AS post_type,
+        CONCAT('https://www.linkedin.com/feed/update/', share) AS post_permalink_url,
+        '(not set)' AS post_thumbnail_url,
+        share_commentary_text AS post_message,
         '(not set)' AS post_destination_link_url,
         0 AS post_video_length,
         
-        reach AS impressions_unique,
+        0 AS impressions_unique,
         impressions AS impressions,
-        engagement AS engagements,
-        0 AS link_clicks,
-        video_views AS video_views,
+        (clicks + likes + shares + comments) AS engagements,
+        comments,
+        shares,
+        likes,
+        clicks AS link_clicks,
+        0 AS video_views,
         0 AS video_completions,
         0 AS video_view_time
         
