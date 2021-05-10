@@ -3,7 +3,6 @@
 {# Identify the conversion metrics to include in this model #}
 {%- set conversion_fields = [
     'conversions',
-    'value_conversions',
     'conversions_click_through',
     'conversions_view_through',
     'viral_conversions',
@@ -32,11 +31,15 @@ pivot_conversions AS (
         channel_source_type,
         channel_name,
         date,
-        campaign_group_id,
-        campaign_group_name,
         campaign_id,
         campaign_name,
-        campaign_type
+        campaign_type,
+        creative_id,
+        creative_name,
+        creative_text,
+        creative_title,
+        creative_status,
+        destination_url
 
         {#- Conversions -#}
 
@@ -84,7 +87,7 @@ pivot_conversions AS (
         
     FROM data
 
-    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16
 
 ),
 
@@ -92,7 +95,7 @@ final AS (
 
     SELECT
         
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'campaign_id']) }} AS id,
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'creative_id']) }} AS id,
         *
     
     FROM pivot_conversions
