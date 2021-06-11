@@ -85,7 +85,7 @@ Each record represents the daily follower totals of each social organic account 
 ##### Improvado Report Types:
 * facebook_pages_page
 * instagram_organic_page_info
-* linkedin_organic_followers_lifetime
+* linkedin_organic_followers_lifetime_inc
 * twitter_page
 
 #### youtube_organic__top_videos

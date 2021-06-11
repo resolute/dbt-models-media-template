@@ -52,7 +52,11 @@ rename_recast_dedupe AS (
         caption,
         creative_link,
         lead_gen_form_id,
-        template_data_link
+        template_data_link,
+        source_instagram_media_id,
+        website_destination_url,
+        creative_child_attachments_urls,
+        asset_links_website_url
 
     FROM source_data
 

@@ -17,4 +17,4 @@ sources:
         identifier: 'linkedin_organic_share_lifetime_20*'
 
       - name: linkedin_organic_followers_lifetime
-        identifier: 'linkedin_organic_followers_lifetime_20*'
+        identifier: 'linkedin_organic_followers_lifetime_inc_20*'
