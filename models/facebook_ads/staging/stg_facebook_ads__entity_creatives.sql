@@ -34,7 +34,7 @@ rename_recast_dedupe AS (
         instagram_story_id,
         link_og_id,
         link_url,
-        name,
+        name AS creative_name,
         object_id,
         object_story_id,
         object_type,
@@ -95,7 +95,7 @@ final AS (
         instagram_story_id,
         link_og_id,
         link_url,
-        name AS creative_name,
+        creative_name,
         object_id,
         object_story_id,
         object_type,
@@ -113,7 +113,11 @@ final AS (
         caption,
         creative_link,
         lead_gen_form_id,
-        template_data_link
+        template_data_link,
+        source_instagram_media_id,
+        website_destination_url,
+        creative_child_attachments_urls,
+        asset_links_website_url
 
     FROM rank_duplicate_ad_ids
 
