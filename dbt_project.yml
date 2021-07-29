@@ -19,6 +19,9 @@ clean-targets:
     - "dbt_modules"
 
 vars:
+  improvado_schema: 
+  improvado_database: 
+  
   facebook_ads_ids: []
   facebook_organic_ids: []
   google_ads_ids: []
