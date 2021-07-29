@@ -19,7 +19,6 @@ clean-targets:
     - "dbt_modules"
 
 vars:
-  
   facebook_ads_ids: []
   facebook_organic_ids: []
   google_ads_ids: []
