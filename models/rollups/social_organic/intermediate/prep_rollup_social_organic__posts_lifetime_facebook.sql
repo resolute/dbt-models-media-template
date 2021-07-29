@@ -42,16 +42,16 @@ rename_columns_and_set_defaults AS (
         attachments_unshimmed_url AS post_destination_link_url,
         post_video_length AS post_video_length,
         
-        post_impressions_organic_unique AS impressions_unique,
-        post_impressions_organic AS impressions,
+        post_impressions_unique AS impressions_unique,
+        post_impressions AS impressions,
         (total_comments + shares + post_clicks + post_reactions_anger_total + post_reactions_haha_total + post_reactions_like_total + post_reactions_love_total + post_reactions_sorry_total + post_reactions_wow_total) AS engagements,
         total_comments AS comments,
         shares AS shares,
         (post_reactions_anger_total + post_reactions_haha_total + post_reactions_like_total + post_reactions_love_total + post_reactions_sorry_total + post_reactions_wow_total) AS likes,
         post_clicks_by_link_clicks AS link_clicks,
         post_video_views AS video_views,
-        post_video_complete_views_organic AS video_completions,
-        post_video_view_time_organic AS video_view_time
+        (post_video_complete_views_organic + post_video_complete_views_organic) AS video_completions,
+        post_video_view_time AS video_view_time
         
      FROM general_definitions
 
