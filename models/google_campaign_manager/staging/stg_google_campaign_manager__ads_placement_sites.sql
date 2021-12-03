@@ -6,9 +6,9 @@ WITH
 
 source_data AS (
 
-    SELECT * FROM {{ source('improvado', 'dcm_ads_placement_sites') }}
+    SELECT * FROM {{ source('improvado', 'google_cm_ads_placement_sites') }}
 
-    WHERE advertiser_id IN UNNEST({{ source_account_ids }})
+    WHERE account_id IN UNNEST({{ source_account_ids }})
 
 ),
 
@@ -52,6 +52,7 @@ rename_recast AS (
         connection_type,
         content_category,
         video_length,
+        currency,
         
         {#- General metrics -#}
         impressions,
@@ -61,15 +62,15 @@ rename_recast AS (
         active_view_impressions,
         active_view_groupm_viewable_impressions,
         active_view_groupm_measurable_impressions,
-        active_view_groupm_TrvViewableImpressions,
-        active_view_groupm_TrvMeasurableImpressions,
+        active_view_groupm_trv_viewable_impressions,
+        active_view_groupm_trv_measurable_impressions,
         active_view_impression_distribution_not_measurable,
         active_view_impression_distribution_not_viewable,
         active_view_impression_distribution_viewable,
         active_view_impressions_visible_ten_seconds,
         active_view_not_measurable_impressions,
         active_view_not_viewable_impressions,
-        active_view_Average_ViewableTimeSecond,
+        active_view_average_viewable_time_second,
         clicks AS link_clicks,
         mediacost AS cost,
         planned_media_cost,
@@ -115,8 +116,8 @@ rename_recast AS (
         rich_media_clicks,
         rich_media_impressions,
         rich_media_custom_timers,
-        rich_media_display_time_dimension,
-        rich_media_interaction_time_dimension,
+        rich_media_display_time,
+        rich_media_interaction_time,
         rich_media_interactions,
         rich_media_true_view_views
 
