@@ -6,9 +6,9 @@ WITH
 
 source_data AS (
 
-    SELECT * FROM {{ source('improvado', 'dcm_ads_creatives_placements') }}
+    SELECT * FROM {{ source('improvado', 'google_cm_ads_creatives_placements') }}
 
-    WHERE advertiser_id IN UNNEST({{ source_account_ids }})
+    WHERE account_id IN UNNEST({{ source_account_ids }})
 
 ),
 
