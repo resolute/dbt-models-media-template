@@ -51,7 +51,12 @@ rename_recast AS (
         click_through_url,
         connection_type,
         content_category,
-        video_length,
+        -- Remove any decimals and set null values to zero from video length
+        CAST(
+            ROUND(
+                IFNULL(SAFE_CAST(video_length AS FLOAT64), 0)
+                ) 
+            AS STRING) AS video_length,
         currency,
         
         {#- General metrics -#}
