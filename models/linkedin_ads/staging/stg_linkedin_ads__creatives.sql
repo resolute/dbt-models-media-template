@@ -33,7 +33,12 @@ rename_recast AS (
         creative_status,
         creative_reference,
         destination_url,
-        video_duration,
+        -- Remove any decimals and set null values to zero from video length
+        CAST(
+            ROUND(
+                IFNULL(SAFE_CAST(video_duration AS FLOAT64), 0)
+                ) 
+            AS STRING) AS video_length,
         currency,
         
         {#- General metrics -#}

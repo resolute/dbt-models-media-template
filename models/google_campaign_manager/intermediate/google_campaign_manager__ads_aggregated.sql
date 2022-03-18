@@ -5,7 +5,7 @@ WITH
 aggregate AS (
 
 {{
-    aggregate_model(ref('stg_google_campaign_manager__ads_placement_sites'), 'SUM', ['id', 'platform_type', 'browser_platform', 'connection_type'], [])
+    aggregate_model(ref('stg_google_campaign_manager__ads_placement_sites'), 'SUM', ['id', 'platform_type', 'browser_platform', 'connection_type', 'asset'], [])
 }}
 
 ),
