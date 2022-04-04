@@ -127,6 +127,7 @@ rename_recast AS (
         video_p50_watched_actions AS video_p50_watched,
         video_p75_watched_actions AS video_p75_watched,
         video_p100_watched_actions AS video_completions,
+        thru_play AS video_thru_play,
 
         {#- Conversions -#}
         purchase AS conv_fb_purchase_28c_1v,
@@ -140,7 +141,8 @@ rename_recast AS (
         leads AS conv_fb_lead_total_28c_1v,
         lead_value AS conv_fb_value_lead_total_28c_1v,
         mobile_app_install AS conv_fb_mobile_app_install_28c_1v,
-        mobile_app_instal_value AS conv_fb_value_mobile_app_install_28c_1v
+        mobile_app_instal_value AS conv_fb_value_mobile_app_install_28c_1v,
+        view_content AS conv_fb_view_content
 
         {#- Custom conversions -#}
 
