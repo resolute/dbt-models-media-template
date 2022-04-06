@@ -14,7 +14,4 @@ sources:
 
     tables:
       - name: google_cm_ads_placement_sites
-        identifier: 'google_cm_ads_placement_sites_20*'
-
       - name: google_cm_ads_creatives_placements
-        identifier: 'google_cm_ads_creatives_placements_20*'

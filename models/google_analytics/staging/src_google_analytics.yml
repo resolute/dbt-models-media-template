@@ -14,4 +14,3 @@ sources:
 
     tables:
       - name: ga_session_performance
-        identifier: 'ga_session_performance_20*'

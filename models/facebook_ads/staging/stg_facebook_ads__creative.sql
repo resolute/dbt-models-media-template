@@ -3,13 +3,13 @@
 {{ config(enabled= (var('facebook_ads_ids'))|length > 0 is true) }}
 
 {# Get a list of the columns from the upstream model #}
-{%- set cols = adapter.get_columns_in_relation(source('improvado', 'facebook_ads_creative')) -%}
+{%- set cols = adapter.get_columns_in_relation(source('improvado', 'facebook_ads_creative_platform')) -%}
 
 WITH
 
 source_data AS (
 
-    SELECT * FROM {{ source('improvado', 'facebook_ads_creative') }}
+    SELECT * FROM {{ source('improvado', 'facebook_ads_creative_platform') }}
 
     WHERE account_id IN UNNEST({{ source_account_ids }})
 

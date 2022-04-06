@@ -14,19 +14,8 @@ sources:
 
     tables:
       - name: google_adwords_ads
-        identifier: 'google_adwords_ads_20*'
-
-      - name: google_adwords_keywords_extended
-        identifier: 'google_adwords_keywords_extended_20*'
-      
-      - name: google_adwords_search_query_extended
-        identifier: 'google_adwords_search_query_extended_20*'
-      
+      - name: google_adwords_keywords_extended      
+      - name: google_adwords_search_query_extended      
       - name: google_adwords_ad_conversions
-        identifier: 'google_adwords_ad_conversions_20*'
-
       - name: google_adwords_keywords_conversions
-        identifier: 'google_adwords_keywords_conversions_20*'
-
       - name: google_adwords_search_query_conversions
-        identifier: 'google_adwords_search_query_conversions_20*'

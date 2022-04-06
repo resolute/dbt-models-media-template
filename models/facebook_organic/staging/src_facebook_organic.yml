@@ -14,7 +14,4 @@ sources:
 
     tables:
       - name: facebook_pages_post
-        identifier: 'facebook_pages_post_20*'
-
       - name: facebook_pages_page
-        identifier: 'facebook_pages_page_20*'

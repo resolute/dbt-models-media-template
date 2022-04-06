@@ -6,7 +6,7 @@ WITH
 
 source_data AS (
 
-    SELECT * FROM {{ source('improvado', 'linkedin_organic_followers_lifetime') }}
+    SELECT * FROM {{ source('improvado', 'linkedin_organic_followers_lifetime_inc') }}
 
     WHERE account_id IN UNNEST({{ source_account_ids }})
 

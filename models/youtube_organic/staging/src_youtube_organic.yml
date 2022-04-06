@@ -14,7 +14,4 @@ sources:
 
     tables:
       - name: youtube_organic_top_videos
-        identifier: 'youtube_organic_top_videos_20*'
-
       - name: youtube_organic_traffic_source_daily
-        identifier: 'youtube_organic_traffic_source_daily_20*'

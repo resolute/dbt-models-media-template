@@ -14,5 +14,3 @@ sources:
 
     tables:
       - name: twitter_promoted_tweets_with_cards
-        identifier: 'twitter_promoted_tweets_with_cards_20*'
-    
