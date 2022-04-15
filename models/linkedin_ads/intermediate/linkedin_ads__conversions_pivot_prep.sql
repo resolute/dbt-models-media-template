@@ -1,4 +1,4 @@
-{{ config(enabled=var('linkedin_ads_conversions_enabled')) }}
+{{ config(enabled= get_account_conversion_data_config('linkedin ads')) }}
 
 WITH
 

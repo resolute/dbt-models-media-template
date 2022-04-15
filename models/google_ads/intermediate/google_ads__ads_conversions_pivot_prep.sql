@@ -1,4 +1,4 @@
-{{ config(enabled=var('google_ads_conversions_enabled')) }}
+{{ config(enabled= get_account_conversion_data_config('google ads')) }}
 
 WITH
 

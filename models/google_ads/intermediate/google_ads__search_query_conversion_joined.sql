@@ -1,6 +1,8 @@
-{{ config(enabled= (var('google_ads_ids'))|length > 0 is true) }}
+{%- set source_account_ids = get_account_ids('google ads') -%}
 
-{%- if var('google_ads_conversions_enabled') -%}
+{{ config(enabled= source_account_ids|length > 0 is true) }}
+
+{%- if get_account_conversion_data_config('google ads') -%}
 
 {# Get a list of the columns from the conversion data model #}
 {%- set cols = adapter.get_columns_in_relation(ref('google_ads__search_query_conversions_pivoted')) -%}

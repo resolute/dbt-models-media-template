@@ -1,4 +1,4 @@
-{{ config(enabled= (var('google_analytics_ids'))|length > 0 is true) }}
+{{ config(enabled= get_account_ids('google analytics')|length > 0 is true) }}
 
 WITH
 

@@ -18,23 +18,6 @@ clean-targets:
     - "target"
     - "dbt_packages"
 
-vars:
-  facebook_ads_ids: []
-  facebook_organic_ids: []
-  google_ads_ids: []
-  google_ads_conversions_enabled: false
-  google_analytics_ids: []
-  google_campaign_manager_ids: []
-  google_campaign_manager_conversions_enabled: false
-  instagram_organic_ids: []
-  linkedin_ads_ids: []
-  linkedin_ads_conversions_enabled: false
-  linkedin_organic_ids: []
-  pinterest_ads_ids: []
-  twitter_ads_ids: []
-  twitter_organic_ids: []
-  youtube_organic_ids: []
-
 models:
   media_template:
     +persist_docs:

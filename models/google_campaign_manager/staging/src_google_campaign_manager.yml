@@ -2,15 +2,15 @@ version: 2
 
 sources:
   - name: improvado
-    database: "{{ var('improvado_database', 'green-post-223109') }}"
-    schema: "{{ var('improvado_schema', 'agency_4333') }}"
+    database: "{{ env_var('DBT_IMPROVADO_DATABASE', var('improvado_database', 'green-post-223109')) }}"
+    schema: "{{ env_var('DBT_IMPROVADO_SCHEMA', var('improvado_schema', 'agency_4333')) }}"
     loader: improvado
     loaded_at_field: TIMESTAMP(date)
 
     freshness:
       warn_after: {count: 2, period: day}
       error_after: {count: 7, period: day}
-      filter: advertiser_id IN UNNEST({{ var('google_campaign_manager_ids') }})
+      filter: advertiser_id IN UNNEST({{ env_var('DBT_GOOGLE_CAMPAIGN_MANAGER_IDS', var('google_campaign_manager_ids', [])) }})
 
     tables:
       - name: google_cm_ads_placement_sites

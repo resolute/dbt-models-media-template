@@ -1,6 +1,6 @@
-{{ config(enabled=var('google_ads_conversions_enabled')) }}
+{%- set source_account_ids = get_account_ids('google ads') -%}
 
-{%- set source_account_ids = var('google_ads_ids') -%}
+{{ config(enabled= get_account_conversion_data_config('google ads')) }}
 
 WITH
 

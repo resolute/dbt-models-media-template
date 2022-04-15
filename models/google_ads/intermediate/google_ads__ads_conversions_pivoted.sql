@@ -1,4 +1,4 @@
-{{ config(enabled=var('google_ads_conversions_enabled')) }}
+{{ config(enabled= get_account_conversion_data_config('google ads')) }}
 
 {# Identify the conversion metrics to include in this model #}
 {%- set conversion_fields = [
@@ -44,8 +44,8 @@ pivot_conversions AS (
 
         {#- Conversions -#}
 
-        {%- set conv_cat_values = dbt_utils.get_column_values(ref('google_ads__ads_conversions_pivot_prep'), 'conversion_category_formatted') -%}
-        {%- if conv_cat_values != None -%}
+        {%- set conv_cat_values = dbt_utils.get_column_values(ref('google_ads__ads_conversions_pivot_prep'), 'conversion_category_formatted', default=[]) -%}
+        {%- if conv_cat_values != None and conv_cat_values|length > 0 -%}
         ,
             {%- for conversion_field in conversion_fields -%}
 
@@ -65,8 +65,8 @@ pivot_conversions AS (
             {%- endfor -%}
         {%- endif %}
 
-        {%- set conv_name_values = dbt_utils.get_column_values(ref('google_ads__ads_conversions_pivot_prep'), 'conversion_name_formatted') -%}
-        {%- if conv_name_values != None -%}
+        {%- set conv_name_values = dbt_utils.get_column_values(ref('google_ads__ads_conversions_pivot_prep'), 'conversion_name_formatted', default=[]) -%}
+        {%- if conv_name_values != None and conv_cat_values|length > 0 -%}
         ,
             {%- for conversion_field in conversion_fields -%}
 

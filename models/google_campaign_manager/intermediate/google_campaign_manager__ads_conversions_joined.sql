@@ -1,6 +1,8 @@
-{{ config(enabled= (var('google_campaign_manager_ids'))|length > 0 is true) }}
+{%- set source_account_ids = get_account_ids('google campaign manager') -%}
 
-{%- if var('google_campaign_manager_conversions_enabled') -%}
+{{ config(enabled= source_account_ids|length > 0 is true) }}
+
+{%- if get_account_conversion_data_config('google campaign manager') is true -%}
 
 {# Get a list of the columns from the conversion data model #}
 {%- set cols = adapter.get_columns_in_relation(ref('google_campaign_manager__ads_conversions_pivoted')) -%}

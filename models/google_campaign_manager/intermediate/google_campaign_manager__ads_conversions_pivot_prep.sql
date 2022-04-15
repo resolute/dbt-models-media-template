@@ -1,4 +1,4 @@
-{{ config(enabled=var('google_campaign_manager_conversions_enabled')) }}
+{{ config(enabled= get_account_conversion_data_config('google campaign manager')) }}
 
 WITH
 

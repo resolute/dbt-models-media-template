@@ -1,4 +1,4 @@
-{{ config(enabled= (var('twitter_organic_ids'))|length > 0 is true) }}
+{{ config(enabled= get_account_ids('twitter organic')|length > 0 is true) }}
 
 WITH
 

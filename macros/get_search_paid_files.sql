@@ -2,7 +2,7 @@
 
     {% set files = [] %}
 
-    {% if var('google_ads_ids')|length > 0 %} 
+    {% if get_account_ids('google ads')|length > 0 %} 
     {% set _ = files.append(ref('prep_rollup_search_paid__campaigns_google_ads')) %}
     {% endif %}
 

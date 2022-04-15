@@ -1,6 +1,6 @@
-{%- set source_account_ids = var('pinterest_ads_ids') -%}
+{%- set source_account_ids = get_account_ids('pinterest ads') -%}
 
-{{ config(enabled= (var('pinterest_ads_ids'))|length > 0 is true) }}
+{{ config(enabled= source_account_ids|length > 0 is true) }}
 
 WITH
 

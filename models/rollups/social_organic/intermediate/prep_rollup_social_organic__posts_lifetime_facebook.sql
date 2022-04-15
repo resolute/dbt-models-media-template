@@ -1,4 +1,4 @@
-{{ config(enabled= (var('facebook_organic_ids'))|length > 0 is true) }}
+{{ config(enabled= get_account_ids('facebook organic')|length > 0 is true) }}
 
 WITH
 

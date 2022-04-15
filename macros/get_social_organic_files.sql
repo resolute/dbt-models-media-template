@@ -2,7 +2,7 @@
 
     {% set files = [] %}
 
-    {% if var('facebook_organic_ids')|length > 0 %} 
+    {% if get_account_ids('facebook organic')|length > 0 %} 
         {% if table_type == 'followers' %}
             {% set _ = files.append(ref('prep_rollup_social_organic__followers_daily_facebook')) %}
         {% elif table_type == 'posts' %}
@@ -10,7 +10,7 @@
         {% endif %}
     {% endif %}
 
-    {% if var('instagram_organic_ids')|length > 0 %} 
+    {% if get_account_ids('instagram organic')|length > 0 %} 
         {% if table_type == 'followers' %}
             {% set _ = files.append(ref('prep_rollup_social_organic__followers_daily_instagram')) %}
         {% elif table_type == 'posts' %}
@@ -18,7 +18,7 @@
         {% endif %}
     {% endif %}
 
-    {% if var('twitter_organic_ids')|length > 0 %} 
+    {% if get_account_ids('twitter organic')|length > 0 %} 
         {% if table_type == 'followers' %}
             {% set _ = files.append(ref('prep_rollup_social_organic__followers_daily_twitter')) %}
         {% elif table_type == 'posts' %}
@@ -26,7 +26,7 @@
         {% endif %}
     {% endif %}
 
-    {% if var('linkedin_organic_ids')|length > 0 %} 
+    {% if get_account_ids('linkedin organic')|length > 0 %} 
         {% if table_type == 'followers' %}
             {% set _ = files.append(ref('prep_rollup_social_organic__followers_daily_linkedin')) %}
         {% elif table_type == 'posts' %}

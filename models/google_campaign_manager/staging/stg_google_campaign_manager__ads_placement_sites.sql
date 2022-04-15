@@ -1,6 +1,6 @@
-{%- set source_account_ids = var('google_campaign_manager_ids') -%}
+{%- set source_account_ids = get_account_ids('google campaign manager') -%}
 
-{{ config(enabled= (var('google_campaign_manager_ids'))|length > 0 is true) }}
+{{ config(enabled= source_account_ids|length > 0 is true) }}
 
 WITH
 

@@ -1,4 +1,4 @@
-{{ config(enabled= (var('facebook_ads_ids'))|length > 0 is true) }}
+{{ config(enabled= get_account_ids('facebook ads')|length > 0 is true) }}
 
 WITH
 

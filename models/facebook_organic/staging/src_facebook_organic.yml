@@ -2,15 +2,15 @@ version: 2
 
 sources:
   - name: improvado
-    database: "{{ var('improvado_database', 'green-post-223109') }}"
-    schema: "{{ var('improvado_schema', 'agency_4333') }}"
+    database: "{{ env_var('DBT_IMPROVADO_DATABASE', var('improvado_database', 'green-post-223109')) }}"
+    schema: "{{ env_var('DBT_IMPROVADO_SCHEMA', var('improvado_schema', 'agency_4333')) }}"
     loader: improvado
     loaded_at_field: TIMESTAMP(date)
 
     freshness:
       warn_after: {count: 2, period: day}
       error_after: {count: 7, period: day}
-      filter: account_id IN UNNEST({{ var('facebook_organic_ids') }})
+      filter: account_id IN UNNEST({{ env_var('DBT_FACEBOOK_ORGANIC_IDS', var('facebook_organic_ids', [])) }})
 
     tables:
       - name: facebook_pages_post
