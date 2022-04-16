@@ -12,40 +12,16 @@ source_data AS (
 
 ),
 
-rename_recast_dedupe_drop AS (
+final AS (
 
-    SELECT DISTINCT
-
+    SELECT
         account_id,
         account_name,
         date
 
     FROM source_data
 
-),
-
-rank_duplicate_account_ids AS (
-
-    SELECT
-
-        *,
-        ROW_NUMBER() OVER (PARTITION BY account_id ORDER BY date DESC) AS rank_recent
-
-    FROM rename_recast_dedupe_drop
-
-),
-
-final AS (
-
-    SELECT
-
-        account_id,
-        account_name,
-        date
-
-    FROM rank_duplicate_account_ids
-
-    WHERE rank_recent = 1
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY account_id ORDER BY __insert_date DESC) = 1
 
 )
 

@@ -12,10 +12,9 @@ source_data AS (
 
 ),
 
-rename_recast_dedupe AS (
+final AS (
 
-    SELECT DISTINCT
-
+    SELECT
         account_id,
         account_name,
         ad_id,
@@ -31,39 +30,7 @@ rename_recast_dedupe AS (
 
     FROM source_data
 
-),
-
-rank_duplicate_ad_ids AS (
-
-    SELECT
-
-        *,
-        ROW_NUMBER() OVER (PARTITION BY ad_id ORDER BY updated_time DESC) AS rank_recent
-
-    FROM rename_recast_dedupe
-
-),
-
-final AS (
-
-    SELECT
-
-        account_id,
-        account_name,
-        ad_id,
-        ad_name,
-        adset_id,
-        campaign_id,
-        creative_id,
-        date,
-        created_time,
-        updated_time,
-        effective_status,
-        status
-
-    FROM rank_duplicate_ad_ids
-
-    WHERE rank_recent = 1
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY ad_id ORDER BY __insert_date DESC) = 1
 
 )
 
