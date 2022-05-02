@@ -29,28 +29,29 @@ pivot_conversions AS (
         account_id,
         account_name,
         date,
-        customer_id,
         campaign_id,
         campaign_name,
+        campaign_advertising_channel_type,
+        campaign_advertising_channel_sub_type,
+        campaign_status,
         ad_group_id,
         ad_group_name,
+        ad_group_status,
         ad_id,
         ad_name,
+        ad_type
         description,
-        ad_network_type_1,
-        headline1,
-        headline2,
-        destination_url
+        ad_network_type
 
         {#- Conversions -#}
 
-        {%- set conv_cat_values = dbt_utils.get_column_values(ref('google_ads__ads_conversions_pivot_prep'), 'conversion_category_formatted') -%}
+        {%- set conv_cat_values = dbt_utils.get_column_values(ref('google_ads__ads_conversions_pivot_prep'), 'conversion_action_category_formatted') -%}
         {%- if conv_cat_values != None -%}
         ,
             {%- for conversion_field in conversion_fields -%}
 
                 {{- dbt_utils.pivot(
-                    'conversion_category_formatted',
+                    'conversion_action_category_formatted',
                     conv_cat_values,
                     True,
                     'sum',
@@ -65,13 +66,13 @@ pivot_conversions AS (
             {%- endfor -%}
         {%- endif %}
 
-        {%- set conv_name_values = dbt_utils.get_column_values(ref('google_ads__ads_conversions_pivot_prep'), 'conversion_name_formatted') -%}
+        {%- set conv_name_values = dbt_utils.get_column_values(ref('google_ads__ads_conversions_pivot_prep'), 'conversion_action_name_formatted') -%}
         {%- if conv_name_values != None -%}
         ,
             {%- for conversion_field in conversion_fields -%}
 
                 {{- dbt_utils.pivot(
-                    'conversion_name_formatted',
+                    'conversion_action_name_formatted',
                     conv_name_values,
                     True,
                     'sum',
@@ -88,7 +89,7 @@ pivot_conversions AS (
         
     FROM data
 
-    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
 
 ),
 
@@ -96,7 +97,7 @@ final AS (
 
     SELECT
         
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'ad_id', 'ad_network_type_1']) }} AS id,
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'ad_id', 'ad_network_type']) }} AS id,
         *
     
     FROM pivot_conversions
