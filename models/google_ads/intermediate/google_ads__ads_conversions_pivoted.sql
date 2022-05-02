@@ -31,16 +31,15 @@ pivot_conversions AS (
         date,
         campaign_id,
         campaign_name,
-        campaign_advertising_channel_type,
-        campaign_advertising_channel_sub_type,
+        campaign_type,
+        campaign_sub_type,
         campaign_status,
         ad_group_id,
         ad_group_name,
         ad_group_status,
         ad_id,
         ad_name,
-        ad_type
-        description,
+        ad_type,
         ad_network_type
 
         {#- Conversions -#}
@@ -89,7 +88,7 @@ pivot_conversions AS (
         
     FROM data
 
-    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
 
 ),
 

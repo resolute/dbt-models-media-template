@@ -21,8 +21,8 @@ clean-targets:
 vars:
   facebook_ads_ids: []
   facebook_organic_ids: []
-  google_ads_ids: []
-  google_ads_conversions_enabled: false
+  google_ads_ids: ['4576144166']
+  google_ads_conversions_enabled: true
   google_analytics_ids: []
   google_campaign_manager_ids: []
   google_campaign_manager_conversions_enabled: false
