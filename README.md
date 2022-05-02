@@ -2,46 +2,69 @@
 
 This package models data from Improvado's BigQuery extraction templates.
 
+----
+## Contents
+
+**[Models](#models)**
+  - [Google Campaign Manager](#google-campaign-manager)
+  - [Google Ads](#google-ads)
+  - [Facebook Ads](#facebook-ads)
+  - [LinkedIn Ads](#linkedin-ads)
+  - [Twitter Ads](#twitter-ads)
+  - [Pinterest Ads](#pinterest-ads)
+  - [Social Organic Media Posts](#social-organic-media-posts)
+  - [Social Organic Media Followers](#social-organic-media-followers)
+  - [YouTube Organic](#youtube-organic)
+  - [Google Analytics](#google-analytics)
+
+**[Installation Instructions](#installation-instructions)**
+
+**[Configuration](#configuration)**
+  - [Location of Improvado Source Tables](#location-of-improvado-source-tables)
+  - [Data Source Account IDs](#data-source-account-ids)
+  - [Data Source Custom Conversions Enabled](#data-source-custom-conversions-enabled)
+
+----
 ## Models
 
 This package contains transformation models, designed to be starting models for any Resolute Digital reporting. The primary outputs of this package are described below.
 
 ### Google Campaign Manager
-#### Generated Tables:
+***Generated Tables:***
 | Table Name | Description |
 | ---------- | ----------- |
 | google_campaign_manager__performance_daily | Each record represents the daily performance of each Google Campaign Manager creative, ad, and placement. |
-#### Required Improvado Extraction Templates:
+***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
 | Google Campaign Manager (by Advertisers) | Ads Creatives Placements | google_cm_ads_creatives_placements |
 | Google Campaign Manager (by Advertisers) | Ads Placement Sites (MCDM) | google_cm_ads_placement_sites |
 
 ### Google Ads
-#### Generated Tables:
+***Generated Tables:***
 | Table Name | Description |
 | ---------- | ----------- |
 | google_ads__performance_daily | Each record represents the daily performance of each Google Ads ad. |
 | google_ads__keyword_performance_daily | Each record represents the daily performance of each Google Ads keyword. |
 | google_ads__search_query_performance_daily | Each record represents the daily performance of each Google Ads search query. |
-#### Required Improvado Extraction Templates:
+***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
-| Google Ads | Ads (MCDM) | google_adwords_ads |
-| Google Ads | Ad Conversions | google_adwords_ad_conversions |
-| Google Ads | Keywords Extended | google_adwords_keywords_extended |
-| Google Ads | Keywords Conversions | google_adwords_keywords_conversions |
-| Google Ads | Search Query Extended | google_adwords_search_query_extended |
-| Google Ads | Search query conversions | google_adwords_search_query_conversions |
+| Google Ads | Ads (MCDM) | google_ads_ads |
+| Google Ads | Ads Device Conversions | google_ads_ads_device_conversions |
+| Google Ads | Keywords Extended | google_ads_keywords_extended |
+| Google Ads | Keywords Conversions | google_ads_keywords_conversions |
+| Google Ads | Search Query Keywords | google_ads_search_query_keywords |
+| Google Ads | Search Query Conversions | google_ads_search_query_conversions |
 
 ### Facebook Ads
-#### Generated Tables:
+***Generated Tables:***
 | Table Name | Description |
 | ---------- | ----------- |
 | facebook_ads__ads_performance_daily | Each record represents the daily performance of each Facebook Ads ad. |
 | facebook_ads__creatives_performance_daily | Each record represents the daily performance of each Facebook Ads creative. |
 | facebook_ads__campaign_month_reach | Each record represents the monthly performance of each Facebook Ads campaign with Reach metric. |
-#### Required Improvado Extraction Templates:
+***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
 | Facebook | Ads Placements | facebook_ads_placements |
@@ -53,42 +76,42 @@ This package contains transformation models, designed to be starting models for 
 | Facebook | Entity Creatives (MCDM) | facebook_entity_creatives |
 
 ### LinkedIn Ads
-#### Generated Tables:
+***Generated Tables:***
 | Table Name | Description |
 | ---------- | ----------- |
 | linkedin_ads__performance_daily | Each record represents the daily performance of each LinkedIn Ads creative. |
-#### Required Improvado Extraction Templates:
+***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
 | LinkedIn Ads | Creatives (MCDM) | linkedin_ads_creatives |
 | LinkedIn Ads | Creative With Conversions | linkedin_ads_creative_with_conversions |
 
 ### Twitter Ads
-#### Generated Tables:
+***Generated Tables:***
 | Table Name | Description |
 | ---------- | ----------- |
 | twitter_ads__promoted_tweets_performance_daily | Each record represents the daily performance of each Twitter Ads promoted tweet. |
-#### Required Improvado Extraction Templates:
+***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
 | Twitter | Promoted Tweets With Cards | twitter_promoted_tweets_with_cards |
 
 ### Pinterest Ads
-#### Generated Tables:
+***Generated Tables:***
 | Table Name | Description |
 | ---------- | ----------- |
 | pinterest_ads__pins_performance_daily | Each record represents the daily performance of each Pinterest Ads ad. |
-#### Required Improvado Extraction Templates:
+***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
 | Pinterest Ads | Promoted Tweets With Cards | pinterest_ads_pins_1v_30en_30cl |
 
 ### Social Organic Media Posts
-#### Generated Tables:
+***Generated Tables:***
 | Table Name | Description |
 | ---------- | ----------- |
 | rollup_social_organic__posts_lifetime | Each record represents the lifetime performance of each social organic post for Facebook, Instagram, LinkedIn, and Twitter. |
-#### Required Improvado Extraction Templates:
+***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
 | Facebook Pages | Post | facebook_pages_post |
@@ -97,11 +120,11 @@ This package contains transformation models, designed to be starting models for 
 | Twitter | Organic Tweets (MCDM) | twitter_organic_tweets |
 
 ### Social Organic Media Followers
-#### Generated Tables:
+***Generated Tables:***
 | Table Name | Description |
 | ---------- | ----------- |
 | rollup_social_organic__followers_daily | Each record represents the daily follower totals of each social organic account for Facebook, Instagram, LinkedIn, and Twitter. |
-#### Required Improvado Extraction Templates:
+***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
 | Facebook Pages | Page (MCDM) | facebook_pages_page |
@@ -110,27 +133,28 @@ This package contains transformation models, designed to be starting models for 
 | Twitter | Page (MCDM) | twitter_page |
 
 ### YouTube Organic
-#### Generated Tables:
+***Generated Tables:***
 | Table Name | Description |
 | ---------- | ----------- |
 | youtube_organic__top_videos | Each record represents the daily performance of each YouTube channel video. |
 | youtube_organic__traffic_source_daily | Each record represents the daily performance of each YouTube channel traffic source. |
-#### Required Improvado Extraction Templates:
+***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
 | Youtube Organic | Top videos (MCDM) | youtube_organic_top_videos |
 | Youtube Organic | Traffic source daily | youtube_organic_traffic_source_daily |
 
 ### Google Analytics
-#### Generated Tables:
+***Generated Tables:***
 | Table Name | Description |
 | ---------- | ----------- |
 | website__session_performance | Each record represents the daily session performance from Google Analytics. |
-#### Required Improvado Extraction Templates:
+***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
 | Google Analytics | Session Performance | ga_session_performance |
 
+----
 ## Installation Instructions
 [Read the dbt docs](https://docs.getdbt.com/docs/building-a-dbt-project/package-management/#git-packages) for more information on installing git packages. Please add the following configuration to you `packages.yml` file, make sure to enter a correct revision:
 
@@ -140,20 +164,21 @@ packages:
     revision: "x.x.x"
 ```
 
+----
 ## Configuration
 
 ### Location of Improvado Source Tables
-By default, this package will look for your data in the Improvado BigQuery schema. If this is not where your data is, please add the following configuration:
+By default, this package will look for your data in the Improvado BigQuery schema. If this is not where your data is, please add the following configuration:  
 *Note: If both option 1 and 2 are populated, then option 1 will take precendence over option 2*
 
-**Option 1**
+***Option 1***  
 Define dbt Project environment variables. [Read the dbt docs](https://docs.getdbt.com/docs/dbt-cloud/using-dbt-cloud/cloud-environment-variables) for more information on environment variables.
 ```
 DBT_IMPROVADO_DATABASE = your_schema_name
 DBT_IMPROVADO_SCHEMA = your_database_name
 ```
 
-**Option 2**
+***Option 2***  
 Define dbt variables in your `dbt_project.yml` file.
 ```yml
 vars:
@@ -162,10 +187,10 @@ vars:
 ```
 
 ### Data Source Account IDs
-For each data source you need to populate the appropriate Improvado account_id, please add the following configuration:
+For each data source you need to populate the appropriate Improvado account_id, please add the following configuration:  
 *Note: If both option 1 and 2 are populated, then option 1 will take precendence over option 2*
 
-**Option 1**
+***Option 1***  
 Define dbt Project environment variables. The format of each environment variable accepts a YAML list. [Read the dbt docs](https://docs.getdbt.com/docs/dbt-cloud/using-dbt-cloud/cloud-environment-variables) for more information on environment variables.
 ```
 DBT_FACEBOOK_ADS_IDS = ['123','456']
@@ -182,29 +207,29 @@ DBT_TWITTER_ORGANIC_IDS = ['123','456']
 DBT_YOUTUBE_ORGANIC_IDS = ['123','456']
 ```
 
-**Option 2**
+***Option 2***  
 Define dbt variables in your `dbt_project.yml` file.
 ```yml
 vars:
-  facebook_ads_ids: []                # List of Facebook Ads Account IDs eg. ['123']
-  facebook_organic_ids: []            # List of Facebook Account IDs eg. ['123']
-  google_ads_ids: []                  # List of Google Ads Account IDs eg. ['123']
-  google_analytics_ids: []            # List of Google Analytics View IDs eg. ['123']
-  google_campaign_manager_ids: []     # List of Google Campaign Manager Advertiser IDs eg. ['123']
-  instagram_organic_ids: []           # List of Instagram Account IDs eg. ['123']
-  linkedin_ads_ids: []                # List of LinkedIn Ads Account IDs eg. ['123']
-  linkedin_organic_ids: []            # List of LinkedIn Account IDs eg. ['123']
-  pinterest_ads_ids: []               # List of Pinterest Account IDs eg. ['123']
-  twitter_ads_ids: []                 # List of Twitter Ads Account IDs eg. ['123']
-  twitter_organic_ids: []             # List of Twitter Account IDs eg. ['123']
-  youtube_organic_ids: []             # List of YouTube Account IDs eg. ['123']  
+  facebook_ads_ids: ['123','456']                # List of Facebook Ads Account IDs eg. ['123']
+  facebook_organic_ids: ['123','456']            # List of Facebook Account IDs eg. ['123']
+  google_ads_ids: ['123','456']                  # List of Google Ads Account IDs eg. ['123']
+  google_analytics_ids: ['123','456']            # List of Google Analytics View IDs eg. ['123']
+  google_campaign_manager_ids: ['123','456']     # List of Google Campaign Manager Advertiser IDs eg. ['123']
+  instagram_organic_ids: ['123','456']           # List of Instagram Account IDs eg. ['123']
+  linkedin_ads_ids: ['123','456']                # List of LinkedIn Ads Account IDs eg. ['123']
+  linkedin_organic_ids: ['123','456']            # List of LinkedIn Account IDs eg. ['123']
+  pinterest_ads_ids: ['123','456']               # List of Pinterest Account IDs eg. ['123']
+  twitter_ads_ids: ['123','456']                 # List of Twitter Ads Account IDs eg. ['123']
+  twitter_organic_ids: ['123','456']             # List of Twitter Account IDs eg. ['123']
+  youtube_organic_ids: ['123','456']             # List of YouTube Account IDs eg. ['123']  
 ```
 
 ### Data Source Custom Conversions Enabled
-The package assumes that all custom conversions for Google Ads, Google Campaign Mananger, and LinkedIn Ads are *not* enabled. If you want to include custom conversions from these data sources, enable those data sources' custom conversions in this package by setting the relevant settings to `true`:
+The package assumes that all custom conversions for Google Ads, Google Campaign Mananger, and LinkedIn Ads are *not* enabled. If you want to include custom conversions from these data sources, enable those data sources' custom conversions in this package by setting the relevant settings to `true`:  
 *Note: If both option 1 and 2 are populated, then option 1 will take precendence over option 2*
 
-**Option 1**
+***Option 1***  
 Define dbt Project environment variables. [Read the dbt docs](https://docs.getdbt.com/docs/dbt-cloud/using-dbt-cloud/cloud-environment-variables) for more information on environment variables.
 ```
 DBT_GOOGLE_ADS_CONVERSIONS_ENABLED = true
@@ -212,7 +237,7 @@ DBT_GOOGLE_CAMPAIGN_MANAGER_CONVERSIONS_ENABLED = true
 DBT_LINKEDIN_ADS_CONVERSIONS_ENABLED = true
 ```
 
-**Option 2**
+***Option 2***  
 Define dbt variables in your `dbt_project.yml` file.
 ```yml
 vars:
