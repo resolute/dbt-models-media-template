@@ -3,6 +3,11 @@ version: 2
 models:
   - name: stg_twitter_organic__tweets
     description: A table containing daily tweet performance data from Twitter
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date
+            - organic_tweet_id
     columns:
       - name: id
         description: Surrogate primary key
@@ -12,6 +17,11 @@ models:
 
   - name: stg_twitter_organic__page
     description: A table containing daily lifetime account performance data from Twitter
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date
+            - user_id
     columns:
       - name: id
         description: Surrogate primary key
