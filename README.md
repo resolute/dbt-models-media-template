@@ -34,6 +34,7 @@ This package contains transformation models, designed to be starting models for 
 | Table Name | Description |
 | ---------- | ----------- |
 | google_campaign_manager__performance_daily | Each record represents the daily performance of each Google Campaign Manager creative, ad, and placement. |
+
 ***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
@@ -47,6 +48,7 @@ This package contains transformation models, designed to be starting models for 
 | google_ads__performance_daily | Each record represents the daily performance of each Google Ads ad. |
 | google_ads__keyword_performance_daily | Each record represents the daily performance of each Google Ads keyword. |
 | google_ads__search_query_performance_daily | Each record represents the daily performance of each Google Ads search query. |
+
 ***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
@@ -64,6 +66,7 @@ This package contains transformation models, designed to be starting models for 
 | facebook_ads__ads_performance_daily | Each record represents the daily performance of each Facebook Ads ad. |
 | facebook_ads__creatives_performance_daily | Each record represents the daily performance of each Facebook Ads creative. |
 | facebook_ads__campaign_month_reach | Each record represents the monthly performance of each Facebook Ads campaign with Reach metric. |
+
 ***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
@@ -80,6 +83,7 @@ This package contains transformation models, designed to be starting models for 
 | Table Name | Description |
 | ---------- | ----------- |
 | linkedin_ads__performance_daily | Each record represents the daily performance of each LinkedIn Ads creative. |
+
 ***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
@@ -91,6 +95,7 @@ This package contains transformation models, designed to be starting models for 
 | Table Name | Description |
 | ---------- | ----------- |
 | twitter_ads__promoted_tweets_performance_daily | Each record represents the daily performance of each Twitter Ads promoted tweet. |
+
 ***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
@@ -101,6 +106,7 @@ This package contains transformation models, designed to be starting models for 
 | Table Name | Description |
 | ---------- | ----------- |
 | pinterest_ads__pins_performance_daily | Each record represents the daily performance of each Pinterest Ads ad. |
+
 ***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
@@ -111,6 +117,7 @@ This package contains transformation models, designed to be starting models for 
 | Table Name | Description |
 | ---------- | ----------- |
 | rollup_social_organic__posts_lifetime | Each record represents the lifetime performance of each social organic post for Facebook, Instagram, LinkedIn, and Twitter. |
+
 ***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
@@ -124,6 +131,7 @@ This package contains transformation models, designed to be starting models for 
 | Table Name | Description |
 | ---------- | ----------- |
 | rollup_social_organic__followers_daily | Each record represents the daily follower totals of each social organic account for Facebook, Instagram, LinkedIn, and Twitter. |
+
 ***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
@@ -138,6 +146,7 @@ This package contains transformation models, designed to be starting models for 
 | ---------- | ----------- |
 | youtube_organic__top_videos | Each record represents the daily performance of each YouTube channel video. |
 | youtube_organic__traffic_source_daily | Each record represents the daily performance of each YouTube channel traffic source. |
+
 ***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
@@ -149,6 +158,7 @@ This package contains transformation models, designed to be starting models for 
 | Table Name | Description |
 | ---------- | ----------- |
 | website__session_performance | Each record represents the daily session performance from Google Analytics. |
+
 ***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
@@ -246,6 +256,7 @@ vars:
   linkedin_ads_conversions_enabled: true
 ```
 
+----
 ## Contributions
 Additional contributions to this package are very welcome! Please create issues
 or open PRs against `master`. Check out 
