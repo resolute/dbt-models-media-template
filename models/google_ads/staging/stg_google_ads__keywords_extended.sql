@@ -6,7 +6,7 @@ WITH
 
 source_data AS (
 
-    SELECT * FROM {{ source('improvado', 'google_adwords_keywords_extended') }}
+    SELECT * FROM {{ source('improvado', 'google_ads_keywords_extended') }}
 
     WHERE account_id IN UNNEST({{ source_account_ids }})
 
@@ -21,27 +21,24 @@ rename_recast AS (
         account_name,
         date,
         customer_id,
-        account_descriptive_name AS account_desc_name,
         campaign_id,
         campaign_name,
         campaign_type,
-        campaign_state,
+        campaign_state AS campaign_status,
         adset_id AS ad_group_id,
         adset_name AS ad_group_name,
-        adset_state AS ad_group_state,
+        adset_state AS ad_group_status,
         keyword_id,
         keyword_name,
-        keyword_state,
-        ad_network_type_1,
+        keyword_state AS keyword_status,
+        keyword_label_ids,
+        keyword_labels,
         match_type,
-        avg_pos,
-        criteria_destination_url AS destination_url,
-        label_ids,
-        kw_labels AS labels,
+        ad_network_type,
         
         {#- General metrics -#}
         imps AS impressions,
-        eligible_impressions,
+        search_eligible_impressions,
         spend AS cost,
         clicks AS link_clicks,
         engagements,
@@ -58,7 +55,7 @@ rename_recast AS (
         -- Excluded fields --
         /*
         conv,
-        revenue,
+        total_revenue,
         conversions,
         conversion_value,
         view_through_conv,
@@ -75,7 +72,7 @@ final AS (
   
     SELECT 
     
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'ad_group_id', 'keyword_id', 'ad_network_type_1']) }} AS id,
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'ad_group_id', 'keyword_id', 'ad_network_type']) }} AS id,
         'Google Ads' AS data_source,
         'Google' AS channel_source_name,
         'Paid' AS channel_source_type,
