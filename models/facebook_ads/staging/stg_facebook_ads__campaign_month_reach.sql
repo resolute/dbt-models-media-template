@@ -33,7 +33,7 @@ rename_recast AS (
         facebook_entity_account_data.account_name AS account_name,
         source_data.account_name AS account_name_on_date,
         source_data.date AS month_start_date,
-        source_data.end_date AS month_end_date,
+        CAST(source_data.end_date AS DATE) AS month_end_date,
         source_data.campaign_id,
         facebook_entity_campaign_data.campaign_name AS campaign_name,
         source_data.campaign_name AS campaign_name_on_date,

@@ -2,7 +2,7 @@ name: 'media_template'
 version: '0.0.4'
 config-version: 2
 
-require-dbt-version: [">=1.0.0", "<2.0.0"]
+require-dbt-version: [">=1.1.0", "<2.0.0"]
 
 profile: 'default'
 
@@ -27,34 +27,57 @@ models:
     rollups:
       display:
         +materialized: table
+        +partition_by:
+          field: 'date'
+          data_type: 'date'
+          granularity: 'day'
         intermediate:
           +materialized: view
           +schema: staging
       search_paid:
         +materialized: table
+        +partition_by:
+          field: 'date'
+          data_type: 'date'
+          granularity: 'day'
         intermediate:
           +materialized: view
           +schema: staging
       social_organic:
         +materialized: table
+        +partition_by:
+          field: 'date'
+          data_type: 'date'
+          granularity: 'day'
         intermediate:
           +materialized: view
           +schema: staging
       social_paid:
         +materialized: table
+        +partition_by:
+          field: 'date'
+          data_type: 'date'
+          granularity: 'day'
         intermediate:
           +materialized: view
           +schema: staging
       summary:
         +materialized: table
+        +partition_by:
+          field: 'date'
+          data_type: 'date'
+          granularity: 'day'
         intermediate:
           +materialized: view
           +schema: staging
 
-    
     facebook_ads:
       marts:
         +materialized: table
+        +partition_by:
+          field: 'date'
+          data_type: 'date'
+          granularity: 'day'
       intermediate:
         +schema: staging
       staging:
@@ -67,6 +90,10 @@ models:
     google_ads:
       marts:
         +materialized: table
+        +partition_by:
+          field: 'date'
+          data_type: 'date'
+          granularity: 'day'
       intermediate:
         +schema: staging
       staging:
@@ -75,12 +102,20 @@ models:
     google_analytics:
       marts:
         +materialized: table
+        +partition_by:
+          field: 'date'
+          data_type: 'date'
+          granularity: 'day'
       staging:
         +schema: staging
 
     google_campaign_manager:
       marts:
         +materialized: table
+        +partition_by:
+          field: 'date'
+          data_type: 'date'
+          granularity: 'day'
       intermediate:
         +schema: staging
       staging:
@@ -93,6 +128,10 @@ models:
     linkedin_ads:
       marts:
         +materialized: table
+        +partition_by:
+          field: 'date'
+          data_type: 'date'
+          granularity: 'day'
       intermediate:
         +schema: staging
       staging:
@@ -105,12 +144,20 @@ models:
     pinterest_ads:
       marts:
         +materialized: table
+        +partition_by:
+          field: 'date'
+          data_type: 'date'
+          granularity: 'day'
       staging:
         +schema: staging
     
     twitter_ads:
       marts:
         +materialized: table
+        +partition_by:
+          field: 'date'
+          data_type: 'date'
+          granularity: 'day'
       intermediate:
         +schema: staging
       staging:
@@ -123,5 +170,9 @@ models:
     youtube_organic:
       marts:
         +materialized: table
+        +partition_by:
+          field: 'date'
+          data_type: 'date'
+          granularity: 'day'
       staging:
         +schema: staging
