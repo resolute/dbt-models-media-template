@@ -6,7 +6,7 @@ WITH
 
 source_data AS (
 
-    SELECT * FROM {{ source('improvado', 'google_ads_ql_ads') }}
+    SELECT * FROM {{ source('improvado', 'google_ads_ads') }}
 
     WHERE account_id IN UNNEST({{ source_account_ids }})
 
