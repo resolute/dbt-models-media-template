@@ -11,7 +11,7 @@ source_data AS (
 
     SELECT * FROM {{ source('improvado', 'facebook_ads_creative_platform') }}
 
-    WHERE account_id IN UNNEST({{ source_account_ids }})
+    WHERE REPLACE(account_id, 'act_', '') IN (SELECT REPLACE(x, 'act_', '') FROM UNNEST({{ source_account_ids }}) AS x)
 
 ),
 
