@@ -8,7 +8,9 @@ sources:
     loaded_at_field: TIMESTAMP(date)
 
     config:
-      enabled: "{% set ev = fromyaml(env_var('DBT_TWITTER_ORGANIC_IDS', '')) %}{% if (ev is not none) and (ev|length > 0 is true) %}{{ true|as_bool }}{% else %}{{ (var('twitter_organic_ids', [])|length > 0 is true)|as_bool }}{% endif %}"
+      enabled: |
+        {%- set ev = fromyaml(env_var('DBT_TWITTER_ORGANIC_IDS', '')) -%}
+        {{- ((ev is not none) and (ev|length > 0 is true)) or (var('twitter_organic_ids', [])|length > 0 is true) | as_bool }}
 
     freshness:
       warn_after: {count: 2, period: day}
