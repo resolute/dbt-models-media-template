@@ -178,7 +178,7 @@ packages:
 ## Configuration
 
 ### Data Source Account IDs
-***(REQUIRED)***
+***(REQUIRED)***  
 For each data source you need to populate the appropriate Improvado account_id, please add the following configuration:  
 *Note: If both option 1 and 2 are populated, then option 1 will take precendence over option 2*
 
@@ -218,7 +218,7 @@ vars:
 ```
 
 ### Data Source Custom Conversions Enabled
-***(OPTIONAL)***
+***(OPTIONAL)***  
 The package assumes that all custom conversions for Google Ads, Google Campaign Mananger, and LinkedIn Ads are *not* enabled. If you want to include custom conversions from these data sources, enable those data sources' custom conversions in this package by setting the relevant settings to `true`:  
 *Note: If both option 1 and 2 are populated, then option 1 will take precendence over option 2*
 
@@ -240,7 +240,7 @@ vars:
 ```
 
 ### Location of Improvado Source Tables
-***(OPTIONAL)***
+***(OPTIONAL)***  
 By default, this package will look for your data in the Improvado BigQuery schema. If this is not where your data is, please add the following configuration:  
 *Note: If both option 1 and 2 are populated, then option 1 will take precendence over option 2*
 
@@ -255,8 +255,8 @@ DBT_IMPROVADO_SCHEMA = your_database_name
 Define dbt variables in your `dbt_project.yml` file.
 ```yml
 vars:
-    improvado_schema: your_schema_name
-    improvado_database: your_database_name 
+  improvado_schema: your_schema_name
+  improvado_database: your_database_name 
 ```
 
 ----
