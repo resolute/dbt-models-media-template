@@ -23,6 +23,10 @@ sources:
       - name: facebook_campaign_month_reach
         loaded_at_field: TIMESTAMP(end_date)
       - name: facebook_entity_ads
+        freshness: # do not check freshness for this table
       - name: facebook_entity_adsets
+        freshness: # do not check freshness for this table
       - name: facebook_entity_campaigns
+        freshness: # do not check freshness for this table
       - name: facebook_entity_creatives
+        freshness: # do not check freshness for this table
