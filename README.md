@@ -219,29 +219,29 @@ vars:
 
 ### Data Source Custom Conversions Enabled
 ***(OPTIONAL)***  
-The package assumes that all custom conversions for Google Ads, Google Campaign Mananger, and LinkedIn Ads are *not* enabled. If you want to include custom conversions from these data sources, enable those data sources' custom conversions in this package by setting the relevant settings to `true`:  
+By default, this package assumes that all custom conversions source tables for Google Ads, Google Campaign Mananger, and LinkedIn Ads are present in the source BigQuery project and schema. If any of these data source's conversion tables are *not* present, then disable them in this package by setting the relevant settings to `false`. This setting is typically only applicable for dbt projects where Improvado loaded source tables are not in the Improvado managed BigQuery project:  
 *Note: If both option 1 and 2 are populated, then option 1 will take precendence over option 2*
 
 ***Option 1***  
 Define dbt Project environment variables. [Read the dbt docs](https://docs.getdbt.com/docs/dbt-cloud/using-dbt-cloud/cloud-environment-variables) for more information on environment variables.
 ```
-DBT_GOOGLE_ADS_CONVERSIONS_ENABLED = true
-DBT_GOOGLE_CAMPAIGN_MANAGER_CONVERSIONS_ENABLED = true
-DBT_LINKEDIN_ADS_CONVERSIONS_ENABLED = true
+DBT_GOOGLE_ADS_CONVERSIONS_ENABLED = false
+DBT_GOOGLE_CAMPAIGN_MANAGER_CONVERSIONS_ENABLED = false
+DBT_LINKEDIN_ADS_CONVERSIONS_ENABLED = false
 ```
 
 ***Option 2***  
 Define dbt variables in your `dbt_project.yml` file.
 ```yml
 vars:
-  google_ads_conversions_enabled: true
-  google_campaign_manager_conversions_enabled: true
-  linkedin_ads_conversions_enabled: true
+  google_ads_conversions_enabled: false
+  google_campaign_manager_conversions_enabled: false
+  linkedin_ads_conversions_enabled: false
 ```
 
 ### Location of Improvado Source Tables
 ***(OPTIONAL)***  
-By default, this package will look for your data in the Improvado BigQuery schema. If this is not where your data is, please add the following configuration:  
+By default, this package will look for your data in the Improvado BigQuery `green-post-223109` project and `agency_4333` schema. If this is not where your data is, please add the following configuration:  
 *Note: If both option 1 and 2 are populated, then option 1 will take precendence over option 2*
 
 ***Option 1***  
@@ -255,8 +255,8 @@ DBT_IMPROVADO_SCHEMA = your_database_name
 Define dbt variables in your `dbt_project.yml` file.
 ```yml
 vars:
-  improvado_schema: your_schema_name
   improvado_database: your_database_name 
+  improvado_schema: your_schema_name
 ```
 
 ----
