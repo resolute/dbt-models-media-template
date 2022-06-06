@@ -26,7 +26,7 @@ final AS (
 
     SELECT
     
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'traffic_source', 'subscribed_status']) }} AS id,
+        {{ dbt_utils.surrogate_key(['date', 'account_id', 'traffic_source', 'subscribed_status', 'live_or_on_demand']) }} AS id,
         data_source,
         account_id,
         account_name,
@@ -36,22 +36,7 @@ final AS (
         date,
         channel_id,
         channel_title,
-        
-        CASE
-            WHEN traffic_source = 'YT_SEARCH' THEN 'YouTube search'
-            WHEN traffic_source = 'EXT_URL' THEN 'External'
-            WHEN traffic_source = 'RELATED_VIDEO' THEN 'Suggested videos'
-            WHEN traffic_source = 'SUBSCRIBER' THEN 'Browse features'
-            WHEN traffic_source = 'NO_LINK_OTHER' THEN 'Direct or unknown'
-            WHEN traffic_source = 'YT_OTHER_PAGE' THEN 'Other YouTube features'
-            WHEN traffic_source = 'YT_CHANNEL' THEN 'Channel pages'
-            WHEN traffic_source = 'PLAYLIST' THEN 'Playlists'
-            WHEN traffic_source = 'YT_PLAYLIST_PAGE' THEN 'Playlist page'
-            WHEN traffic_source = 'END_SCREEN' THEN 'End screens'
-            WHEN traffic_source = 'NOTIFICATION' THEN 'Notifications'
-            WHEN traffic_source = 'ANNOTATION' THEN 'Video cards and annotations'
-        END AS traffic_source,
-        
+        traffic_source,
         subscribed_status,
         live_or_on_demand,
         estimated_minutes_watched,
