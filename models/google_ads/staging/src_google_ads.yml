@@ -13,9 +13,9 @@ sources:
       filter: account_id IN UNNEST({{ var('google_ads_ids') }})
 
     tables:
-      - name: google_ads_ql_ads
-      - name: google_ads_ql_keywords_extended
-      - name: google_ads_ql_search_query_keywords
-      - name: google_ads_ql_ads_device_conversions
-      - name: google_ads_ql_keywords_conversions
-      - name: google_ads_ql_search_query_conversions
+      - name: google_ads_ads
+      - name: google_ads_keywords_extended
+      - name: google_ads_search_query_keywords
+      - name: google_ads_ads_device_conversions
+      - name: google_ads_keywords_conversions
+      - name: google_ads_search_query_conversions
