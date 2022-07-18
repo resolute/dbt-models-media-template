@@ -142,7 +142,8 @@ rename_recast AS (
         lead_value AS conv_fb_value_lead_total_28c_1v,
         mobile_app_install AS conv_fb_mobile_app_install_28c_1v,
         mobile_app_instal_value AS conv_fb_value_mobile_app_install_28c_1v,
-        view_content AS conv_fb_view_content
+        view_content AS conv_fb_view_content,
+        landing_page_view AS conv_fb_landing_page_view
 
         {#- Custom conversions -#}
 
