@@ -1,6 +1,6 @@
-{%- set source_account_ids = var('facebook_organic_ids') -%}
+{%- set source_account_ids = get_account_ids('facebook organic') -%}
 
-{{ config(enabled= (var('facebook_organic_ids'))|length > 0 is true) }}
+{{ config(enabled= source_account_ids|length > 0 is true) }}
 
 WITH
 

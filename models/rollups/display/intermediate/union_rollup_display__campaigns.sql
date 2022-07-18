@@ -5,5 +5,5 @@
 {%- endif -%}
 
 {{ dbt_utils.union_relations(
-    relations= get_display_files()
+    relations= relations_list
 ) }}

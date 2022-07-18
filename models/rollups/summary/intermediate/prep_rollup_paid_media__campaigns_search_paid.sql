@@ -1,4 +1,4 @@
-{%- set relations_list = get_search_paid_files() -%}
+{%- set relations_list = get_search_paid_files(return_files=false) -%}
 
 {%- if relations_list|length < 1 -%}
 {{ config(enabled=false) }}

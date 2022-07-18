@@ -1,4 +1,4 @@
-{{ config(enabled= (var('linkedin_ads_ids'))|length > 0 is true) }}
+{{ config(enabled= get_account_ids('linkedin ads')|length > 0 is true) }}
 
 {# Get a list of the columns from the upstream model #}
 {%- set cols = adapter.get_columns_in_relation(ref('linkedin_ads__performance_daily')) -%}

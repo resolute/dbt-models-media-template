@@ -36,21 +36,54 @@ macros:
         type: string
         description: The value to replace all null values found in columns with a string data type. Defaults to 'null'.
   
+  - name: get_account_ids
+    description: A macro to return a list of the account ids for a specific platform. The account ids are pulled from either an environment variable or a dbt project variable. Environment variables take precedence over dbt project variables.
+    arguments:
+      - name: platform
+        type: string
+        description: This will determine the account ids to return in the list. Valid values are 'facebook ads', 'facebook organic', 'google ads', 'google analytics', 'google campaign manager', 'instagram organic', 'linkedin ads', 'linkedin organic', 'pinterest ads', 'twitter ads', 'twitter organic', 'youtube organic'.
+
+  - name: get_account_conversion_data_config
+    description: A macro to return a boolean true or false for a specific platform. The boolean is determined by either an environment variable or a dbt project variable. Environment variables take precedence over dbt project variables.
+    arguments:
+      - name: platform
+        type: string
+        description: This will determine the account ids to return in the list. Valid values are 'google ads', 'google campaign manager', 'linkedin ads'.
+
   - name: get_summary_files
     description: A macro to return a list of the data models for the summary rollup models based on whether each platform has account ids for their respective variables in dbt_project.
-  
+    arguments:
+      - name: return_files
+        type: boolean
+        description: This will determine the whether to return a list of files or a list of boolean values. Defaults to true which returns a list of files.
+
   - name: get_social_organic_files
     description: A macro to return a list of the organic social data models for the social rollup models based on whether each platform has account ids for their respective variables in dbt_project.
     arguments:
       - name: table_type
         type: string
         description: Valid values are 'followers' or 'posts'. This will determine the types of data models to return in the list.
+      - name: return_files
+        type: boolean
+        description: This will determine the whether to return a list of files or a list of boolean values. Defaults to true which returns a list of files.
   
   - name: get_social_paid_files
     description: A macro to return a list of the paid social data models for the social rollup models based on whether each platform has account ids for their respective variables in dbt_project.
-  
+    arguments:
+      - name: return_files
+        type: boolean
+        description: This will determine the whether to return a list of files or a list of boolean values. Defaults to true which returns a list of files.
+
   - name: get_display_files
     description: A macro to return a list of the paid display data models for the display rollup models based on whether each platform has account ids for their respective variables in dbt_project.
-  
+    arguments:
+      - name: return_files
+        type: boolean
+        description: This will determine the whether to return a list of files or a list of boolean values. Defaults to true which returns a list of files.
+
   - name: get_search_paid_files
     description: A macro to return a list of the paid search data models for the search rollup models based on whether each platform has account ids for their respective variables in dbt_project.
+    arguments:
+      - name: return_files
+        type: boolean
+        description: This will determine the whether to return a list of files or a list of boolean values. Defaults to true which returns a list of files.

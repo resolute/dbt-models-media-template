@@ -1,4 +1,4 @@
-{{ config(enabled= (var('instagram_organic_ids'))|length > 0 is true) }}
+{{ config(enabled= get_account_ids('instagram organic')|length > 0 is true) }}
 
 WITH
 

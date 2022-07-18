@@ -1,6 +1,6 @@
-{{ config(enabled= (var('twitter_ads_ids'))|length > 0 is true) }}
+{%- set source_account_ids = get_account_ids('twitter ads') -%}
 
-{%- set source_account_ids = var('twitter_ads_ids') -%}
+{{ config(enabled= source_account_ids|length > 0 is true) }}
 
 {# Get a list of the columns from the upstream model #}
 {%- set cols = adapter.get_columns_in_relation(source('improvado', 'twitter_promoted_tweets_with_cards')) -%}

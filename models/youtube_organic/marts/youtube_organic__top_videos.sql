@@ -1,4 +1,4 @@
-{{ config(enabled= (var('youtube_organic_ids'))|length > 0 is true) }}
+{{ config(enabled= get_account_ids('youtube organic')|length > 0 is true) }}
 
 WITH
 

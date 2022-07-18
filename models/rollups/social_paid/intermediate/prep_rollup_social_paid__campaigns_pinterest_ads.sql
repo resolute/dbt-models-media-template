@@ -1,4 +1,4 @@
-{{ config(enabled= (var('pinterest_ads_ids'))|length > 0 is true) }}
+{{ config(enabled= get_account_ids('pinterest ads')|length > 0 is true) }}
 
 {# Get a list of the columns from the upstream model #}
 {%- set cols = adapter.get_columns_in_relation(ref('pinterest_ads__pins_performance_daily')) -%}

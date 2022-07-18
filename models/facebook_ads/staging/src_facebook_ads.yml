@@ -2,15 +2,20 @@ version: 2
 
 sources:
   - name: improvado
-    database: "{{ var('improvado_database', 'green-post-223109') }}"
-    schema: "{{ var('improvado_schema', 'agency_4333') }}"
+    database: "{{ env_var('DBT_IMPROVADO_DATABASE', var('improvado_database', 'green-post-223109')) }}"
+    schema: "{{ env_var('DBT_IMPROVADO_SCHEMA', var('improvado_schema', 'agency_4333')) }}"
     loader: improvado
     loaded_at_field: TIMESTAMP(date)
+
+    config:
+      enabled: |
+        {%- set ev = fromyaml(env_var('DBT_FACEBOOK_ADS_IDS', '')) -%}
+        {{- ((ev is not none) and (ev|length > 0 is true)) or (var('facebook_ads_ids', [])|length > 0 is true) | as_bool }}
 
     freshness:
       warn_after: {count: 2, period: day}
       error_after: {count: 7, period: day}
-      filter: account_id IN UNNEST({{ var('facebook_ads_ids') }})
+      filter: REPLACE(account_id, 'act_', '') IN (SELECT REPLACE(x, 'act_', '') FROM UNNEST({{ env_var('DBT_FACEBOOK_ADS_IDS', var('facebook_ads_ids', [])) }}) AS x)
 
     tables:
       - name: facebook_ads_creative_platform
@@ -18,6 +23,10 @@ sources:
       - name: facebook_campaign_month_reach
         loaded_at_field: TIMESTAMP(end_date)
       - name: facebook_entity_ads
+        freshness: # do not check freshness for this table
       - name: facebook_entity_adsets
+        freshness: # do not check freshness for this table
       - name: facebook_entity_campaigns
+        freshness: # do not check freshness for this table
       - name: facebook_entity_creatives
+        freshness: # do not check freshness for this table

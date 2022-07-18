@@ -1,6 +1,6 @@
-{%- set source_account_ids = var('facebook_ads_ids') -%}
+{%- set source_account_ids = get_account_ids('facebook ads') -%}
 
-{{ config(enabled= (var('facebook_ads_ids'))|length > 0 is true) }}
+{{ config(enabled= source_account_ids|length > 0 is true) }}
 
 {# Get a list of the columns from the upstream model #}
 {%- set cols = adapter.get_columns_in_relation(source('improvado', 'facebook_ads_creative_platform')) -%}
@@ -11,7 +11,7 @@ source_data AS (
 
     SELECT * FROM {{ source('improvado', 'facebook_ads_creative_platform') }}
 
-    WHERE account_id IN UNNEST({{ source_account_ids }})
+    WHERE REPLACE(account_id, 'act_', '') IN (SELECT REPLACE(x, 'act_', '') FROM UNNEST({{ source_account_ids }}) AS x)
 
 ),
 

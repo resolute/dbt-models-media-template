@@ -1,6 +1,6 @@
-{%- set source_account_ids = var('facebook_ads_ids') -%}
+{%- set source_account_ids = get_account_ids('facebook ads') -%}
 
-{{ config(enabled= (var('facebook_ads_ids'))|length > 0 is true) }}
+{{ config(enabled= source_account_ids|length > 0 is true) }}
 
 WITH
 
@@ -8,7 +8,7 @@ source_data AS (
 
     SELECT * FROM {{ source('improvado', 'facebook_campaign_month_reach') }}
 
-    WHERE account_id IN UNNEST({{ source_account_ids }})
+    WHERE REPLACE(account_id, 'act_', '') IN (SELECT REPLACE(x, 'act_', '') FROM UNNEST({{ source_account_ids }}) AS x)
 
 ),
 
@@ -33,7 +33,7 @@ rename_recast AS (
         facebook_entity_account_data.account_name AS account_name,
         source_data.account_name AS account_name_on_date,
         source_data.date AS month_start_date,
-        source_data.end_date AS month_end_date,
+        CAST(source_data.end_date AS DATE) AS month_end_date,
         source_data.campaign_id,
         facebook_entity_campaign_data.campaign_name AS campaign_name,
         source_data.campaign_name AS campaign_name_on_date,

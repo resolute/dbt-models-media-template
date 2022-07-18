@@ -21,6 +21,11 @@ models:
   
   - name: facebook_ads__campaign_month_reach
     description: A table containing the monthly reach totals by campaign from Facebook Ads
+    config:
+      partition_by:
+        field: 'month_start_date'
+        data_type: 'date'
+        granularity: 'day'
     columns:
       - name: id
         description: Surrogate primary key

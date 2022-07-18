@@ -1,4 +1,6 @@
-{{ config(enabled=var('linkedin_ads_conversions_enabled')) }}
+{%- set source_account_ids = get_account_ids('linkedin ads') -%}
+
+{{ config(enabled= source_account_ids|length > 0 is true and get_account_conversion_data_config('linkedin ads')) }}
 
 WITH
 

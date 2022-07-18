@@ -1,6 +1,6 @@
-{%- set source_account_ids = var('facebook_ads_ids') -%}
+{%- set source_account_ids = get_account_ids('facebook ads') -%}
 
-{{ config(enabled= (var('facebook_ads_ids'))|length > 0 is true) }}
+{{ config(enabled= source_account_ids|length > 0 is true) }}
 
 WITH
 
@@ -8,14 +8,13 @@ source_data AS (
 
     SELECT * FROM {{ source('improvado', 'facebook_entity_adsets') }}
 
-    WHERE account_id IN UNNEST({{ source_account_ids }})
+    WHERE REPLACE(account_id, 'act_', '') IN (SELECT REPLACE(x, 'act_', '') FROM UNNEST({{ source_account_ids }}) AS x)
 
 ),
 
-rename_recast_dedupe AS (
+final AS (
 
-    SELECT DISTINCT
-
+    SELECT
         account_id,
         account_name,
         adset_id,
@@ -35,43 +34,7 @@ rename_recast_dedupe AS (
 
     FROM source_data
 
-),
-
-rank_duplicate_adset_ids AS (
-
-    SELECT
-
-        *,
-        ROW_NUMBER() OVER (PARTITION BY adset_id ORDER BY updated_time DESC) AS rank_recent
-
-    FROM rename_recast_dedupe
-
-),
-
-final AS (
-
-    SELECT
-
-        account_id,
-        account_name,
-        adset_id,
-        adset_name,
-        campaign_id,
-        date,
-        created_time,
-        updated_time,
-        destination_type,
-        effective_status,
-        optimization_goal,
-        start_time,
-        end_time,
-        targeting,
-        daily_budget,
-        lifetime_budget
-
-    FROM rank_duplicate_adset_ids
-
-    WHERE rank_recent = 1
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY adset_id ORDER BY __insert_date DESC) = 1
 
 )
 

@@ -1,6 +1,6 @@
-{{ config(enabled=var('google_campaign_manager_conversions_enabled')) }}
+{%- set source_account_ids = get_account_ids('google campaign manager') -%}
 
-{%- set source_account_ids = var('google_campaign_manager_ids') -%}
+{{ config(enabled= source_account_ids|length > 0 is true and get_account_conversion_data_config('google campaign manager')) }}
 
 WITH
 
