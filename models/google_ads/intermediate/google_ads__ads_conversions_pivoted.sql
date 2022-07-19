@@ -3,13 +3,22 @@
 {{ config(enabled= source_account_ids|length > 0 is true and get_account_conversion_data_config('google ads')) }}
 
 {# Identify the conversion metrics to include in this model #}
-{%- set conversion_fields = [
-    'all_conv',
-    'value_all_conv',
-    'conversions',
-    'value_conversions',
-    'conversions_view_through'
-    ]-%}
+{%- set conversion_fields = []-%}
+{%- set ev_conversion_metrics = fromyaml(env_var('DBT_GOOGLE_ADS_CONVERSION_METRICS', '')) -%}
+{%- if ev_conversion_metrics is not none -%}
+    {%- set conversion_fields = ev_conversion_metrics -%}
+{%- else -%}
+    {%- set conversion_fields = var('google_ads_conversion_metrics', ['all_conv', 'conversions', 'conversions_view_through', 'value_all_conv', 'value_conversions']) -%}
+{%- endif -%}
+
+{# Identify the conversion types to include in this model #}
+{%- set conversion_type_fields = [] -%}
+{%- set ev_conversion_types = fromyaml(env_var('DBT_GOOGLE_ADS_CONVERSION_TYPES', '')) -%}
+{%- if ev_conversion_types is not none -%}
+    {%- set conversion_type_fields = ev_conversion_types -%}
+{%- else -%}
+    {%- set conversion_type_fields = var('google_ads_conversion_types', ['action_name', 'action_category']) -%}
+{%- endif -%}
 
 WITH
 
@@ -47,7 +56,7 @@ pivot_conversions AS (
         {#- Conversions -#}
 
         {%- set conv_cat_values = dbt_utils.get_column_values(ref('google_ads__ads_conversions_pivot_prep'), 'conversion_action_category_formatted', default=[]) -%}
-        {%- if conv_cat_values != None and conv_cat_values|length > 0 -%}
+        {%- if conv_cat_values != None and conv_cat_values|length > 0 and 'action_category' in conversion_type_fields -%}
         ,
             {%- for conversion_field in conversion_fields -%}
 
@@ -68,7 +77,7 @@ pivot_conversions AS (
         {%- endif %}
 
         {%- set conv_name_values = dbt_utils.get_column_values(ref('google_ads__ads_conversions_pivot_prep'), 'conversion_action_name_formatted', default=[]) -%}
-        {%- if conv_name_values != None and conv_cat_values|length > 0 -%}
+        {%- if conv_name_values != None and conv_cat_values|length > 0 and 'action_name' in conversion_type_fields -%}
         ,
             {%- for conversion_field in conversion_fields -%}
 

@@ -239,6 +239,37 @@ vars:
   linkedin_ads_conversions_enabled: false
 ```
 
+### Data Source Conversions Settings
+***(OPTIONAL)***  
+By default, this package assumes that all conversion types (ex. Activity Groups, Activity, Action Category, Action, etc) 
+and conversion metrics (ex. Conversion, Click Through Conversion, View Through Conversion, Conversion Value, Click Through Conversion Value, View Through Conversion Value) 
+from Google Ads, Google Campaign Mananger, and LinkedIn Ads are to be loaded from the source tables to the final data models. 
+The below settings allow you to customize by data source which conversion types and conversion metrics to *include* in the load:  
+*Note: If both option 1 and 2 are populated, then option 1 will take precendence over option 2*
+
+***Option 1***  
+Define dbt Project environment variables. [Read the dbt docs](https://docs.getdbt.com/docs/dbt-cloud/using-dbt-cloud/cloud-environment-variables) for more information on environment variables.
+```
+DBT_GOOGLE_ADS_CONVERSION_TYPES = ['action_name', 'action_category']
+DBT_GOOGLE_ADS_CONVERSION_METRICS = ['all_conv', 'conversions', 'conversions_view_through', 'value_all_conv', 'value_conversions']
+DBT_GOOGLE_CAMPAIGN_MANAGER_CONVERSION_TYPES = ['activity', 'activity_group']
+DBT_GOOGLE_CAMPAIGN_MANAGER_CONVERSION_METRICS = ['conversions', 'conversions_click_through', 'conversions_view_through', 'value_conversions', 'value_conversions_click_through', 'value_conversions_view_through']
+DBT_LINKEDIN_ADS_CONVERSION_TYPES = ['conversion_name', 'conversion_type']
+DBT_LINKEDIN_ADS_CONVERSION_METRICS = ['conversions', 'conversions_click_through', 'conversions_view_through', 'viral_conversions', 'viral_conversions_click_through', 'viral_conversions_view_through']
+```
+
+***Option 2***  
+Define dbt variables in your `dbt_project.yml` file.
+```yml
+vars:
+  google_ads_conversion_types: ['action_name', 'action_category']
+  google_ads_conversion_metrics: ['all_conv', 'conversions', 'conversions_view_through', 'value_all_conv', 'value_conversions']
+  google_campaign_manager_conversion_types: ['activity', 'activity_group']
+  google_campaign_manager_conversion_metrics: ['conversions', 'conversions_click_through', 'conversions_view_through', 'value_conversions', 'value_conversions_click_through', 'value_conversions_view_through']
+  linkedin_ads_conversion_types: ['conversion_name', 'conversion_type']
+  linkedin_ads_conversion_metrics: ['conversions', 'conversions_click_through', 'conversions_view_through', 'viral_conversions', 'viral_conversions_click_through', 'viral_conversions_view_through']
+```
+
 ### Location of Improvado Source Tables
 ***(OPTIONAL)***  
 By default, this package will look for your data in the Improvado BigQuery `green-post-223109` project and `agency_4333` schema. If this is not where your data is, please add the following configuration:  
