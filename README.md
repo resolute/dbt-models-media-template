@@ -21,8 +21,10 @@ This package models data from Improvado's BigQuery extraction templates.
 
 **[Configuration](#configuration)**
   - [Data Source Account IDs](#data-source-account-ids)
-  - [Data Source Custom Conversions Enabled](#data-source-custom-conversions-enabled)
-  - [Location of Improvado Source Tables](#location-of-improvado-source-tables)
+  - [Data Source Custom Conversions Enable Settings](#data-source-custom-conversions-enable-settings)
+  - [Data Source Conversions Settings](#data-source-conversions-settings)
+  - [Google Ads Models Enable Setting](#google-ads-models-enable-setting)
+  - [Location of Improvado Source Tables Settings](#location-of-improvado-source-tables-settings)
 
 ----
 ## Models
@@ -217,7 +219,7 @@ vars:
   youtube_organic_ids: ['123','456']             # List of YouTube Account IDs eg. ['123']  
 ```
 
-### Data Source Custom Conversions Enabled
+### Data Source Custom Conversions Enable Settings
 ***(OPTIONAL)***  
 By default, this package assumes that all custom conversions source tables for Google Ads, Google Campaign Mananger, and LinkedIn Ads are present in the source BigQuery project and schema. If any of these data source's conversion tables are *not* present, then disable them in this package by setting the relevant settings to `false`. This setting is typically only applicable for dbt projects where Improvado loaded source tables are not in the Improvado managed BigQuery project:  
 *Note: If both option 1 and 2 are populated, then option 1 will take precendence over option 2*
@@ -276,7 +278,25 @@ vars:
   linkedin_ads_conversion_names: ['Add to Cart', 'Form Submitted']        # List of converion names as seen in the platform's UI
 ```
 
-### Location of Improvado Source Tables
+### Google Ads Models Enable Setting
+***(OPTIONAL)***  
+By default, this package assumes that all source tables for Google Ads (Ads, Keywords, and Search Query) are present in the source BigQuery project and schema. If any of these data source tables are *not* present or you wish to disable a type of Google Ads data model, then disable them in this package by listing only the Google Ads models you want to load in the relevant setting:  
+*Note: If both option 1 and 2 are populated, then option 1 will take precendence over option 2*
+
+***Option 1***  
+Define dbt Project environment variables. [Read the dbt docs](https://docs.getdbt.com/docs/dbt-cloud/using-dbt-cloud/cloud-environment-variables) for more information on environment variables.
+```
+DBT_GOOGLE_ADS_MODELS_ENABLED = ['ads', 'keywords', 'search query']
+```
+
+***Option 2***  
+Define dbt variables in your `dbt_project.yml` file.
+```yml
+vars:
+  google_ads_models_enabled: ['ads', 'keywords', 'search query']
+```
+
+### Location of Improvado Source Tables Settings
 ***(OPTIONAL)***  
 By default, this package will look for your data in the Improvado BigQuery `green-post-223109` project and `agency_4333` schema. If this is not where your data is, please add the following configuration:  
 *Note: If both option 1 and 2 are populated, then option 1 will take precendence over option 2*
