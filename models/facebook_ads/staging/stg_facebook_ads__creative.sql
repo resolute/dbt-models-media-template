@@ -140,6 +140,7 @@ rename_recast AS (
         complete_registration_value AS conv_fb_value_complete_registration_28c_1v,
         leads AS conv_fb_lead_total_28c_1v,
         lead_value AS conv_fb_value_lead_total_28c_1v,
+        lead_grouped AS conv_fb_onfb_lead_total_28c_1v,
         mobile_app_install AS conv_fb_mobile_app_install_28c_1v,
         mobile_app_instal_value AS conv_fb_value_mobile_app_install_28c_1v,
         view_content AS conv_fb_view_content,
