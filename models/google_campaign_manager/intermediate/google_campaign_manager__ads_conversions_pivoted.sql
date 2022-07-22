@@ -3,14 +3,22 @@
 {{ config(enabled= source_account_ids|length > 0 is true and get_account_conversion_data_config('google campaign manager')) }}
 
 {# Identify the conversion metrics to include in this model #}
-{%- set conversion_fields = [
-    'conversions',
-    'conversions_click_through',
-    'conversions_view_through',
-    'value_conversions',
-    'value_conversions_click_through',
-    'value_conversions_view_through'
-    ]-%}
+{%- set conversion_fields = []-%}
+{%- set ev_conversion_metrics = fromyaml(env_var('DBT_GOOGLE_CAMPAIGN_MANAGER_CONVERSION_METRICS', '')) -%}
+{%- if ev_conversion_metrics is not none -%}
+    {%- set conversion_fields = ev_conversion_metrics -%}
+{%- else -%}
+    {%- set conversion_fields = var('google_campaign_manager_conversion_metrics', ['conversions', 'conversions_click_through', 'conversions_view_through', 'value_conversions', 'value_conversions_click_through', 'value_conversions_view_through']) -%}
+{%- endif -%}
+
+{# Identify the conversion types to include in this model #}
+{%- set conversion_type_fields = [] -%}
+{%- set ev_conversion_types = fromyaml(env_var('DBT_GOOGLE_CAMPAIGN_MANAGER_CONVERSION_TYPES', '')) -%}
+{%- if ev_conversion_types is not none -%}
+    {%- set conversion_type_fields = ev_conversion_types -%}
+{%- else -%}
+    {%- set conversion_type_fields = var('google_campaign_manager_conversion_types', ['activity', 'activity_group']) -%}
+{%- endif -%}
 
 WITH
 
@@ -52,7 +60,7 @@ pivot_conversions AS (
         {#- Conversions -#}
 
         {%- set conv_cat_values = dbt_utils.get_column_values(ref('google_campaign_manager__ads_conversions_pivot_prep'), 'activity_group_formatted', default=[]) -%}
-        {%- if conv_cat_values != None and conv_cat_values|length > 0 -%}
+        {%- if conv_cat_values != None and conv_cat_values|length > 0 and 'activity_group' in conversion_type_fields -%}
         ,
             {%- for conversion_field in conversion_fields -%}
 
@@ -73,7 +81,7 @@ pivot_conversions AS (
         {%- endif %}
 
         {%- set conv_name_values = dbt_utils.get_column_values(ref('google_campaign_manager__ads_conversions_pivot_prep'), 'activity_formatted', default=[]) -%}
-        {%- if conv_name_values != None and conv_cat_values|length > 0 -%}
+        {%- if conv_name_values != None and conv_cat_values|length > 0 and 'activity' in conversion_type_fields -%}
         ,
             {%- for conversion_field in conversion_fields -%}
 
