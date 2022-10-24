@@ -119,6 +119,7 @@ rename_recast AS (
         action_comment_value AS post_comments,
         action_post_value AS post_shares,
         action_like_value AS post_likes,
+        event_responses,
 
         {#- Video metrics -#}
         views AS video_views,
