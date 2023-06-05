@@ -17,7 +17,7 @@ final AS (
     SELECT
         account_id,
         account_name,
-        DATE(updated_time)
+        DATE(updated_time) AS date
 
     FROM source_data
 
