@@ -22,15 +22,12 @@ final AS (
         adset_id,
         campaign_id,
         creative_id,
-        date,
         created_time,
         updated_time,
         effective_status,
         status
 
     FROM source_data
-
-    QUALIFY ROW_NUMBER() OVER (PARTITION BY ad_id ORDER BY __insert_date DESC) = 1
 
 )
 

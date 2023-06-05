@@ -17,11 +17,11 @@ final AS (
     SELECT
         account_id,
         account_name,
-        date
+        DATE(updated_time)
 
     FROM source_data
 
-    QUALIFY ROW_NUMBER() OVER (PARTITION BY account_id ORDER BY __insert_date DESC) = 1
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY account_id ORDER BY DATE(updated_time) DESC) = 1
 
 )
 
