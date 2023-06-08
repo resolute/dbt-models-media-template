@@ -49,7 +49,7 @@ final AS (
   
     SELECT 
     
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'creative_id', 'conversion_id']) }} AS id,
+        {{ dbt_utils.generate_surrogate_key(['date', 'account_id', 'creative_id', 'conversion_id']) }} AS id,
         'LinkedIn Paid' AS data_source,
         'LinkedIn' AS channel_source_name,
         'Paid' AS channel_source_type,

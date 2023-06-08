@@ -19,7 +19,7 @@ final AS (
 
     SELECT
     
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'post_id']) }} AS id,
+        {{ dbt_utils.generate_surrogate_key(['date', 'account_id', 'post_id']) }} AS id,
         *
     
     FROM union_tables

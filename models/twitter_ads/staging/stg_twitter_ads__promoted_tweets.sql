@@ -95,7 +95,7 @@ final AS (
   
     SELECT 
     
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'campaign_web_id', 'ad_group_web_id', 'ad_web_id']) }} AS id,
+        {{ dbt_utils.generate_surrogate_key(['date', 'account_id', 'campaign_web_id', 'ad_group_web_id', 'ad_web_id']) }} AS id,
         'Twitter Paid' AS data_source,
         'Twitter' AS channel_source_name,
         'Paid' AS channel_source_type,
