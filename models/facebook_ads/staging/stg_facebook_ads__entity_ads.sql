@@ -29,6 +29,8 @@ final AS (
 
     FROM source_data
 
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY ad_id ORDER BY DATE(updated_time) DESC) = 1
+
 )
 
 SELECT * FROM final
