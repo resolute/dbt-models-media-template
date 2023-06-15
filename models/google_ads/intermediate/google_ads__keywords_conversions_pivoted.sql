@@ -119,7 +119,7 @@ final AS (
 
     SELECT
         
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'ad_group_id', 'keyword_id', 'ad_network_type']) }} AS id,
+        {{ dbt_utils.generate_surrogate_key(['date', 'account_id', 'ad_group_id', 'keyword_id', 'ad_network_type']) }} AS id,
         *
     
     FROM pivot_conversions

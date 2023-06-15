@@ -39,7 +39,7 @@ final AS (
 
     SELECT 
     
-        {{ dbt_utils.surrogate_key(['created_time', 'account_id', 'post_id']) }} AS id,
+        {{ dbt_utils.generate_surrogate_key(['created_time', 'account_id', 'post_id']) }} AS id,
         * 
         
         EXCEPT(post_most_recent_data_rank)

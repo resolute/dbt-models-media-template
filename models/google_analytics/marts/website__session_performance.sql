@@ -272,7 +272,7 @@ final AS (
 
     SELECT
 
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'channel_name', 'channel_source_name', 'channel_source_type', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'user_type', 'device_category', 'landing_page_path']) }} AS id,
+        {{ dbt_utils.generate_surrogate_key(['date', 'account_id', 'channel_name', 'channel_source_name', 'channel_source_type', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'user_type', 'device_category', 'landing_page_path']) }} AS id,
         *
 
     FROM aggregate

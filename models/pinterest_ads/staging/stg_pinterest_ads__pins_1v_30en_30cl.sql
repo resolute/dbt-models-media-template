@@ -90,7 +90,7 @@ final AS (
   
     SELECT 
     
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'pin_promotion_id']) }} AS id,
+        {{ dbt_utils.generate_surrogate_key(['date', 'account_id', 'pin_promotion_id']) }} AS id,
         'Pinterest Paid' AS data_source,
         'Pinterest' AS channel_source_name,
         'Paid' AS channel_source_type,

@@ -71,7 +71,7 @@ final AS (
   
     SELECT 
     
-        {{ dbt_utils.surrogate_key(['month_start_date', 'account_id', 'campaign_id']) }} AS id,
+        {{ dbt_utils.generate_surrogate_key(['month_start_date', 'account_id', 'campaign_id']) }} AS id,
         'Facebook Paid' AS data_source,
         'Facebook' AS channel_source_name,
         'Paid' AS channel_source_type,

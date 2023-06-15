@@ -16,7 +16,7 @@ final AS (
   
     SELECT 
     
-        {{ dbt_utils.surrogate_key(['date', 'account_id', 'source', 'medium', 'campaign_name', 'ad_content', 'keyword', 'user_type', 'device_category', 'landing_page_path']) }} AS id,
+        {{ dbt_utils.generate_surrogate_key(['date', 'account_id', 'source', 'medium', 'campaign_name', 'ad_content', 'keyword', 'user_type', 'device_category', 'landing_page_path']) }} AS id,
         account_id,
         account_name,
         date,
