@@ -50,7 +50,8 @@ pivot_conversions AS (
         account_name,
         date,
         campaign_id,
-        campaign_name
+        campaign_name,
+        device
 
         {#- Conversions -#}
 
@@ -98,7 +99,7 @@ pivot_conversions AS (
         
     FROM data
 
-    GROUP BY 1,2,3,4,5,6,7,8,9
+    GROUP BY 1,2,3,4,5,6,7,8,9,10
 
 ),
 
