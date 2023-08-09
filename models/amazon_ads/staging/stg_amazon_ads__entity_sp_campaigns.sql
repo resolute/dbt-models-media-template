@@ -27,7 +27,6 @@ rename_recast AS (
         campaign_type,
         targeting_type AS campaign_targeting_type,
         state AS campaign_serving_status,
-        delivery_profile AS campaign_delivery_profile,
         premium_bid_adjustment AS campaign_premium_bid_adjustment,
         portfolio_id
 

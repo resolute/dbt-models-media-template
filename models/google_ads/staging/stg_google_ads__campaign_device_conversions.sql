@@ -39,11 +39,11 @@ rename_recast AS (
         ad_network_type,
 
         {#- General metrics -#}
-        all_conversions,
-        all_conversions_value,
+        all_conversions AS all_conv,
+        all_conversions_value AS value_all_conv,
         conversions,
-        conversions_value,
-        view_through_conversions,
+        conversions_value AS value_conversions,
+        view_through_conversions AS conversions_view_through,
         cross_device_conversions
 
         -- Excluded fields --
