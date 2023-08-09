@@ -50,6 +50,7 @@ This package contains transformation models, designed to be starting models for 
 | google_ads__performance_daily | Each record represents the daily performance of each Google Ads ad. |
 | google_ads__keyword_performance_daily | Each record represents the daily performance of each Google Ads keyword. |
 | google_ads__search_query_performance_daily | Each record represents the daily performance of each Google Ads search query. |
+| google_ads__campaign_performance_daily | Each record represents the daily performance of each Google Ads campaign. |
 
 ***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
@@ -60,6 +61,8 @@ This package contains transformation models, designed to be starting models for 
 | Google Ads | Keywords Conversions | google_ads_keywords_conversions |
 | Google Ads | Search Query Keywords | google_ads_search_query_keywords |
 | Google Ads | Search Query Conversions | google_ads_search_query_conversions |
+| Google Ads | Campaign (MCDM) | google_ads_campaign |
+| Google Ads | Campaign Device Conversions | google_ads_campaign_device_conversions |
 
 ### Facebook Ads
 ***Generated Tables:***
