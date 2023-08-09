@@ -114,6 +114,26 @@ This package contains transformation models, designed to be starting models for 
 | ---------------------- | ------------------------ | ------------------- |
 | Pinterest Ads | Promoted Tweets With Cards | pinterest_ads_pins_1v_30en_30cl |
 
+### Amazon Ads
+***Generated Tables:***
+| Table Name | Description |
+| ---------- | ----------- |
+| amazon_ads__adgroup_performance_daily | Each record represents the daily performance of each Amazon Ads adgroup. |
+| amazon_ads__product_ads_performance_daily | Each record represents the daily performance of each Amazon Ads product ad. |
+
+***Required Improvado Extraction Templates:***
+| Connection Data Source | Extraction Template Name | BigQuery Table Name |
+| ---------------------- | ------------------------ | ------------------- |
+| Amazon | Entity SBV Campaigns | amazon_advertising_entity_sbv_campaigns |
+| Amazon | Entity HSA Campaigns | amazon_advertising_entity_hsa_campaigns |
+| Amazon | Entity SD Campaigns | amazon_advertising_entity_sd_campaigns |
+| Amazon | Entity SP Campaigns | amazon_advertising_entity_sp_campaigns |
+| Amazon | Adgroups Sponsored Brands Video | amazon_advertising_adgroups_sbv |
+| Amazon | Adgroups Sponsored Brands | amazon_advertising_adgroups_hsa |
+| Amazon | Adgroups Sponsored Display | amazon_advertising_adgroups_sd |
+| Amazon | Adgroups Sponsored Products | amazon_advertising_adgroups_sp |
+| Amazon | Product Ads | amazon_advertising_product_ads |
+
 ### Social Organic Media Posts
 ***Generated Tables:***
 | Table Name | Description |
@@ -196,6 +216,7 @@ DBT_INSTAGRAM_ORGANIC_IDS = ['123','456']
 DBT_LINKEDIN_ADS_IDS = ['123','456']
 DBT_LINKEDIN_ORGANIC_IDS = ['123','456']
 DBT_PINTEREST_ADS_IDS = ['123','456']
+DBT_AMAZON_ADS_IDS = ['123','456']
 DBT_TWITTER_ADS_IDS = ['123','456']
 DBT_TWITTER_ORGANIC_IDS = ['123','456']
 DBT_YOUTUBE_ORGANIC_IDS = ['123','456']
@@ -214,6 +235,7 @@ vars:
   linkedin_ads_ids: ['123','456']                # List of LinkedIn Ads Account IDs eg. ['123']
   linkedin_organic_ids: ['123','456']            # List of LinkedIn Account IDs eg. ['123']
   pinterest_ads_ids: ['123','456']               # List of Pinterest Account IDs eg. ['123']
+  amazon_ads_ids: ['123','456']                  # List of Amazon Account IDs eg. ['123']
   twitter_ads_ids: ['123','456']                 # List of Twitter Ads Account IDs eg. ['123']
   twitter_organic_ids: ['123','456']             # List of Twitter Account IDs eg. ['123']
   youtube_organic_ids: ['123','456']             # List of YouTube Account IDs eg. ['123']  

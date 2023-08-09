@@ -10,6 +10,14 @@
         {% endif %}
     {% endif %}
 
+    {% if get_account_ids('amazon ads')|length > 0 %}
+        {% if return_files %}
+            {% set _ = files.append(ref('prep_rollup_display__campaigns_amazon_ads')) %}
+        {% else %}
+            {% set _ = files.append(true) %}
+        {% endif %}
+    {% endif %}
+
     {{ return(files) }}
 
 {% endmacro %}
