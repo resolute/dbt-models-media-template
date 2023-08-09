@@ -50,7 +50,7 @@ pivot_conversions AS (
         account_name,
         date,
         campaign_id,
-        campaign_name,
+        campaign_name
 
         {#- Conversions -#}
 

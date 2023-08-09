@@ -24,7 +24,6 @@ join_ad_and_campaign AS (
         campaign_data.start_date,
         campaign_data.end_date,
         CAST(NULL AS STRING) AS campaign_daily_budget,
-        campaign_data.campaign_budget_type,
         'sponsoredDisplay' AS campaign_type,
         campaign_data.campaign_serving_status,
         CAST(NULL AS STRING) AS campaign_bid_optimization,

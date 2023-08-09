@@ -19,7 +19,6 @@ rename_recast AS (
         {# Dimensions -#}
         date,
         start_date,
-        end_date,
         account_id,
         account_name,
         campaign_id,

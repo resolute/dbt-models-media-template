@@ -73,7 +73,7 @@ final AS (
   
     SELECT 
     
-        {{ dbt_utils.generate_surrogate_key(['date', 'campaign_id', 'adgroup_id', 'ad_id' 'asin', 'sku']) }} AS id,
+        {{ dbt_utils.generate_surrogate_key(['date', 'campaign_id', 'adgroup_id', 'ad_id', 'asin', 'sku']) }} AS id,
         'Amazon Ads' AS data_source,
         'Amazon' AS channel_source_name,
         'Paid' AS channel_source_type,
