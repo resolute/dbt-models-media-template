@@ -10,7 +10,7 @@ source_data AS (
 
     WHERE account_id IN UNNEST({{ source_account_ids }})
 
-    AND ad_id IS NOT NULL {# Removing rows with NULL ad_id, as information is not useful, and so that surrogate id can be created without generating duplicates for the NULL ad_id rows  -#}
+    AND asin != '' {# Removing rows with blank asin, as information is not useful, and so that surrogate id can be created without generating duplicates for the blank asin rows  -#}
 
 ),
 

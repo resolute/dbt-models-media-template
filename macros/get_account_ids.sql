@@ -106,6 +106,14 @@
             {% set account_ids = var('amazon_ads_ids', []) %}
         {% endif %}
 
+    {% elif platform == "google search ads 360" %}
+        {% set ev = fromyaml(env_var('DBT_GOOGLE_SEARCH_ADS_360_IDS', '')) %}
+        {% if ev is not none %}
+            {% set account_ids = ev %}
+        {% else %}
+            {% set account_ids = var('google_search_ads_360_ids', []) %}
+        {% endif %}
+
     {% endif %}
     
     {{ return(account_ids) }}
