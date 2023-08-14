@@ -74,3 +74,7 @@ final AS (
 )
 
 SELECT * FROM final
+
+{% else %}
+SELECT * FROM {{ ref('google_search_ads_360__keywords_aggregated') }}
+{% endif %}
