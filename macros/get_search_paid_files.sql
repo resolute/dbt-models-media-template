@@ -19,6 +19,14 @@
         {% endif %}
     {% endif %}
 
+    {% if get_account_ids('google search ads 360')|length > 0 %} 
+        {% if return_files %}
+            {% set _ = files.append(ref('prep_rollup_search_paid__campaigns_google_search_ads_360')) %}
+        {% else %}
+            {% set _ = files.append(true) %}
+        {% endif %}
+    {% endif %}
+
     {{ return(files) }}
 
 {% endmacro %}
