@@ -157,6 +157,16 @@ rename_recast AS (
 
         {%- endfor  %}
 
+        {#- Custom pixel event -#}
+
+        {#- Loop through each custom pixel event and rename column -#}
+        {%- for col in cols if "fb_pixel_custom_" in col.column -%}
+
+        ,
+        {{ col.column }} AS conv_fb_event_{{ col.column|replace("fb_pixel_custom_", "") }}
+
+        {%- endfor  %}
+
         -- Excluded fields --
         /*
         */
