@@ -26,6 +26,14 @@
             {% set config_value = var('linkedin_ads_conversions_enabled', true) %}
         {% endif %}
 
+    {% elif platform == "google search ads 360" %}
+        {% set ev = fromyaml(env_var('DBT_GOOGLE_SEARCH_ADS_360_CONVERSIONS_ENABLED', '')) %}
+        {% if ev is not none %}
+            {% set config_value = ev %}
+        {% else %}
+            {% set config_value = var('google_search_ads_360_conversions_enabled', true) %}
+        {% endif %}        
+
     {% endif %}
 
     {{ return(config_value) }}
