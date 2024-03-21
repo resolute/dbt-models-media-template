@@ -18,7 +18,10 @@ recast AS (
 
         *
         
-        REPLACE (CAST(created_time AS DATE) AS created_time)
+        REPLACE (
+            CAST(created_time AS DATE) AS created_time,
+            DATETIME(TIMESTAMP(created_at_datetime)) AS created_at_datetime
+        )
     
     FROM source_data
 
