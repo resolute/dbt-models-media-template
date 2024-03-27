@@ -35,6 +35,7 @@ rename_columns_and_set_defaults AS (
         date,
         share AS post_id,
         DATE(CAST(created_date AS DATETIME)) AS post_publish_date,
+        CAST(created_date AS DATETIME) AS post_publish_datetime,
         distribution_feed_distribution AS post_type,
         post_in_the_feed_url AS post_permalink_url,
         '(not set)' AS post_thumbnail_url,

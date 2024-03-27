@@ -34,7 +34,8 @@ rename_columns_and_set_defaults AS (
         channel_name,
         date,
         organic_tweet_id AS post_id,
-        CAST(created_at AS DATE) AS post_publish_date,
+        DATE(DATETIME(TIMESTAMP(created_at_datetime))) AS post_publish_date,
+        DATETIME(TIMESTAMP(created_at_datetime)) AS post_publish_datetime,
         '(not set)' AS post_type,
         url AS post_permalink_url,
         '(not set)' AS post_thumbnail_url,
@@ -81,6 +82,7 @@ final AS (
         MAX(date) AS date,
         post_id,
         post_publish_date,
+        post_publish_datetime,
         post_type,
         post_permalink_url,
         post_thumbnail_url,
@@ -103,7 +105,7 @@ final AS (
     
     FROM calculate_post_age
     
-    GROUP BY 1,2,3,4,5,6,8,9,10,11,12,13,14,15
+    GROUP BY 1,2,3,4,5,6,8,9,10,11,12,13,14,15,16
 
 )
       
