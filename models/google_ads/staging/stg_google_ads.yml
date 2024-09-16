@@ -54,3 +54,21 @@ models:
         tests:
           - unique
           - not_null
+
+  - name: stg_google_ads__campaign
+    description: A table containing daily campaign performance data from Google Ads
+    columns:
+      - name: id
+        description: Surrogate primary key
+        tests:
+          - unique
+          - not_null
+  
+  - name: stg_google_ads__campaign_conversions
+    description: A table containing daily campaign conversion performance data from Google Ads
+    columns:
+      - name: id
+        description: Surrogate primary key
+        tests:
+          - unique
+          - not_null
