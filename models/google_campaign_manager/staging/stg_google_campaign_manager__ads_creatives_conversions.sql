@@ -12,6 +12,12 @@ source_data AS (
 
 ),
 
+gcm_entity_creative_data AS (
+
+    SELECT * FROM {{ ref('stg_google_campaign_manager__entity_creatives') }}
+
+),
+
 rename_recast AS (
 
     SELECT
@@ -31,7 +37,7 @@ rename_recast AS (
         ad_id,
         ad,
         creative_id,
-        creative,
+        COALESCE(creative.creative, source_data.creative) AS creative,
         ad_type,
         creative_pixel_size,
         placement_size,
@@ -50,6 +56,9 @@ rename_recast AS (
         
 
     FROM source_data
+
+    LEFT JOIN gcm_entity_creative_data AS creative
+        ON source_data.creative_id = creative.creative_id
 
 ),
 
