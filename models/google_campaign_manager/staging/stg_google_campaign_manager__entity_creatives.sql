@@ -20,9 +20,7 @@ final AS (
         date,
         creative_id,
         creative,
-        creative_pixel_size,
-        creative_group_1,
-        creative_group_2
+        creative_pixel_size
 
     FROM source_data
 
