@@ -15,29 +15,14 @@ source_data AS (
 final AS (
 
     SELECT
+    
         {# Dimensions -#}
-        account_id,
-        account_name,
         date,
-        advertiser_id,
-        advertiser_name,
-        campaign_id,
-        campaign_name,
-        site_id,
-        site,
-        placement_id,
-        placement,
-        ad_id,
-        ad,
         creative_id,
         creative,
-        ad_type,
         creative_pixel_size,
-        placement_size,
-        activity_group_id,
-        activity_group,
-        activity_id,
-        activity
+        creative_group_1,
+        creative_group_2
 
     FROM source_data
 
