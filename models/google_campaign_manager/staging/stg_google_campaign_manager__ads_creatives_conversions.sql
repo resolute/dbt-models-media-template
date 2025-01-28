@@ -6,9 +6,8 @@ WITH
 
 source_data AS (
 
-    SELECT * FROM {{ source('improvado', 'google_cm_ads_creatives_placements') }}
+    SELECT * FROM {{ ref('base_google_campaign_manager__ads_creatives_conversions') }}
 
-    WHERE account_id IN UNNEST({{ source_account_ids }})
 
 ),
 
@@ -47,18 +46,20 @@ rename_recast AS (
         source_data.activity,
 
         {#- Conversions -#}
-        total_conversions AS conversions,
-        click_through_conversions AS conversions_click_through,
-        view_through_conversions AS conversions_view_through,
-        total_conversions_revenue AS value_conversions,
-        click_through_revenue AS value_conversions_click_through,
-        view_through_revenue AS value_conversions_view_through
+        SUM(conversions) AS conversions,
+        SUM(conversions_click_through) AS conversions_click_through,
+        SUM(conversions_view_through) AS conversions_view_through,
+        SUM(value_conversions) AS value_conversions,
+        SUM(value_conversions_click_through) AS value_conversions_click_through,
+        SUM(value_conversions_view_through) AS value_conversions_view_through
         
 
     FROM source_data
 
     LEFT JOIN gcm_entity_creative_data AS creative
         ON source_data.creative_id = creative.creative_id
+
+    {{ dbt_utils.group_by(n=22) }}    
 
 ),
 
