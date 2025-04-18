@@ -19,7 +19,7 @@ final AS (
 
         {% for conv_col in conv_cols -%}
 
-            SUM({{ conv_col }}) AS {{ conv_col }}{% if not loop.last %},{% endif %}
+            IFNULL(SUM({{ conv_col }}), 0.0) AS {{ conv_col }}{% if not loop.last %},{% endif %}
 
         {% endfor -%}
     

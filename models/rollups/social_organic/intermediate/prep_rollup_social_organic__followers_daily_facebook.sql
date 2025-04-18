@@ -34,8 +34,8 @@ final AS (
         channel_name,
         date,
         
-        page_fans AS social_followers_total,
-        page_fans - LAG(page_fans) OVER (PARTITION BY account_id ORDER BY date ASC) AS social_followers_net
+        page_follows AS social_followers_total,
+        page_follows - LAG(page_follows) OVER (PARTITION BY account_id ORDER BY date ASC) AS social_followers_net
         
      FROM general_definitions
 
