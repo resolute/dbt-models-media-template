@@ -24,7 +24,7 @@ WITH
 
 data AS (
   
-    SELECT * FROM {{ ref('stg_google_ads__campaign_device_conversions') }}
+    SELECT * FROM {{ ref('stg_google_ads__campaign_conversions') }}
 
 ),
 

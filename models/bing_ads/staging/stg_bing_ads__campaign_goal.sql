@@ -1,6 +1,6 @@
 {%- set source_account_ids = get_account_ids('bing ads') -%}
 
-{{ config(enabled= source_account_ids|length > 0 is true and get_account_conversion_data_config('bing ads')) }}
+{{ config(enabled= source_account_ids|length > 0 is true) }}
 
 WITH
 

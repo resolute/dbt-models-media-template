@@ -1,15 +1,15 @@
 {%- set source_account_ids = get_account_ids('bing ads') -%}
 
-{{ config(enabled= source_account_ids|length > 0 is true and get_account_conversion_data_config('bing ads')) }}
+{{ config(enabled= source_account_ids|length > 0 is true) }}
 
 WITH
 
 source_data AS (
 
-    SELECT 
-        *
-    FROM {{ source('improvado', 'bing_keywords_by_goals') }}
+    SELECT * FROM {{ source('improvado', 'bing_keywords_by_goals') }}
+    
     WHERE account_id IN UNNEST({{ source_account_ids }})
+    
 ),
 
 rename_recast AS (
