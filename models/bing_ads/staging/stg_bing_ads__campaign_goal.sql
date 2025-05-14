@@ -32,7 +32,7 @@ rename_recast AS (
         clicks AS link_clicks,       
         conv AS conversions,
         revenue AS value_conversions,
-        assists AS assists_conversions
+        assists AS assists_conversions,
         conversions_qualified,
         view_through_conversions, 
         view_through_conversions_qualified, 

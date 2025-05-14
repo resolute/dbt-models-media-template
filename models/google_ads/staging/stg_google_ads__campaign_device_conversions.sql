@@ -59,7 +59,7 @@ final AS (
   
     SELECT 
     
-        {{ dbt_utils.generate_surrogate_key(['date', 'account_id', 'campaign_id', 'ad_network_type', 'conversion_tracker_id', 'device']) }} AS id,
+        {{ dbt_utils.generate_surrogate_key(['date', 'account_id', 'campaign_id', 'ad_network_type', 'conversion_action_id', 'device']) }} AS id,
         'Google Ads' AS data_source,
         'Google' AS channel_source_name,
         'Paid' AS channel_source_type,
