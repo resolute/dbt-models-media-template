@@ -7,7 +7,7 @@ WITH
 aggregate AS (
 
 {{
-    aggregate_model(ref('bing_ads__keywords_goals_pivoted'), 'SUM')
+    aggregate_model(ref('stg_bing_ads__keywords_by_goal'), 'SUM', ['id', 'goal', 'goal_type', 'all_conversions', 'conversions', 'all_conversions_qualified', 'value_conversions'])
 }}
 
 ),

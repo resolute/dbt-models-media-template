@@ -19,7 +19,7 @@ data AS (
 
 ),
 
-final AS (
+pivot_conversions AS (
 
     SELECT
     
@@ -34,14 +34,7 @@ final AS (
         campaign_id,
         campaign_name,
         campaign_type,
-        campaign_labels,
-
-        {# -- General Metrics -- #}
-        impressions,
-        cost,
-        link_clicks,
-        video_views,
-        video_completions
+        campaign_labels
 
         {#- Conversions -#}
 
@@ -68,7 +61,18 @@ final AS (
         
     FROM data
 
-    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11
+
+)
+
+final AS (
+
+    SELECT
+        
+        {{ dbt_utils.generate_surrogate_key(['date', 'account_id', 'campaign_id']) }} AS id,
+        *
+    
+    FROM pivot_conversions
 
 )
   

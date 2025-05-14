@@ -61,7 +61,7 @@ final AS (
   
     SELECT 
     
-        {{ dbt_utils.generate_surrogate_key(['date', 'account_id', 'ad_id', 'goal']) }} AS id,
+        {{ dbt_utils.generate_surrogate_key(['date', 'account_id', 'ad_id', 'adset_id', 'goal']) }} AS id,
         'Bing Ads' AS data_source,
         'Bing' AS channel_source_name,
         'Paid' AS channel_source_type,

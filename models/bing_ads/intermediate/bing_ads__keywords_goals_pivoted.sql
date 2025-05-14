@@ -19,7 +19,7 @@ data AS (
 
 ),
 
-final AS (
+pivot_conversions AS (
 
     SELECT
     
@@ -41,12 +41,7 @@ final AS (
         bid_match_type,
         destination_url,
         current_max_cpc,
-        ad_distribution,
-
-        {# -- General Metrics -- #}
-        impressions,
-        cost,
-        link_clicks
+        ad_distribution
 
         {#- Conversions -#}
 
@@ -73,8 +68,19 @@ final AS (
         
     FROM data
 
-    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18
+
+),
+
+final AS (
+
+    SELECT
+        
+        {{ dbt_utils.generate_surrogate_key(['date', 'account_id', 'adset_id', 'ad_distribution', 'keyword_id']) }} AS id,
+        aggregate.*
+    
+    FROM pivot_conversions
 
 )
-  
+
 SELECT * FROM final
