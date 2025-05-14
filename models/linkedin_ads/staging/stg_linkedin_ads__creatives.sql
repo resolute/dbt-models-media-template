@@ -74,7 +74,14 @@ rename_recast AS (
 
         {#- Conversions -#}
         one_click_lead_form_opens AS conv_one_click_lead_form_opens,
-        one_click_leads AS conv_one_click_leads
+        one_click_leads AS conv_one_click_leads,
+        qualified_leads AS conv_qualified_leads,
+        talent_leads AS conv_talent_leads,
+        work_email_leads AS conv,work_email_leads,
+        viral_one_click_leads AS conv_viral_one_click_leads,
+        viral_one_click_lead_form_opens AS conv_viral_one_click_lead_form_opens,
+        lead_generation_mail_contact_info_shares AS conv_lead_generation_mail_contact_info_shares,
+        lead_generation_mail_interested_clicks AS conv_lead_generation_mail_interested_clicks
 
         -- Excluded fields --
         /*
