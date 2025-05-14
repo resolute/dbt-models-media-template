@@ -3,9 +3,9 @@
 {# Identify whether to enable this type of Google Ads model #}
 {%- set enable_google_ads_model = true -%}
 {%- set ev_enable_models = fromyaml(env_var('DBT_GOOGLE_ADS_MODELS_ENABLED', '')) -%}
-{%- if ev_enable_models is not none and 'ads' not in ev_enable_models -%}
+{%- if ev_enable_models is not none and 'campaign' not in ev_enable_models -%}
     {%- set enable_google_ads_model = false -%}
-{%- elif var('google_ads_models_enabled', [])|length > 0 is true and 'ads' not in var('google_ads_models_enabled', []) -%}
+{%- elif var('google_ads_models_enabled', [])|length > 0 is true and 'campaign' not in var('google_ads_models_enabled', []) -%}
     {%- set enable_google_ads_model = false -%}
 {%- endif -%}
 
@@ -29,8 +29,8 @@ rename_recast AS (
         account_id,
         account_name,
         date,
-        end_date,
-        start_date,
+        end_date AS campaign_end_date,
+        start_date AS campaign_start_date,
         customer_id,
         device,
         client_manager_id,        
@@ -40,16 +40,16 @@ rename_recast AS (
         campaign_labels,
         adv_channel_type AS campaign_type, {#- campaign_type denotes if campaign is Performance Max type -#}
         adv_channel_sub_type AS campaign_sub_type,        
-        budget_explicitly_shared,
-        budget_total_amount,
-        budget_amount,
-        target_roas,
-        bid_strategy_name,
-        bid_strategy_type,
-        bid_strategy_id,
-        url_custom_parameters,
-        final_url_suffix,
-        tracking_url_template,
+        budget_explicitly_shared AS campaign_budget_explicitly_shared,
+        budget_total_amount AS campaign_budget_total_amount,
+        budget_amount AS campaign_budget_amount,
+        target_roas AS campaign_target_roas,
+        bid_strategy_name AS campaign_bid_strategy_name ,
+        bid_strategy_type AS campaign_bid_strategy_type,
+        bid_strategy_id AS campaign_bid_strategy_id,
+        url_custom_parameters AS campaign_url_custom_parameters,
+        final_url_suffix AS campaign_final_url_suffix,
+        tracking_url_template AS campaign_tracking_url_template,
         currency_code,
 
         {#- General metrics -#}
@@ -73,8 +73,6 @@ rename_recast AS (
 
         -- Excluded fields --
         /*
-        __insert_date,
-        date_yyyymmdd,
         url_custom_parametrs,
         all_conversions,
         all_conversions_value,

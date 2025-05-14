@@ -1,8 +1,16 @@
 {% macro get_account_conversion_data_config(platform) %}
 
     {% set config_value = true %}
-    
-    {% if platform == "google ads" %} 
+
+    {% if platform == "bing ads" %} 
+        {% set ev = fromyaml(env_var('DBT_BING_ADS_CONVERSIONS_ENABLED', '')) %}
+        {% if ev is not none %}
+            {% set config_value = ev %}
+        {% else %}
+            {% set config_value = var('bing_ads_conversions_enabled', true) %}
+        {% endif %}
+
+    {% elif platform == "google ads" %} 
         {% set ev = fromyaml(env_var('DBT_GOOGLE_ADS_CONVERSIONS_ENABLED', '')) %}
         {% if ev is not none %}
             {% set config_value = ev %}
@@ -25,14 +33,6 @@
         {% else %}
             {% set config_value = var('linkedin_ads_conversions_enabled', true) %}
         {% endif %}
-
-    {% elif platform == "google search ads 360" %}
-        {% set ev = fromyaml(env_var('DBT_GOOGLE_SEARCH_ADS_360_CONVERSIONS_ENABLED', '')) %}
-        {% if ev is not none %}
-            {% set config_value = ev %}
-        {% else %}
-            {% set config_value = var('google_search_ads_360_conversions_enabled', true) %}
-        {% endif %}        
 
     {% endif %}
 

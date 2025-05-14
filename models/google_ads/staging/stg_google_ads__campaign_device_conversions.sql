@@ -3,9 +3,9 @@
 {# Identify whether to enable this type of Google Ads model #}
 {%- set enable_google_ads_model = true -%}
 {%- set ev_enable_models = fromyaml(env_var('DBT_GOOGLE_ADS_MODELS_ENABLED', '')) -%}
-{%- if ev_enable_models is not none and 'ads' not in ev_enable_models -%}
+{%- if ev_enable_models is not none and 'campaign' not in ev_enable_models -%}
     {%- set enable_google_ads_model = false -%}
-{%- elif var('google_ads_models_enabled', [])|length > 0 is true and 'ads' not in var('google_ads_models_enabled', []) -%}
+{%- elif var('google_ads_models_enabled', [])|length > 0 is true and 'campaign' not in var('google_ads_models_enabled', []) -%}
     {%- set enable_google_ads_model = false -%}
 {%- endif -%}
 
@@ -33,25 +33,23 @@ rename_recast AS (
         device,     
         campaign_id,
         campaign_name,
-        conversion_name,
-        conversion_category,
-        conversion_tracker_id,
+        conversion_name AS conversion_action_name,
+        conversion_category AS conversion_action_category,
+        conversion_tracker_id AS conversion_action_id,
         ad_network_type,
 
         {#- General metrics -#}
         all_conversions AS all_conv,
         all_conversions_value AS value_all_conv,
+        all_conversions_by_conversion_date,
+        all_conversions_value_by_conversion_date,
         conversions,
         conversions_value AS value_conversions,
+        conversions_by_conversion_date,
+        conversions_value_by_conversion_date,        
         view_through_conversions AS conversions_view_through,
         cross_device_conversions
 
-        -- Excluded fields --
-        /*
-        __insert_date,
-        date_yyyymmdd,
-
-        */
 
     FROM source_data
 

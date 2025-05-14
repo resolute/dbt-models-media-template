@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: improvado
+    database: "{{ env_var('DBT_IMPROVADO_DATABASE', var('improvado_database', 'green-post-223109')) }}"
+    schema: "{{ env_var('DBT_IMPROVADO_SCHEMA', var('improvado_schema', 'agency_4333')) }}"
+    loader: improvado
+    loaded_at_field: TIMESTAMP(date)
+
+    config:
+      enabled: |
+        {%- set ev = fromyaml(env_var('DBT_BING_ADS_IDS', '')) -%}
+        {{- ((ev is not none) and (ev|length > 0 is true)) or (var('bing_ads_ids', [])|length > 0 is true) | as_bool }}
+
+    freshness:
+      warn_after: {count: 2, period: day}
+      error_after: {count: 7, period: day}
+      filter: account_id IN UNNEST({{ env_var('DBT_BING_ADS_IDS', var('bing_ads_ids', [])) }})
+
+    tables:
+      - name: bing_keywords_by_goals
+      - name: bing_ads_with_description_goal
+      - name: bing_ads_microsoft_advertising_campaign_goal

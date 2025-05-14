@@ -1,8 +1,16 @@
 {% macro get_account_ids(platform) %}
 
     {% set account_ids = [] %}
+
+    {% if platform == "bing ads" %} 
+        {% set ev = fromyaml(env_var('DBT_BING_ADS_IDS', '')) %}
+        {% if ev is not none %}
+            {% set account_ids = ev %}
+        {% else %}
+            {% set account_ids = var('bing_ads_ids', []) %}
+        {% endif %}    
     
-    {% if platform == "facebook ads" %} 
+    {% elif platform == "facebook ads" %} 
         {% set ev = fromyaml(env_var('DBT_FACEBOOK_ADS_IDS', '')) %}
         {% if ev is not none %}
             {% set account_ids = ev %}
@@ -96,22 +104,6 @@
             {% set account_ids = ev %}
         {% else %}
             {% set account_ids = var('youtube_organic_ids', []) %}
-        {% endif %}
-
-    {% elif platform == "amazon ads" %}
-        {% set ev = fromyaml(env_var('DBT_AMAZON_ADS_IDS', '')) %}
-        {% if ev is not none %}
-            {% set account_ids = ev %}
-        {% else %}
-            {% set account_ids = var('amazon_ads_ids', []) %}
-        {% endif %}
-
-    {% elif platform == "google search ads 360" %}
-        {% set ev = fromyaml(env_var('DBT_GOOGLE_SEARCH_ADS_360_IDS', '')) %}
-        {% if ev is not none %}
-            {% set account_ids = ev %}
-        {% else %}
-            {% set account_ids = var('google_search_ads_360_ids', []) %}
         {% endif %}
 
     {% endif %}

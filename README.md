@@ -8,7 +8,7 @@ This package models data from Improvado's BigQuery extraction templates.
 **[Models](#models)**
   - [Google Campaign Manager](#google-campaign-manager)
   - [Google Ads](#google-ads)
-  - [Google Search Ads 360](#google-search-ads-360)
+  - [Bing Ads](#bing-ads)
   - [Facebook Ads](#facebook-ads)
   - [LinkedIn Ads](#linkedin-ads)
   - [Twitter Ads](#twitter-ads)
@@ -17,7 +17,6 @@ This package models data from Improvado's BigQuery extraction templates.
   - [Social Organic Media Followers](#social-organic-media-followers)
   - [YouTube Organic](#youtube-organic)
   - [Google Analytics](#google-analytics)
-  - [Amazon Ads](#amazon-ads)
 
 **[Installation Instructions](#installation-instructions)**
 
@@ -66,21 +65,20 @@ This package contains transformation models, designed to be starting models for 
 | Google Ads | Campaign (MCDM) | google_ads_campaign |
 | Google Ads | Campaign Device Conversions | google_ads_campaign_device_conversions |
 
-### Google Search Ads 360
+### Bing Ads
 ***Generated Tables:***
 | Table Name | Description |
 | ---------- | ----------- |
-| google_search_ads_360__ads_performance_daily | Each record represents the daily performance of each Google Search Ads 360 ad. |
-| google_search_ads_360__keyword_performance_daily | Each record represents the daily performance of each Google Search Ads 360 keyword. |
+| bing_ads__performance_daily | Each record represents the daily performance of each Bing Ads ad. |
+| bing_ads__keyword_performance_daily | Each record represents the daily performance of each Bing Ads keyword. |
+| bing_ads__campaigns_performance_daily | Each record represents the daily performance of each Bing Ads campaign. |
 
 ***Required Improvado Extraction Templates:***
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
-| Google Search Ads 360 | Ads (MCDM) | dcs_ads |
-| Google Search Ads 360 | Ads Activities | dcs_ads_activities |
-| Google Search Ads 360 | Keywords Engine | dcs_keywords_engine |
-| Google Search Ads 360 | Keywords Conversion Tag | dcs_keywords_conversion_tag |
-| Google Search Ads 360 | Ads Dimension | google_search_ads_360_ads_dimensions |
+| Bing Ads (Microsoft Advertising) | Ads with description goal | bing_ads_with_description_goal |
+| Bing Ads (Microsoft Advertising) | Keywords By Goals | bing_keywords_by_goals |
+| Bing Ads (Microsoft Advertising) | Campaign Goal | bing_ads_microsoft_advertising_campaign_goal |
 
 ### Facebook Ads
 ***Generated Tables:***
@@ -134,26 +132,6 @@ This package contains transformation models, designed to be starting models for 
 | Connection Data Source | Extraction Template Name | BigQuery Table Name |
 | ---------------------- | ------------------------ | ------------------- |
 | Pinterest Ads | Promoted Tweets With Cards | pinterest_ads_pins_1v_30en_30cl |
-
-### Amazon Ads
-***Generated Tables:***
-| Table Name | Description |
-| ---------- | ----------- |
-| amazon_ads__adgroup_performance_daily | Each record represents the daily performance of each Amazon Ads adgroup. |
-| amazon_ads__product_ads_performance_daily | Each record represents the daily performance of each Amazon Ads product ad. |
-
-***Required Improvado Extraction Templates:***
-| Connection Data Source | Extraction Template Name | BigQuery Table Name |
-| ---------------------- | ------------------------ | ------------------- |
-| Amazon | Entity SBV Campaigns | amazon_advertising_entity_sbv_campaigns |
-| Amazon | Entity HSA Campaigns | amazon_advertising_entity_hsa_campaigns |
-| Amazon | Entity SD Campaigns | amazon_advertising_entity_sd_campaigns |
-| Amazon | Entity SP Campaigns | amazon_advertising_entity_sp_campaigns |
-| Amazon | Adgroups Sponsored Brands Video | amazon_advertising_adgroups_sbv |
-| Amazon | Adgroups Sponsored Brands | amazon_advertising_adgroups_hsa |
-| Amazon | Adgroups Sponsored Display | amazon_advertising_adgroups_sd |
-| Amazon | Adgroups Sponsored Products | amazon_advertising_adgroups_sp |
-| Amazon | Product Ads | amazon_advertising_product_ads |
 
 ### Social Organic Media Posts
 ***Generated Tables:***
@@ -228,17 +206,16 @@ For each data source you need to populate the appropriate Improvado account_id, 
 ***Option 1***  
 Define dbt Project environment variables. The format of each environment variable accepts a YAML list. [Read the dbt docs](https://docs.getdbt.com/docs/dbt-cloud/using-dbt-cloud/cloud-environment-variables) for more information on environment variables.
 ```
+DBT_BING_ADS_IDS = ['123','456']
 DBT_FACEBOOK_ADS_IDS = ['123','456']
 DBT_FACEBOOK_ORGANIC_IDS = ['123','456']
 DBT_GOOGLE_ADS_IDS = ['123','456']
 DBT_GOOGLE_ANALYTICS_IDS = ['123','456']
 DBT_GOOGLE_CAMPAIGN_MANAGER_IDS = ['123','456']
-DBT_GOOGLE_SEARCH_ADS_360_IDS = ['123','456']
 DBT_INSTAGRAM_ORGANIC_IDS = ['123','456']
 DBT_LINKEDIN_ADS_IDS = ['123','456']
 DBT_LINKEDIN_ORGANIC_IDS = ['123','456']
 DBT_PINTEREST_ADS_IDS = ['123','456']
-DBT_AMAZON_ADS_IDS = ['123','456']
 DBT_TWITTER_ADS_IDS = ['123','456']
 DBT_TWITTER_ORGANIC_IDS = ['123','456']
 DBT_YOUTUBE_ORGANIC_IDS = ['123','456']
@@ -248,17 +225,16 @@ DBT_YOUTUBE_ORGANIC_IDS = ['123','456']
 Define dbt variables in your `dbt_project.yml` file.
 ```yml
 vars:
+  bing_ads_ids: ['123','456']                    # List of Bing Ads Account IDs eg. ['123']
   facebook_ads_ids: ['123','456']                # List of Facebook Ads Account IDs eg. ['123']
   facebook_organic_ids: ['123','456']            # List of Facebook Account IDs eg. ['123']
   google_ads_ids: ['123','456']                  # List of Google Ads Account IDs eg. ['123']
   google_analytics_ids: ['123','456']            # List of Google Analytics View IDs eg. ['123']
   google_campaign_manager_ids: ['123','456']     # List of Google Campaign Manager Advertiser IDs eg. ['123']
-  google_search_ads_360_ids: ['123','456']       # List of Google Search Ads 360 Account IDs eg. ['123']
   instagram_organic_ids: ['123','456']           # List of Instagram Account IDs eg. ['123']
   linkedin_ads_ids: ['123','456']                # List of LinkedIn Ads Account IDs eg. ['123']
   linkedin_organic_ids: ['123','456']            # List of LinkedIn Account IDs eg. ['123']
   pinterest_ads_ids: ['123','456']               # List of Pinterest Account IDs eg. ['123']
-  amazon_ads_ids: ['123','456']                  # List of Amazon Account IDs eg. ['123']
   twitter_ads_ids: ['123','456']                 # List of Twitter Ads Account IDs eg. ['123']
   twitter_organic_ids: ['123','456']             # List of Twitter Account IDs eg. ['123']
   youtube_organic_ids: ['123','456']             # List of YouTube Account IDs eg. ['123']  
@@ -266,15 +242,15 @@ vars:
 
 ### Data Source Custom Conversions Enable Settings
 ***(OPTIONAL)***  
-By default, this package assumes that all custom conversions source tables for Google Ads, Google Campaign Mananger, Google Search Ads 360, and LinkedIn Ads are present in the source BigQuery project and schema. If any of these data source's conversion tables are *not* present, then disable them in this package by setting the relevant settings to `false`. This setting is typically only applicable for dbt projects where Improvado loaded source tables are not in the Improvado managed BigQuery project:  
+By default, this package assumes that all custom conversions source tables for Bing Ads, Google Ads, Google Campaign Mananger, and LinkedIn Ads are present in the source BigQuery project and schema. If any of these data source's conversion tables are *not* present, then disable them in this package by setting the relevant settings to `false`. This setting is typically only applicable for dbt projects where Improvado loaded source tables are not in the Improvado managed BigQuery project:  
 *Note: If both option 1 and 2 are populated, then option 1 will take precendence over option 2*
 
 ***Option 1***  
 Define dbt Project environment variables. [Read the dbt docs](https://docs.getdbt.com/docs/dbt-cloud/using-dbt-cloud/cloud-environment-variables) for more information on environment variables.
 ```
+DBT_BING_ADS_CONVERSIONS_ENABLED = false
 DBT_GOOGLE_ADS_CONVERSIONS_ENABLED = false
 DBT_GOOGLE_CAMPAIGN_MANAGER_CONVERSIONS_ENABLED = false
-DBT_GOOGLE_SEARCH_ADS_360_CONVERSIONS_ENABLED = false
 DBT_LINKEDIN_ADS_CONVERSIONS_ENABLED = false
 ```
 
@@ -282,9 +258,9 @@ DBT_LINKEDIN_ADS_CONVERSIONS_ENABLED = false
 Define dbt variables in your `dbt_project.yml` file.
 ```yml
 vars:
+  bing_ads_conversions_enabled: false
   google_ads_conversions_enabled: false
   google_campaign_manager_conversions_enabled: false
-  google_search_ads_360_conversions_enabled: false
   linkedin_ads_conversions_enabled: false
 ```
 
@@ -292,22 +268,21 @@ vars:
 ***(OPTIONAL)***  
 By default, this package assumes that all *conversion types* (ex. Activity Groups, Activity, Action Category, Action, etc), 
 *conversion metrics* (ex. Conversion, Click Through Conversion, View Through Conversion, Conversion Value, Click Through Conversion Value, View Through Conversion Value), 
-and *converion names* from Google Ads, Google Campaign Mananger, and LinkedIn Ads are to be loaded from the source tables to the final data models. 
+and *converion names* from Bing Ads, Google Ads, Google Campaign Mananger, and LinkedIn Ads are to be loaded from the source tables to the final data models. 
 The below settings allow you to customize by data source which conversion types, conversion metrics, and conversion names to *include* in the load:  
 *Note: If both option 1 and 2 are populated, then option 1 will take precendence over option 2*
 
 ***Option 1***  
 Define dbt Project environment variables. [Read the dbt docs](https://docs.getdbt.com/docs/dbt-cloud/using-dbt-cloud/cloud-environment-variables) for more information on environment variables.
 ```
+DBT_BING_ADS_CONVERSION_METRICS = ['assists_conversions', 'conversions', 'value_conversions', 'all_conversions', 'all_conversions_qualified', 'conversions_qualified', 'view_through_conversions', 'view_through_conversions_qualified', 'view_through_value_conversions','all_value_conversions']
+DBT_BING_ADS_CONVERSION_NAMES = ['Add to Cart', 'Form Submitted']     # List of converion names as seen in the platform's UI
 DBT_GOOGLE_ADS_CONVERSION_TYPES = ['action_name', 'action_category']
 DBT_GOOGLE_ADS_CONVERSION_METRICS = ['all_conv', 'conversions', 'conversions_view_through', 'value_all_conv', 'value_conversions']
 DBT_GOOGLE_ADS_CONVERSION_NAMES = ['Add to Cart', 'Form Submitted']     # List of converion names as seen in the platform's UI
 DBT_GOOGLE_CAMPAIGN_MANAGER_CONVERSION_TYPES = ['activity', 'activity_group']
 DBT_GOOGLE_CAMPAIGN_MANAGER_CONVERSION_METRICS = ['conversions', 'conversions_click_through', 'conversions_view_through', 'value_conversions', 'value_conversions_click_through', 'value_conversions_view_through']
 DBT_GOOGLE_CAMPAIGN_MANAGER_CONVERSION_NAMES = ['Add to Cart', 'Form Submitted']      # List of converion names as seen in the platform's UI
-DBT_GOOGLE_SEARCH_ADS_360_CONVERSION_TYPES = ['floodlight_activity', 'floodlight_group']
-DBT_GOOGLE_SEARCH_ADS_360_CONVERSION_METRICS = ['actions', 'weighted_actions', 'transactions', 'revenue']
-DBT_GOOGLE_SEARCH_ADS_360_CONVERSION_NAMES = ['Add to Cart', 'Form Submitted']     # List of converion names as seen in the platform's UI
 DBT_LINKEDIN_ADS_CONVERSION_TYPES = ['conversion_name', 'conversion_type']
 DBT_LINKEDIN_ADS_CONVERSION_METRICS = ['conversions', 'conversions_click_through', 'conversions_view_through', 'viral_conversions', 'viral_conversions_click_through', 'viral_conversions_view_through']
 DBT_LINKEDIN_ADS_CONVERSION_NAMES = ['Add to Cart', 'Form Submitted']       # List of converion names as seen in the platform's UI
@@ -317,15 +292,14 @@ DBT_LINKEDIN_ADS_CONVERSION_NAMES = ['Add to Cart', 'Form Submitted']       # Li
 Define dbt variables in your `dbt_project.yml` file.
 ```yml
 vars:
+  bing_ads_conversion_metrics: ['assists_conversions', 'conversions', 'value_conversions', 'all_conversions', 'all_conversions_qualified', 'conversions_qualified', 'view_through_conversions', 'view_through_conversions_qualified', 'view_through_value_conversions','all_value_conversions']
+  bing_ads_conversion_names: ['Add to Cart', 'Form Submitted']        # List of converion names as seen in the platform's UI
   google_ads_conversion_types: ['action_name', 'action_category']
   google_ads_conversion_metrics: ['all_conv', 'conversions', 'conversions_view_through', 'value_all_conv', 'value_conversions']
   google_ads_conversion_names: ['Add to Cart', 'Form Submitted']        # List of converion names as seen in the platform's UI
   google_campaign_manager_conversion_types: ['activity', 'activity_group']
   google_campaign_manager_conversion_metrics: ['conversions', 'conversions_click_through', 'conversions_view_through', 'value_conversions', 'value_conversions_click_through', 'value_conversions_view_through']
   google_campaign_manager_conversion_names: ['Add to Cart', 'Form Submitted']       # List of converion names as seen in the platform's UI
-  google_search_ads_360_conversion_types: ['floodlight_activity', 'floodlight_group']
-  google_search_ads_360_conversion_metrics: ['actions', 'weighted_actions', 'transactions', 'revenue']
-  google_search_ads_360_conversion_names: ['Add to Cart', 'Form Submitted']     # List of converion names as seen in the platform's UI
   linkedin_ads_conversion_types: ['conversion_name', 'conversion_type']
   linkedin_ads_conversion_metrics: ['conversions', 'conversions_click_through', 'conversions_view_through', 'viral_conversions', 'viral_conversions_click_through', 'viral_conversions_view_through']
   linkedin_ads_conversion_names: ['Add to Cart', 'Form Submitted']        # List of converion names as seen in the platform's UI
@@ -333,20 +307,20 @@ vars:
 
 ### Google Ads Models Enable Setting
 ***(OPTIONAL)***  
-By default, this package assumes that all source tables for Google Ads (Ads, Keywords, and Search Query) are present in the source BigQuery project and schema. If any of these data source tables are *not* present or you wish to disable a type of Google Ads data model, then disable them in this package by listing only the Google Ads models you want to load in the relevant setting:  
+By default, this package assumes that all source tables for Google Ads (Ads, Keywords, Search Query, and Campaign) are present in the source BigQuery project and schema. If any of these data source tables are *not* present or you wish to disable a type of Google Ads data model, then disable them in this package by listing only the Google Ads models you want to load in the relevant setting:  
 *Note: If both option 1 and 2 are populated, then option 1 will take precendence over option 2*
 
 ***Option 1***  
 Define dbt Project environment variables. [Read the dbt docs](https://docs.getdbt.com/docs/dbt-cloud/using-dbt-cloud/cloud-environment-variables) for more information on environment variables.
 ```
-DBT_GOOGLE_ADS_MODELS_ENABLED = ['ads', 'keywords', 'search query']
+DBT_GOOGLE_ADS_MODELS_ENABLED = ['ads', 'keywords', 'search query', 'campaign']
 ```
 
 ***Option 2***  
 Define dbt variables in your `dbt_project.yml` file.
 ```yml
 vars:
-  google_ads_models_enabled: ['ads', 'keywords', 'search query']
+  google_ads_models_enabled: ['ads', 'keywords', 'search query', 'campaign']
 ```
 
 ### Location of Improvado Source Tables Settings

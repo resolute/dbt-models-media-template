@@ -71,6 +71,18 @@ models:
           +materialized: view
           +schema: staging
 
+    bing_ads:
+      marts:
+        +materialized: table
+        +partition_by:
+          field: 'date'
+          data_type: 'date'
+          granularity: 'day'
+      intermediate:
+        +schema: staging
+      staging:
+        +schema: staging
+
     facebook_ads:
       marts:
         +materialized: table
@@ -174,17 +186,5 @@ models:
           field: 'date'
           data_type: 'date'
           granularity: 'day'
-      staging:
-        +schema: staging
-
-    amazon_ads:
-      marts:
-        +materialized: table
-        +partition_by:
-          field: 'date'
-          data_type: 'date'
-          granularity: 'day'
-      intermediate:
-        +schema: staging
       staging:
         +schema: staging
