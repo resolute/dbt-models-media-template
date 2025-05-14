@@ -1,8 +1,16 @@
 {% macro get_account_conversion_data_config(platform) %}
 
     {% set config_value = true %}
-    
-    {% if platform == "google ads" %} 
+
+    {% if platform == "bing ads" %} 
+        {% set ev = fromyaml(env_var('DBT_BING_ADS_CONVERSIONS_ENABLED', '')) %}
+        {% if ev is not none %}
+            {% set config_value = ev %}
+        {% else %}
+            {% set config_value = var('bing_ads_conversions_enabled', true) %}
+        {% endif %}
+
+    {% elif platform == "google ads" %} 
         {% set ev = fromyaml(env_var('DBT_GOOGLE_ADS_CONVERSIONS_ENABLED', '')) %}
         {% if ev is not none %}
             {% set config_value = ev %}

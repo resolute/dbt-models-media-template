@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: stg_bing_ads__ads_with_description_goal
+    description: A table containing daily keyword performance data from Bing Ads
+    columns:
+      - name: id
+        description: Surrogate primary key
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_bing_ads__keywords_by_goal
+    description: A table containing daily keyword performance data from Bing Ads
+    columns:
+      - name: id
+        description: Surrogate primary key
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_bing_ads__campaign_goal
+    description: A table containing daily keyword performance data from Bing Ads
+    columns:
+      - name: id
+        description: Surrogate primary key
+        tests:
+          - unique
+          - not_null
