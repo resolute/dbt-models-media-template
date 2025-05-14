@@ -30,8 +30,6 @@ final AS (
         channel_name,
         account_id,
         account_name,
-        account_number,
-        account_status,
         date,
         campaign_id,
         campaign_name,

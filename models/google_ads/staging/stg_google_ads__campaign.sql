@@ -44,7 +44,7 @@ rename_recast AS (
         budget_total_amount AS campaign_budget_total_amount,
         budget_amount AS campaign_budget_amount,
         target_roas AS campaign_target_roas,
-        bid_strategy_name AS campaign_bid_strategy_name ,
+        bid_strategy_name AS campaign_bid_strategy_name,
         bid_strategy_type AS campaign_bid_strategy_type,
         bid_strategy_id AS campaign_bid_strategy_id,
         url_custom_parameters AS campaign_url_custom_parameters,
