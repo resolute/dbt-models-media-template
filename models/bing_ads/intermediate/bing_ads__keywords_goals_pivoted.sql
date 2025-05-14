@@ -77,7 +77,7 @@ final AS (
     SELECT
         
         {{ dbt_utils.generate_surrogate_key(['date', 'account_id', 'adset_id', 'ad_distribution', 'keyword_id']) }} AS id,
-        aggregate.*
+        *
     
     FROM pivot_conversions
 
