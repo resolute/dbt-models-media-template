@@ -1,8 +1,16 @@
 {% macro get_account_ids(platform) %}
 
     {% set account_ids = [] %}
+
+    {% if platform == "bing ads" %} 
+        {% set ev = fromyaml(env_var('DBT_BING_ADS_IDS', '')) %}
+        {% if ev is not none %}
+            {% set account_ids = ev %}
+        {% else %}
+            {% set account_ids = var('bing_ads_ids', []) %}
+        {% endif %}    
     
-    {% if platform == "facebook ads" %} 
+    {% elif platform == "facebook ads" %} 
         {% set ev = fromyaml(env_var('DBT_FACEBOOK_ADS_IDS', '')) %}
         {% if ev is not none %}
             {% set account_ids = ev %}

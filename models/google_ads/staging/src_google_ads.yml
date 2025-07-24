@@ -24,3 +24,5 @@ sources:
       - name: google_ads_ads_device_conversions
       - name: google_ads_keywords_conversions
       - name: google_ads_search_query_conversions
+      - name: google_ads_campaign
+      - name: google_ads_campaign_device_conversions
