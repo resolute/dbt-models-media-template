@@ -6,9 +6,7 @@ WITH
 
 source_data AS (
 
-    SELECT * FROM {{ source('improvado', 'google_cm_ads_creatives_placements') }}
-
-    WHERE account_id IN UNNEST({{ source_account_ids }})
+    SELECT * FROM {{ ref('base_google_campaign_manager__ads_placement_sites') }}
 
 ),
 
