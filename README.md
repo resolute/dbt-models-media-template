@@ -28,7 +28,7 @@ This package models data from Improvado's BigQuery extraction templates.
   - [Location of Improvado Source Tables Settings](#location-of-improvado-source-tables-settings)
 
 **[Tests](#tests)**
-  - [check_delimeter_count](#check_delimeter_count)
+  - [check_delimiter_count](#check_delimiter_count)
 
 ----
 ## Models
@@ -349,9 +349,9 @@ vars:
 ----
 ## Tests
 
-### check_delimeter_count:
-Counts the number of delimeters for values in a column and if any number is returned, other than the user-specified number, the test fails and returns the failed rows.
-By default, the delimeter character counted in test is an underscore "_".
+### check_delimiter_count:
+Counts the number of delimiters for values in a column and if any number is returned, other than the user-specified number, the test fails and returns the failed rows.
+By default, the delimiter character counted in test is an underscore "_".
 
 Usage:
 
@@ -363,11 +363,11 @@ models:
     columns:
       - name: placement
         data_tests:
-          - check_delimeter_count:
+          - check_delimiter_count:
               arguments:
-                delimeter_count: 7
+                delimiter_count: 7
 ```
-Above example checks the `placement` column values in the model `google_campaign_manager__enriched`, and will fail if a `placement` value does not have exactly 7 underscores. Number of delimeters to check is defined under `arguments` using `delimeter_count`.
+Above example checks the `placement` column values in the model `google_campaign_manager__enriched`, and will fail if a `placement` value does not have exactly 7 underscores. Number of delimiters to check is defined under `arguments` using `delimiter_count`.
 
 The test can be modified using `config`, to filter values on any column within the specified model
 
@@ -381,9 +381,9 @@ models:
     columns:
       - name: ad_name
         data_tests:
-          - check_delimeter_count:
+          - check_delimiter_count:
               arguments:
-                delimeter_count: 10
+                delimiter_count: 10
               config:  
                 where: "campaign_id = '120231534021200285'"
 ```
@@ -397,20 +397,20 @@ models:
     columns:
       - name: placement
         data_tests:
-          - check_delimeter_count:
+          - check_delimiter_count:
               arguments:
-                delimeter_count: 7
+                delimiter_count: 7
               config:  
                 where: "campaign_id = '33793270'"
-          - check_delimeter_count:
+          - check_delimiter_count:
               arguments:
-                delimeter_count: 8
+                delimiter_count: 8
               config:  
                 where: "campaign_id = '3906542'"
 ```
-Filtering for multiple campaign ids in `facebook_ads__ads_performance_daily`, each with their own delimeter count.
+Filtering for multiple campaign ids in `facebook_ads__ads_performance_daily`, each with their own delimiter count.
 
-If delimeter in use is not an underscore, that can be modified under the `arguments` list, using `delimeter`.
+If delimiter in use is not an underscore, that can be modified under the `arguments` list, using `delimiter`.
 
 Usage:
 
@@ -422,14 +422,14 @@ models:
     columns:
       - name: ad_name
         data_tests:
-          - check_delimeter_count:
+          - check_delimiter_count:
               arguments:
-                delimeter: "|"
-                delimeter_count: 10
+                delimiter: "|"
+                delimiter_count: 10
               config:  
                 where: "campaign_id = '120231534021200285'"
 ```
-In above example, the pipe "|" would now be counted as the delimeter in the test, overriding the deafault underscore "_" delimeter.
+In above example, the pipe "|" would now be counted as the delimiter in the test, overriding the deafault underscore "_" delimiter.
 
 ----
 ## Contributions
