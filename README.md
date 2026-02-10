@@ -27,6 +27,9 @@ This package models data from Improvado's BigQuery extraction templates.
   - [Google Ads Models Enable Setting](#google-ads-models-enable-setting)
   - [Location of Improvado Source Tables Settings](#location-of-improvado-source-tables-settings)
 
+**[Tests](#tests)**
+  - [check_delimiter_count](#check_delimiter_count)
+
 ----
 ## Models
 
@@ -342,6 +345,91 @@ vars:
   improvado_database: your_database_name 
   improvado_schema: your_schema_name
 ```
+
+----
+## Tests
+
+### check_delimiter_count:
+Counts the number of delimiters for values in a column and if any number is returned, other than the user-specified number, the test fails and returns the failed rows.
+By default, the delimiter character counted in test is an underscore "_".
+
+Usage:
+
+```yml
+version: 2
+
+models:
+  - name: google_campaign_manager__enriched
+    columns:
+      - name: placement
+        data_tests:
+          - check_delimiter_count:
+              arguments:
+                delimiter_count: 7
+```
+Above example checks the `placement` column values in the model `google_campaign_manager__enriched`, and will fail if a `placement` value does not have exactly 7 underscores. Number of delimiters to check is defined under `arguments` using `delimiter_count`.
+
+The test can be modified using `config`, to filter values on any column within the specified model
+
+Usage:
+
+```yml
+version: 2
+
+models:
+  - name: facebook_ads__ads_performance_daily
+    columns:
+      - name: ad_name
+        data_tests:
+          - check_delimiter_count:
+              arguments:
+                delimiter_count: 10
+              config:  
+                where: "campaign_id = '120231534021200285'"
+```
+Filtering for a single campaign id in `facebook_ads__ads_performance_daily`.
+
+```yml
+version: 2
+
+models:
+  - name: google_campaign_manager__enriched
+    columns:
+      - name: placement
+        data_tests:
+          - check_delimiter_count:
+              arguments:
+                delimiter_count: 7
+              config:  
+                where: "campaign_id = '33793270'"
+          - check_delimiter_count:
+              arguments:
+                delimiter_count: 8
+              config:  
+                where: "campaign_id = '3906542'"
+```
+Filtering for multiple campaign ids in `facebook_ads__ads_performance_daily`, each with their own delimiter count.
+
+If delimiter in use is not an underscore, that can be modified under the `arguments` list, using `delimiter`.
+
+Usage:
+
+```yml
+version: 2
+
+models:
+  - name: facebook_ads__ads_performance_daily
+    columns:
+      - name: ad_name
+        data_tests:
+          - check_delimiter_count:
+              arguments:
+                delimiter: "|"
+                delimiter_count: 10
+              config:  
+                where: "campaign_id = '120231534021200285'"
+```
+In above example, the pipe "|" would now be counted as the delimiter in the test, overriding the deafault underscore "_" delimiter.
 
 ----
 ## Contributions
