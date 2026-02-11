@@ -6,9 +6,14 @@ WITH
 
 source_data AS (
 
-    SELECT * FROM {{ source('improvado', 'google_cm_ads_creatives_placements') }}
+    SELECT * FROM {{ ref('base_google_campaign_manager__ads_creatives_conversions') }}
 
-    WHERE account_id IN UNNEST({{ source_account_ids }})
+
+),
+
+gcm_entity_creative_data AS (
+
+    SELECT * FROM {{ ref('stg_google_campaign_manager__entity_creatives') }}
 
 ),
 
@@ -17,39 +22,44 @@ rename_recast AS (
     SELECT
 
         {# Dimensions -#}
-        account_id,
-        account_name,
-        date,
-        advertiser_id,
-        advertiser_name,
-        campaign_id,
-        campaign_name,
-        site_id,
-        site,
-        placement_id,
-        placement,
-        ad_id,
-        ad,
-        creative_id,
-        creative,
-        ad_type,
-        creative_pixel_size,
-        placement_size,
-        activity_group_id,
-        activity_group,
-        activity_id,
-        activity,
+        source_data.account_id,
+        source_data.account_name,
+        source_data.date,
+        source_data.advertiser_id,
+        source_data.advertiser_name,
+        source_data.campaign_id,
+        source_data.campaign_name,
+        source_data.site_id,
+        source_data.site,
+        source_data.placement_id,
+        source_data.placement,
+        source_data.ad_id,
+        source_data.ad,
+        source_data.creative_id,
+        COALESCE(creative.creative, source_data.creative) AS creative,
+        source_data.ad_type,
+        creative.creative_pixel_size,
+        source_data.placement_size,
+        source_data.activity_group_id,
+        source_data.activity_group,
+        source_data.activity_id,
+        source_data.activity,
 
         {#- Conversions -#}
-        total_conversions AS conversions,
-        click_through_conversions AS conversions_click_through,
-        view_through_conversions AS conversions_view_through,
-        total_conversions_revenue AS value_conversions,
-        click_through_revenue AS value_conversions_click_through,
-        view_through_revenue AS value_conversions_view_through
+        SUM(conversions) AS conversions,
+        SUM(conversions_click_through) AS conversions_click_through,
+        SUM(conversions_view_through) AS conversions_view_through,
+        SUM(value_conversions) AS value_conversions,
+        SUM(value_conversions_click_through) AS value_conversions_click_through,
+        SUM(value_conversions_view_through) AS value_conversions_view_through
         
 
     FROM source_data
+
+    LEFT JOIN gcm_entity_creative_data AS creative
+        ON source_data.creative_id = creative.creative_id
+
+    {{ dbt_utils.group_by(n=22) }}    
 
 ),
 

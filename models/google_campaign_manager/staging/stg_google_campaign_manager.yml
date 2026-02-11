@@ -18,3 +18,12 @@ models:
         tests:
           - unique
           - not_null
+
+  - name: stg_google_campaign_manager__entity_creatives
+    description: A table containing daily creative, ad, and placement ad performance data from Google Campaign Manager
+    columns:
+      - name: id
+        description: Surrogate primary key
+        tests:
+          - unique
+          - not_null          
